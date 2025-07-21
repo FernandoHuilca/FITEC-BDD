@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 public class MainGUI extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ModuloFITEC/views/GUIEntrada.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ModuloFITEC/views/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("EntradaAplicativo");
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
