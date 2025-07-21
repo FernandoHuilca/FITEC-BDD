@@ -9,7 +9,9 @@ import java.util.Properties;
 
 public final class ConexionBaseSingleton {
     // ---------- Configuración ----------
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=QUITO_SUR;encrypt=true;trustServerCertificate=true";
+    private static final String URL_SUR = "jdbc:sqlserver://localhost:1433;databaseName=QUITO_SUR;encrypt=true;trustServerCertificate=true";
+    private static final String URL_NORTE = "jdbc:sqlserver://localhost:1433;databaseName=QUITO_NORTE;encrypt=true;trustServerCertificate=true";
+    private String url;
     private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String USER = "sa";
     private static final String PASSWORD = "P@ssw0rd";
@@ -17,6 +19,10 @@ public final class ConexionBaseSingleton {
     // ---------- Singleton ----------
     private static ConexionBaseSingleton instancia;
     private Connection conexion;
+
+    public void establecerURL(boolean nodo) {
+        url = nodo? URL_NORTE : URL_SUR;
+    }
 
     private ConexionBaseSingleton() {
         try {
@@ -39,7 +45,7 @@ public final class ConexionBaseSingleton {
             Properties props = new Properties();
             props.setProperty("user", USER);
             props.setProperty("password", PASSWORD);
-            conexion = DriverManager.getConnection(URL, props);
+            conexion = DriverManager.getConnection(url, props);
             conexion.setAutoCommit(true); // Autocommit por defecto
         }
         return conexion;
