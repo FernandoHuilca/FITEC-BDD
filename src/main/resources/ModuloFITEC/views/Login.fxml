@@ -14,7 +14,7 @@
    <children>
          <Pane layoutX="424.0" layoutY="133.0" prefHeight="332.0" prefWidth="503.0">
             <children>
-            <Button layoutX="247.0" layoutY="224.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="116.0" text="Ingresar">
+            <Button fx:id="buttonIngresar" layoutX="247.0" layoutY="224.0" mnemonicParsing="false" onAction="#ingresar" prefHeight="33.0" prefWidth="116.0" text="Ingresar">
                   <font>
                      <Font name="Arial Rounded MT Bold" size="12.0" />
                   </font>
