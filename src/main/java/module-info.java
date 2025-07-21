@@ -11,6 +11,7 @@ module ModuloFITEC {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires java.sql;
 
 
     // Exporta el paquete de controladores para que FXML pueda acceder a él
