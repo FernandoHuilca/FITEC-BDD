@@ -1,4 +1,4 @@
-package ModuloFITEC.Controladores;
+package ModuloFITEC.Controllers;
 
 public class ControladorSuplementoActualizacion {
     

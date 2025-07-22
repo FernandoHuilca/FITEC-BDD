@@ -15,7 +15,7 @@ module ModuloFITEC {
 
 
     // Exporta el paquete de controladores para que FXML pueda acceder a él
-    opens ModuloFITEC.Controladores to javafx.fxml;
+    opens ModuloFITEC.Controllers to javafx.fxml;
 
     exports ModuloFITEC.application;
     exports ModuloFITEC.logic;
