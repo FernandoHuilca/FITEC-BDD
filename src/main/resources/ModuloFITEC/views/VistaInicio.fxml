@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="640.0" prefWidth="980.0" style="-fx-background-color: #323232;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ModuloFITEC.Controllers.ControladorInicio">
+    <children>
+        <Pane layoutX="278.0" layoutY="18.0" prefHeight="606.0" prefWidth="685.0">
+            <children>
+                <Text fill="WHITE" layoutX="13.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido al Gestor de Datos FITEC" textAlignment="CENTER" wrappingWidth="659.2000122070312">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Text>
+            <ImageView fitHeight="457.0" fitWidth="643.0" layoutX="22.0" layoutY="70.0" style="-fx-border-color: #FFFFFF; -fx-border-width: 3px; -fx-border-style: solid; -fx-border-radius: 10px;">
+               <image>
+                  <Image url="@pexels-marcuschanmedia-17898139.jpg" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <Pane layoutX="22.0" layoutY="522.0" prefHeight="74.0" prefWidth="643.0" style="-fx-background-color: #615E5E; -fx-border-width: 2px; -fx-border-style: solid; -fx-border-radius: 4px; -fx-border-color: #ffffffff;">
+               <children>
+                      <Text fill="WHITE" layoutX="6.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Este sistema distribuido para la red de gimnasios FITEC con dos sucursales en Quito (Norte y Sur) permite el manejo de información crítica  como clientes, instructores, suscripciones y suplementos deportivos." textAlignment="CENTER" wrappingWidth="607.0">
+                          <font>
+                              <Font name="Arial Rounded MT Bold" size="15.0" />
+                          </font>
+                      </Text>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Pane>
+            </children>
+        </Pane>
+      <Pane prefHeight="640.0" prefWidth="251.0" style="-fx-background-color: #615E5E;">
+         <children>
+            <Button fx:id="buttonClientes" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="98.0" mnemonicParsing="false" onAction="#cambiarVentanaClientes" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Clientes" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button fx:id="buttonInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" onAction="#cambiarVentanaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Instructores" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button fx:id="buttonSuplementos" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="194.0" mnemonicParsing="false" onAction="#cambiarVentanaSuplementos" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suplementos" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button fx:id="buttonHistorialDeCompras" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="242.0" mnemonicParsing="false" onAction="#cambiarVentanaHistorialDeCompras" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Historial de compras" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button fx:id="buttonInicio" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" onAction="#cambiarVentanaInicio" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #001001;" text="       Inicio" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Pane layoutX="20.0" layoutY="578.0" prefHeight="62.0" prefWidth="212.0">
+               <children>
+                  <Text layoutX="40.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre servidor">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="100.0">
+               <image>
+                  <Image url="@../data/icono_cliente.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="60.0">
+               <image>
+                  <Image url="@../data/icono_inicio.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="36.0" layoutY="148.0">
+               <image>
+                  <Image url="@../data/icono_instructor.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="244.0">
+               <image>
+                  <Image url="@../data/icono_compra.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
+               <image>
+                  <Image url="@../data/icono_nomina_instructores.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
+               <image>
+                  <Image url="@../data/icono_suscripcion.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="196.0">
+               <image>
+                  <Image url="@../data/icono_suplemento.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>
