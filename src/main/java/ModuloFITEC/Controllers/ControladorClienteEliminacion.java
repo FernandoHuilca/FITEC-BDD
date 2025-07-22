@@ -35,11 +35,13 @@ public class ControladorClienteEliminacion {
     @FXML
     private void cambiarVentanaClientes() {
         System.out.println("➡️ Cambiar a vista Clientes");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Cliente");
     }
 
     @FXML
     private void cambiarVentanaInstructores() {
         System.out.println("➡️ Cambiar a vista Instructores");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor");
     }
 
     @FXML
