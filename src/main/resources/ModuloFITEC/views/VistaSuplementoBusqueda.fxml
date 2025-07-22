@@ -18,7 +18,7 @@
    <children>
       <Pane prefHeight="640.0" prefWidth="251.0" style="-fx-background-color: #615E5E;">
          <children>
-            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="98.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Clientes" textFill="#ffffffe0">
+            <Button fx:id="buttonClientes" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="98.0" mnemonicParsing="false" onAction="#cambiarVentanaClientes" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Clientes" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -29,7 +29,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" onAction="#cambiarVentanaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Instructores" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -40,7 +40,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="194.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #000000;" text="       Suplementos" textFill="#ffffffe0">
+            <Button fx:id="buttonSuplementos" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="194.0" mnemonicParsing="false" onAction="#cambiarVentanaSuplementos" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #000000;" text="       Suplementos" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -48,18 +48,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="242.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Historial de compras" textFill="#ffffffe0">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="13.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <ColorAdjust brightness="0.24" />
-               </effect>
-            </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232; -fx-cursor: #001001;" text="       Inicio" textFill="#ffffffe0">
+            <Button fx:id="buttonCompras" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="242.0" mnemonicParsing="false" onAction="#cambiarVentanaCompras" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Historial de compras" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -70,7 +59,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonInicio" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" onAction="#cambiarVentanaInicio" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232; -fx-cursor: #001001;" text="       Inicio" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -81,7 +70,18 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -171,7 +171,7 @@
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
          <children>
-            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Registrar suplemento" textFill="#ffffffe0">
+            <Button fx:id="buttonRegistrarSuplemento" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#cambiarVentanaRegistrarSuplemento" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Registrar suplemento" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -182,7 +182,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #000000;" text="Consultar suplemento" textFill="#ffffffe0">
+            <Button fx:id="buttonConsultarSuplemento" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="62.0" mnemonicParsing="false" onAction="#cambiarVentanaConsultarSuplemento" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #000000;" text="Consultar suplemento" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -190,7 +190,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="110.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Actualizar suplemento" textFill="#ffffffe0">
+            <Button fx:id="buttonActualizarSuplemento" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="110.0" mnemonicParsing="false" onAction="#cambiarVentanaActualizarSuplemento" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Actualizar suplemento" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -201,7 +201,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="158.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Eliminar suplemento" textFill="#ffffffe0">
+            <Button fx:id="buttonEliminarSuplemento" alignment="BASELINE_LEFT" layoutX="18.0" layoutY="158.0" mnemonicParsing="false" onAction="#cambiarVentanaEliminarSuplemento" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Eliminar suplemento" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
