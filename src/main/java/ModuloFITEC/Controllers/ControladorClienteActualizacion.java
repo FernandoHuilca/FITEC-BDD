@@ -52,10 +52,12 @@ public class ControladorClienteActualizacion {
 
     @FXML private void cambiarVentanaClientes() {
         System.out.println("➡️ Cambio a ventana Clientes");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Cliente");
     }
 
     @FXML private void cambiarVentanaInstructores() {
         System.out.println("➡️ Cambio a ventana Instructores");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor");
     }
 
     @FXML private void cambiarVentanaSuplementos() {
@@ -70,6 +72,7 @@ public class ControladorClienteActualizacion {
 
     @FXML private void cambiarVentanaNominaInstructores() {
         System.out.println("➡️ Cambio a ventana Nómina Instructores");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor");
     }
 
     @FXML private void cambiarVentanaSuscrpciones() {

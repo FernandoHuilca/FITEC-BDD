@@ -23,7 +23,7 @@ public class MainGUI extends Application {
     }
 
     public static void main(String[] args) {
-        try {
+     /*   try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             try {
@@ -43,7 +43,7 @@ public class MainGUI extends Application {
         } catch (Exception e) {
             System.err.println("No se encontró el driver SQL Server: " + e.getMessage());
             return; // Termina la ejecución si no se encuentra el driver
-        }
+        }*/
         launch();
     }
 }
