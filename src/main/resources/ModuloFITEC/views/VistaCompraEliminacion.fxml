@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="640.0" prefWidth="980.0" style="-fx-background-color: #323232;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ModuloFITEC.Controladores.ControladorCompraEliminacion">
+   <children>
+      <Pane prefHeight="640.0" prefWidth="251.0" style="-fx-background-color: #615E5E;">
+         <children>
+            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="98.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Clientes" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Instructores" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="194.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suplementos" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="242.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #000000;" text="       Historial de compras" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232; -fx-cursor: #001001;" text="       Inicio" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Pane layoutX="20.0" layoutY="578.0" prefHeight="62.0" prefWidth="212.0">
+               <children>
+                  <Text layoutX="40.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre servidor">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="100.0">
+               <image>
+                  <Image url="@../data/icono_cliente.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="60.0">
+               <image>
+                  <Image url="@../data/icono_inicio.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="36.0" layoutY="148.0">
+               <image>
+                  <Image url="@../data/icono_instructor.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="244.0">
+               <image>
+                  <Image url="@../data/icono_compra.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
+               <image>
+                  <Image url="@../data/icono_nomina_instructores.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
+               <image>
+                  <Image url="@../data/icono_suscripcion.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="196.0">
+               <image>
+                  <Image url="@../data/icono_suplemento.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="268.0" layoutY="8.0" prefHeight="573.0" prefWidth="503.0">
+         <children>
+            <Text fill="WHITE" layoutX="46.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Historial de compras" wrappingWidth="200.0">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="70.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código" />
+            <Button layoutX="413.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Eliminar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="367.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
+            <TableView layoutX="46.0" layoutY="184.0" prefHeight="200.0" prefWidth="444.0">
+              <columns>
+                <TableColumn prefWidth="67.0" text="Código" />
+                <TableColumn prefWidth="90.0" text="Cédula Cliente" />
+                  <TableColumn prefWidth="130.0" text="Nombre Suplemento" />
+                  <TableColumn minWidth="6.0" prefWidth="59.0" text="Cantidad Comprada" />
+                  <TableColumn minWidth="0.0" prefWidth="97.0" text="Fecha Compra" />
+                  <TableColumn minWidth="0.0" prefWidth="0.0" text="Precio Compra" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+      <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
+         <children>
+            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Registrar compra" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Consultar compra" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="110.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Actualizar compra" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="158.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #000000;" text="Eliminar compra" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust />
+               </effect>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
