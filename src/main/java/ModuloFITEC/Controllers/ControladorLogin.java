@@ -12,7 +12,7 @@ public class ControladorLogin {
 
     @FXML
     private void ingresar(){
-        MetodosFrecuentes.cambiarVentana((Stage) buttonIngresar.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Cliente");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonIngresar.getScene().getWindow(), "/ModuloFITEC/views/VistaInicio.fxml", "Inicio");
     }
 
 }
