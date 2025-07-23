@@ -63,7 +63,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonInicio" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" onAction="#cambiarVentanaInicio" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232; -fx-cursor: #001001;" text="       Inicio" textFill="#ffffffe0">
+            <Button fx:id="buttonInicio" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" onAction="#cambiarVentanaInicio" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Inicio" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -85,7 +85,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscrpciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>

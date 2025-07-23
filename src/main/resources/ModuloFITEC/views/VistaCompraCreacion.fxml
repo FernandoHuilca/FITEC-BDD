@@ -49,7 +49,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonCompras" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="242.0" mnemonicParsing="false" onAction="#cambiarVentanaCompras" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #000000;" text="       Historial de compras" textFill="#ffffffe0">
+            <Button fx:id="buttonHistorialDeCompras" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="242.0" mnemonicParsing="false" onAction="#cambiarVentanaHistorialDeCompras" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #000000;" text="       Historial de compras" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -60,7 +60,7 @@
                   <ColorAdjust />
                </effect>
             </Button>
-            <Button fx:id="buttonInicio" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" onAction="#cambiarVentanaInicio" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232; -fx-cursor: #001001;" text="       Inicio" textFill="#ffffffe0">
+            <Button fx:id="buttonInicio" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" onAction="#cambiarVentanaInicio" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Inicio" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
