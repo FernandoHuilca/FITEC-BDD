@@ -95,5 +95,10 @@ public class ControladorSuplementoEliminacion {
     void cambiarVentanaSuscripciones(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Registrar Suscripción");
     }
+
+    @FXML
+    private void cambiarVentanaActualizarSuplemento(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarSuplemento.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoActualizacion.fxml", "Actualizar Suplemento");
+    }
     
 }

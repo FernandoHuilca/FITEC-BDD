@@ -1,10 +1,19 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.SuplementoDAO;
+import ModuloFITEC.logic.Models.Suplemento;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControladorSuplementoBusqueda {
 
@@ -41,7 +50,56 @@ public class ControladorSuplementoBusqueda {
     @FXML
     private Button buttonSuscripciones;
 
-        @FXML
+     @FXML
+    private TableColumn columnCantidadDisponible;
+
+    @FXML
+    private TableColumn columnCategoria;
+
+    @FXML
+    private TableColumn columnCodigo;
+
+    @FXML
+    private TableColumn columnFechaVencimiento;
+
+    @FXML
+    private TableColumn columnNombre;
+
+    @FXML
+    private TableColumn columnPrecio;
+
+    @FXML
+    private TableColumn columnSucursal;
+
+    @FXML
+    private TableView<Suplemento> tableSuplementos;
+
+    private ObservableList<Suplemento> suplementos;
+
+    private final SuplementoDAO suplementoDAO = new SuplementoDAO();
+
+    @FXML
+    public void initialize() {
+        suplementos = FXCollections.observableArrayList();
+
+        this.columnCodigo.setCellValueFactory(new PropertyValueFactory<>("idSuplemento"));
+        this.columnSucursal.setCellValueFactory(new PropertyValueFactory<>("idSucursal"));
+        this.columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.columnCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        this.columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        this.columnCantidadDisponible.setCellValueFactory(new PropertyValueFactory<>("cantidadDisponible"));
+        this.columnFechaVencimiento.setCellValueFactory(new PropertyValueFactory<>("fechaVencimiento"));
+
+        try {
+            suplementos.setAll(suplementoDAO.listarSuplementos()); 
+            tableSuplementos.setItems(suplementos);                
+        } catch (Exception e) {
+            mostrarAlerta("Error al cargar suplementos", "No se pudieron obtener los datos de la base.");
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void buttonVentanaActualizarSuplemento(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarSuplemento.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoActualizacion.fxml", "Actualizar Suplemento");
     }
@@ -94,6 +152,19 @@ public class ControladorSuplementoBusqueda {
     @FXML
     void cambiarVentanaSuscripciones(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Registrar Suscripción");
+    }
+
+        @FXML
+    private void cambiarVentanaActualizarSuplemento(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarSuplemento.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoActualizacion.fxml", "Actualizar Suplemento");
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alerta = new Alert(AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 
 }

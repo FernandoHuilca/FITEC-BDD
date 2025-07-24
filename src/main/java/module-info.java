@@ -12,12 +12,15 @@ module ModuloFITEC {
     requires com.almasb.fxgl.all;
     requires java.desktop;
     requires java.sql;
+    requires javafx.base;
 
 
     // Exporta el paquete de controladores para que FXML pueda acceder a él
     opens ModuloFITEC.Controllers to javafx.fxml;
+    opens ModuloFITEC.logic.Models to javafx.base;
 
     exports ModuloFITEC.application;
     exports ModuloFITEC.logic;
+    exports ModuloFITEC.Controllers;
 
 } 
