@@ -76,7 +76,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="328.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -87,7 +87,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="284.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -127,12 +127,12 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="331.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="286.0">
                <image>
                   <Image url="@../data/icono_suscripcion.png" />
                </image>
@@ -146,79 +146,92 @@
       </Pane>
       <Pane layoutX="268.0" layoutY="8.0" prefHeight="624.0" prefWidth="503.0">
          <children>
-            <Text fill="WHITE" layoutX="46.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suplementos" wrappingWidth="170.0">
+            <Text fill="WHITE" layoutX="46.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suplementos" wrappingWidth="170.0">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
-            <Text fill="WHITE" layoutX="70.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
+            <TextField fx:id="textFieldNombreSuplemento" layoutX="171.0" layoutY="72.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
+            <Text fill="WHITE" layoutX="70.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoría:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoría:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio: " wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio: " wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad: " wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad: " wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="544.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha vencimiento:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha vencimiento:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="338.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
-            <TextField layoutX="171.0" layoutY="439.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el precio" />
-            <TextField layoutX="171.0" layoutY="487.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la cantidad disponible" />
-            <SplitMenuButton layoutX="171.0" layoutY="389.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja la categoría" textFill="#00000048">
+            <TextField fx:id="textFieldNombre" layoutX="171.0" layoutY="354.0" prefHeight="25.0" prefWidth="212.0" promptText="Nombre" />
+            <TextField fx:id="textFieldPrecio" layoutX="171.0" layoutY="453.0" prefHeight="25.0" prefWidth="212.0" promptText="Precio" />
+            <TextField fx:id="textFieldCantidad" layoutX="171.0" layoutY="500.0" prefHeight="25.0" prefWidth="212.0" promptText="Cantidad disponible" />
+            <SplitMenuButton fx:id="splitMenuButtonCategoria" layoutX="171.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Categoría" textFill="#00000048">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                  <MenuItem mnemonicParsing="false" text="proteína" />
+                  <MenuItem mnemonicParsing="false" text="pre-entreno" />
+                  <MenuItem mnemonicParsing="false" text="hidratación" />
               </items>
             </SplitMenuButton>
-            <DatePicker layoutX="171.0" layoutY="535.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la fecha de vencimiento" />
-            <Button layoutX="239.0" layoutY="589.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Registrar">
+            <DatePicker fx:id="datePickerFechaVencimiento" layoutX="170.0" layoutY="547.0" prefHeight="25.0" prefWidth="212.0" promptText="Fecha de vencimiento" />
+            <Button layoutX="239.0" layoutY="589.0" mnemonicParsing="false" onAction="#actualizarSuplemento" prefHeight="25.0" prefWidth="76.0" text="Actualizar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="369.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
-            <Text fill="WHITE" layoutX="70.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sucursal:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="289.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
-            <Button layoutX="404.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Consultar">
+            <Button layoutX="404.0" layoutY="71.0" mnemonicParsing="false" onAction="#consultarSuplemento" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TableView layoutX="48.0" layoutY="138.0" prefHeight="134.0" prefWidth="431.0">
+            <TableView fx:id="tableSuplementos" layoutX="48.0" layoutY="112.0" onMouseClicked="#seleccionarSuplemento" prefHeight="134.0" prefWidth="431.0">
               <columns>
-                <TableColumn prefWidth="60.0" text="Código" />
-                <TableColumn prefWidth="74.0" text="Nombre" />
-                  <TableColumn prefWidth="77.0" text="Categoría" />
-                  <TableColumn prefWidth="60.0" text="Precio" />
-                  <TableColumn prefWidth="104.0" text="Cantidad Disponible" />
-                  <TableColumn prefWidth="75.0" text="Fecha Vencimiento" />
+                <TableColumn fx:id="columnCodigo" prefWidth="48.0" text="Código" />
+                <TableColumn fx:id="columnSucursal" prefWidth="72.0" text="Sucursal" />
+                  <TableColumn fx:id="columnNombre" prefWidth="70.0" text="Nombre" />
+                  <TableColumn fx:id="columnCategoria" prefWidth="71.0" text="Categoría" />
+                  <TableColumn fx:id="columnPrecio" prefWidth="48.0" text="Precio" />
+                  <TableColumn fx:id="columnCantidadDisponible" prefWidth="141.0" text="Cantidad Disponible" />
+                  <TableColumn fx:id="columnFechaVencimiento" prefWidth="75.0" text="Fecha Vencimiento" />
               </columns>
             </TableView>
+            <SplitMenuButton fx:id="splitMenuButtonSucursal" layoutX="171.0" layoutY="305.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Sucursal" textFill="#00000048">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="QUITO_NORTE" />
+                  <MenuItem mnemonicParsing="false" text="QUITO_SUR" />
+               </items>
+            </SplitMenuButton>
+            <Text fill="WHITE" layoutX="70.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="textFieldCodigo" layoutX="171.0" layoutY="262.0" prefHeight="25.0" prefWidth="212.0" promptText="Código" />
          </children>
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">

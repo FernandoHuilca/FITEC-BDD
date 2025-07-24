@@ -70,7 +70,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="329.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -81,7 +81,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="285.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -121,12 +121,12 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="332.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="287.0">
                <image>
                   <Image url="@../data/icono_suscripcion.png" />
                </image>
@@ -145,28 +145,34 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
+            <TextField fx:id="textFieldNombreSuplemento" layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="366.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
-            <Button layoutX="399.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Eliminar">
+            <Button layoutX="399.0" layoutY="97.0" mnemonicParsing="false" onAction="#consultarSuplemento" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TableView layoutX="46.0" layoutY="198.0" prefHeight="200.0" prefWidth="432.0">
+            <TableView fx:id="tableSuplementos" layoutX="46.0" layoutY="198.0" onMouseClicked="#seleccionarSuplemento" prefHeight="200.0" prefWidth="451.0">
               <columns>
-                <TableColumn prefWidth="55.0" text="Código" />
-                <TableColumn prefWidth="87.0" text="Nombre" />
-                  <TableColumn prefWidth="83.0" text="Categoría" />
-                  <TableColumn prefWidth="58.0" text="Precio" />
-                  <TableColumn prefWidth="92.0" text="Cantidad Disponible" />
-                  <TableColumn prefWidth="75.0" text="Fecha Vencimiento" />
+                <TableColumn fx:id="columnCodigo" prefWidth="55.0" text="Código" />
+                <TableColumn fx:id="columnSucursal" prefWidth="67.0" text="Sucursal" />
+                  <TableColumn fx:id="columnNombre" prefWidth="63.0" text="Nombre" />
+                  <TableColumn fx:id="columnCategoria" prefWidth="69.0" text="Categoría" />
+                  <TableColumn fx:id="columnPrecio" prefWidth="58.0" text="Precio" />
+                  <TableColumn fx:id="columnCantidadDisponible" prefWidth="138.0" text="Cantidad Disponible" />
+                  <TableColumn fx:id="columnFechaVencimiento" prefWidth="75.0" text="Fecha Vencimiento" />
               </columns>
             </TableView>
+            <Button layoutX="214.0" layoutY="424.0" mnemonicParsing="false" onAction="#eliminarSuplemento" prefHeight="25.0" prefWidth="76.0" text="Eliminar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
@@ -204,7 +210,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonEliminarSuplemento" alignment="BASELINE_LEFT" layoutX="18.0" layoutY="158.0" mnemonicParsing="false" onAction="#cambiarVentanaEliminarSuplemento" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #000000;" text="Eliminar suplemento" textFill="#ffffffe0">
+            <Button fx:id="buttonEliminarSuplemento" alignment="BASELINE_LEFT" layoutX="17.0" layoutY="158.0" mnemonicParsing="false" onAction="#cambiarVentanaEliminarSuplemento" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #000000;" text="Eliminar suplemento" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>

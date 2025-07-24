@@ -13,6 +13,7 @@ module ModuloFITEC {
     requires java.desktop;
     requires java.sql;
     requires javafx.base;
+    requires javafx.graphics;
 
 
     // Exporta el paquete de controladores para que FXML pueda acceder a él

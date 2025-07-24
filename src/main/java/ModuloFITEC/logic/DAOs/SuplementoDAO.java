@@ -37,6 +37,47 @@ public class SuplementoDAO {
         db.ejecutarActualizacion(sql);
     }
 
+    public void actualizarSuplemento(Suplemento s) throws Exception {
+        String sql = """
+            SET XACT_ABORT ON;
+            UPDATE SUPLEMENTO SET
+                IDSUCURSAL = '%s',
+                NOMBRE = '%s',
+                CATEGORIA = '%s',
+                PRECIO = %.2f,
+                CANTIDADDISPONIBLE = %d,
+                FECHAVENCIMIENTO = '%s'
+            WHERE IDSUPLEMENTO = %d
+            """.formatted(
+                s.getIdSucursal(),
+                s.getNombre(),
+                s.getCategoria(),
+                s.getPrecio(),
+                s.getCantidadDisponible(),
+                s.getFechaVencimiento().format(formatter),
+                s.getIdSuplemento()
+            );
+
+        db.ejecutarActualizacion(sql);
+    }   
+
+    public Suplemento buscarPorNombre(String nombre) throws Exception {
+        String sql = """
+            SET XACT_ABORT ON;
+            SELECT * FROM SUPLEMENTO
+            WHERE NOMBRE = '%s'
+            """.formatted(nombre);
+
+        ResultSet rs = null;
+        Statement st = null;
+        try {
+            rs = db.ejecutarConsulta(sql);
+            return rs.next() ? mapear(rs) : null;
+        } finally {
+            ConexionBaseSingleton.cerrarRecursos(rs, st);
+        }
+    }
+
     public List<Suplemento> listarSuplementos() throws Exception {
         String sql = "SELECT * FROM SUPLEMENTO ORDER BY IDSUPLEMENTO";
         ResultSet rs = null;
@@ -67,5 +108,14 @@ public class SuplementoDAO {
         List<Suplemento> listaSuplementos = new ArrayList<>();
         while (rs.next()) listaSuplementos.add(mapear(rs));
         return listaSuplementos;
+    }
+
+    public void eliminarSuplemento(int id) throws Exception {
+        String sql = """
+            SET XACT_ABORT ON;
+            DELETE FROM SUPLEMENTO WHERE IDSUPLEMENTO = %d
+            """.formatted(id);
+
+        db.ejecutarActualizacion(sql);
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ControladorSuplementoBusqueda {
@@ -73,6 +74,9 @@ public class ControladorSuplementoBusqueda {
 
     @FXML
     private TableView<Suplemento> tableSuplementos;
+
+    @FXML
+    private TextField textFieldNombreSuplemento;
 
     private ObservableList<Suplemento> suplementos;
 
@@ -154,9 +158,28 @@ public class ControladorSuplementoBusqueda {
         MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Registrar Suscripción");
     }
 
-        @FXML
+    @FXML
     private void cambiarVentanaActualizarSuplemento(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarSuplemento.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoActualizacion.fxml", "Actualizar Suplemento");
+    }
+
+    @FXML
+    void consultarSuplemento(ActionEvent event) {
+        try {
+            Suplemento suplemento = suplementoDAO.buscarPorNombre(textFieldNombreSuplemento.getText());
+            if (suplemento != null) {
+                suplementos.clear();
+                suplementos.add(suplemento);
+                tableSuplementos.setItems(suplementos);
+            } else {
+                mostrarAlerta("Suplemento no encontrado", "No se encontró un suplemento con ese nombre.");
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Ocurrió un error al buscar el suplemento.");
+            e.printStackTrace();
+        }
+
+        textFieldNombreSuplemento.clear();
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {

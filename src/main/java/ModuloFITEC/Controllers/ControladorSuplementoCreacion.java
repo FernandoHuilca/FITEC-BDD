@@ -160,26 +160,26 @@ public class ControladorSuplementoCreacion {
                 datePickerFechaVencimiento.getValue() == null) {
                 
                 mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos.");
-                return;
             }
+            else {
+                // Crear objeto suplemento
+                Suplemento suplemento = new Suplemento(
+                    Integer.parseInt(textFieldCodigo.getText()),
+                    splitMenuButtonSucursal.getText(),
+                    textFieldNombre.getText(),
+                    splitMenuButtonCategoria.getText(),  // Usamos el texto seleccionado
+                    Double.parseDouble(textFieldPrecio.getText()),
+                    Integer.parseInt(textFieldCantidad.getText()),
+                    datePickerFechaVencimiento.getValue()
+                );
 
-            // Crear objeto suplemento
-            Suplemento suplemento = new Suplemento(
-                Integer.parseInt(textFieldCodigo.getText()),
-                splitMenuButtonSucursal.getText(),
-                textFieldNombre.getText(),
-                splitMenuButtonCategoria.getText(),  // Usamos el texto seleccionado
-                Double.parseDouble(textFieldPrecio.getText()),
-                Integer.parseInt(textFieldCantidad.getText()),
-                datePickerFechaVencimiento.getValue()
-            );
+                // Insertar en la base de datos
+                new SuplementoDAO().crearSuplemento(suplemento);
 
-            // Insertar en la base de datos
-            new SuplementoDAO().crearSuplemento(suplemento);
+                mostrarAlerta("Éxito", "Suplemento registrado correctamente.");
 
-            mostrarAlerta("Éxito", "Suplemento registrado correctamente.");
-
-            limpiarFormulario();
+                limpiarFormulario();
+            }
 
         } catch (NumberFormatException e) {
             mostrarAlerta("Error de formato", "Verifica que el código, el precio y la cantidad sean números válidos.");

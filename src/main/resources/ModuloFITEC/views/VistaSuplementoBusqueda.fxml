@@ -145,14 +145,14 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
+            <TextField fx:id="textFieldNombreSuplemento" layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="366.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
-            <Button fx:id="consultarSuplemento" layoutX="399.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Consultar">
+            <Button layoutX="399.0" layoutY="97.0" mnemonicParsing="false" onAction="#consultarSuplemento" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
