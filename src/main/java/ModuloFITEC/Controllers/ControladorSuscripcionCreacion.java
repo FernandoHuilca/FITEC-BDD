@@ -1,11 +1,12 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorSuscripcionCreacion {
@@ -61,6 +62,17 @@ public class ControladorSuscripcionCreacion {
     @FXML
     private TextField textFieldTipo;
 
+    private SuscripcionesDAO suscripcionesDAO;
+
+    public ControladorSuscripcionCreacion() {
+        this.suscripcionesDAO = new SuscripcionesDAO();
+    }
+
+    @FXML
+    void initialize() {
+        // No es necesario volver a inicializar el DAO aquí
+    }
+
     @FXML
     void actualizarSuscripción(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarSuscripción.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionActualizacion.fxml", "Actualizar Suscripción");
@@ -114,6 +126,40 @@ public class ControladorSuscripcionCreacion {
 
     @FXML
     void registrarFormularioSuscripción(ActionEvent event) {
+
+        if(textFieldCodigo.getText().isEmpty() || textFieldTipo.getText().isEmpty() || textFieldDescripcion.getText().isEmpty() ||
+           textFieldPrecio.getText().isEmpty() || textFieldDuracion.getText().isEmpty()) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, complete todos los campos.");
+            return;
+        }
+        
+        try {
+            int codigo = Integer.parseInt(textFieldCodigo.getText());
+
+            if (suscripcionesDAO.buscarPorCodigo(codigo) != null) {
+                MetodosFrecuentes.mostrarError("Error", "La suscripción con el código " + codigo + " ya existe.");
+                return;
+            }
+
+            String tipo = textFieldTipo.getText();
+            String descripcion = textFieldDescripcion.getText();
+            double precio = Double.parseDouble(textFieldPrecio.getText());
+            int duracion = Integer.parseInt(textFieldDuracion.getText());
+
+            Suscripcion suscripcion = new Suscripcion(codigo, tipo, descripcion, precio, duracion);
+            suscripcionesDAO.crearSuscripcion(suscripcion);
+
+        } catch (NumberFormatException e) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, ingrese valores numéricos válidos para precio y duración.");
+            return;
+
+        }catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo registrar la suscripción: " + e.getMessage());
+            System.out.println("Error al registrar la suscripción: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+        MetodosFrecuentes.mostrarInfo("Éxito", "La suscripción "+textFieldTipo.getText()+" se ha registrado correctamente.");
     }
 
     @FXML

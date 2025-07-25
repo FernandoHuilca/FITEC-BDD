@@ -1,12 +1,20 @@
 package ModuloFITEC.Controllers;
 
+import java.sql.SQLException;
+import java.util.Observable;
+
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.Models.Suscripcion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class ControladorSuscripcionEliminacion {
@@ -24,7 +32,7 @@ public class ControladorSuscripcionEliminacion {
     private Button buttonConsultarSuscripcion;
 
     @FXML
-    private Button buttonEliminarFormulario;
+    private Button buttonEliminar;
 
     @FXML
     private Button buttonEliminarSuscripcion;
@@ -63,13 +71,37 @@ public class ControladorSuscripcionEliminacion {
     private TableColumn<?, ?> tableColumnTipo;
 
     @FXML
-    private TableColumn<?, ?> tableColumncodigo;
+    private TableColumn<?, ?> tableColumnCodigo;
 
     @FXML
-    private TableView<?> tableViewSuscripcion;
+    private TableView<Suscripcion> tableViewSuscripcion;
 
     @FXML
-    private TextField textFieldCodigo;
+    private TextField textFieldCodigoAConsultar;
+
+    ObservableList<Suscripcion> suscripcionesList;
+
+    private SuscripcionesDAO suscripcionesDAO;
+
+    private int codigoSuscripcionPorEliminar;
+
+    public ControladorSuscripcionEliminacion() {
+        // Constructor vacío
+        this.suscripcionesDAO = new SuscripcionesDAO();
+        codigoSuscripcionPorEliminar = 0;
+    }
+
+    @FXML
+    void initialize() {
+                
+        this.suscripcionesList = FXCollections.observableArrayList();
+        tableColumnCodigo.setCellValueFactory(new PropertyValueFactory("idSuscripcion"));
+        tableColumnTipo.setCellValueFactory(new PropertyValueFactory("tipo"));
+        tableColumnDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        tableColumnPrecio.setCellValueFactory(new PropertyValueFactory("precio"));
+        tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
+    }
+
 
     @FXML
     void actualizarSuscripcion(ActionEvent event) {
@@ -115,6 +147,19 @@ public class ControladorSuscripcionEliminacion {
     @FXML
     void consultarCodigo(ActionEvent event) {
 
+        int codigo = ControladorGeneral.obtenerCodigo(textFieldCodigoAConsultar.getText());
+        if (codigo <= 0) {
+            return;
+        }
+        Suscripcion suscripcion = ControladorGeneral.obtenerSuscripcionPorCodigo(codigo);
+        if (suscripcion == null) {
+            return;
+        }
+        tableViewSuscripcion.getItems().clear();
+        suscripcionesList.add(suscripcion);
+        tableViewSuscripcion.setItems(suscripcionesList);
+
+        codigoSuscripcionPorEliminar = codigo;
     }
 
      @FXML
@@ -124,7 +169,17 @@ public class ControladorSuscripcionEliminacion {
 
     @FXML
     void eliminarSuscripcionFormulario(ActionEvent event) {
+        if(codigoSuscripcionPorEliminar <= 0) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, consulte una suscripción antes de eliminar.");
+            return;
+        }
 
+        try {
+            suscripcionesDAO.eliminarPorCodigo(codigoSuscripcionPorEliminar);
+            MetodosFrecuentes.mostrarInfo("Éxito", "Suscripción eliminada correctamente.");
+        } catch (SQLException e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo eliminar la suscripción.");
+        }
     }
 
     @FXML

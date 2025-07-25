@@ -138,6 +138,12 @@
       </Pane>
       <Pane layoutX="268.0" layoutY="8.0" prefHeight="573.0" prefWidth="503.0">
          <children>
+            <Text fill="WHITE" layoutX="70.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="textFieldCodigo" layoutX="171.0" layoutY="97.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
             <Text fill="WHITE" layoutX="46.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suscripciones" wrappingWidth="170.0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="19.0" />
@@ -154,17 +160,18 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
+            <TextField fx:id="textFieldDescripcion" layoutX="171.0" layoutY="203.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la descripción" />
             <Text fill="WHITE" layoutX="70.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio: " wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
+            <TextField fx:id="textFieldPrecio" layoutX="171.0" layoutY="254.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el precio" />
             <Text fill="WHITE" layoutX="70.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duración (Meses): " wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="textFieldPrecio" layoutX="171.0" layoutY="254.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el precio" />
             <TextField fx:id="textFieldDuracion" layoutX="171.0" layoutY="303.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la duración en meses" />
             <Button fx:id="buttonRegistrarFormularioSuscripción" layoutX="239.0" layoutY="511.0" mnemonicParsing="false" onAction="#registrarFormularioSuscripción" prefHeight="25.0" prefWidth="76.0" text="Registrar">
                <cursor>
@@ -172,13 +179,6 @@
                </cursor>
             </Button>
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="347.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
-            <TextField fx:id="textFieldDescripcion" layoutX="171.0" layoutY="203.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la descripción" />
-            <Text fill="WHITE" layoutX="70.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="textFieldCodigo" layoutX="171.0" layoutY="97.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
          </children>
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
