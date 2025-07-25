@@ -1,13 +1,26 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.ClienteDAO;
+import ModuloFITEC.logic.Models.Cliente;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class ControladorClienteBusqueda {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-    // 🔘 Navegación lateral
+public class ControladorClienteBusqueda implements Initializable {
+
     @FXML private Button buttonClientes;
     @FXML private Button buttonInstructores;
     @FXML private Button buttonSuplementos;
@@ -15,16 +28,61 @@ public class ControladorClienteBusqueda {
     @FXML private Button buttonInicio;
     @FXML private Button buttonNominaInstructores;
     @FXML private Button buttonSuscripciones;
-
-    // 📋 Acciones principales
     @FXML private Button buttonRegistrarCliente;
     @FXML private Button buttonConsultarCliente;
     @FXML private Button buttonActualizarCliente;
     @FXML private Button buttonEliminarCliente;
-
-    // 📄 Acción sobre el formulario
     @FXML private Button buttonConsultarFormulario;
 
+    @FXML private TableView<Cliente> tableViewClientes;
+    @FXML private TableColumn<Cliente, String> columnSucursal;
+    @FXML private TableColumn<Cliente, String> columnCedula;
+    @FXML private TableColumn<Cliente, String> columnNombre;
+    @FXML private TableColumn<Cliente, String> columnApellido;
+    @FXML private TableColumn<Cliente, Integer> columnIdSuscripcion;
+    @FXML private TableColumn<Cliente, String> columnTelefono;
+    @FXML private TableColumn<Cliente, String> columnEmail;
+    @FXML private TableColumn<Cliente, String> columnFechaNacimiento;
+    @FXML private TableColumn<Cliente, String> columnFechaRegistro;
+    @FXML private TableColumn<Cliente, String> columnDireccion;
+
+    @FXML private TextField textFieldNombreCedula;
+
+    //Para las consultas:
+    ClienteDAO clienteDAO = ClienteDAO.getInstancia();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Configurar las columnas
+        columnSucursal.setCellValueFactory(new PropertyValueFactory<>("idSucursal"));
+        columnCedula.setCellValueFactory(new PropertyValueFactory<>("cedulaCliente"));
+        columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        columnApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+        columnIdSuscripcion.setCellValueFactory(new PropertyValueFactory<>("idSuscripcion"));
+        columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        columnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        columnFechaNacimiento.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
+        columnFechaRegistro.setCellValueFactory(new PropertyValueFactory<>("fechaRegistro"));
+        columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+
+        cargarClientes();
+
+        // Deshabilitar el botón de consultar formulario al inicio si el campo está vacío       
+        buttonConsultarFormulario.setDisable(true);
+        textFieldNombreCedula.textProperty().addListener((obs, oldText, newText) -> {
+            buttonConsultarFormulario.setDisable(newText.trim().isEmpty());
+        });
+    }
+
+    private void cargarClientes() {
+        try {
+            List<Cliente> listaClientes = clienteDAO.getListaClientesDB();
+            ObservableList<Cliente> clientesObservable = FXCollections.observableArrayList(listaClientes);
+            tableViewClientes.setItems(clientesObservable);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     // 📍 Métodos de navegación
     @FXML
     private void cambiarVentanaClientes() {
@@ -93,5 +151,32 @@ public class ControladorClienteBusqueda {
     @FXML
     private void consultarFormulario() {
         System.out.println("🧾 Acción: Consultar formulario de cliente");
+        String valorBusqueda = textFieldNombreCedula.getText().trim();
+        List<Cliente> clientesConsultados = new ArrayList<>();
+        try {
+            if (valorBusqueda.isEmpty()) {
+                MetodosFrecuentes.mostrarError("Campo vacío", "No ha ingresado texto en el campo.");
+                return;
+            }
+
+            // Buscar primero por nombre
+            clientesConsultados = clienteDAO.getClientesPorNombre(valorBusqueda);
+
+            // Si no hay resultados, buscar por cédula
+            if (clientesConsultados.isEmpty()) {
+                clientesConsultados = clienteDAO.getClientesPorCedula(valorBusqueda);
+            }
+
+            // Mostrar resultados o mensaje de información
+            if (clientesConsultados.isEmpty()) {
+                MetodosFrecuentes.mostrarInfo("Información", "No se encontraron clientes con: " + valorBusqueda);
+               // tableViewClientes.setItems(FXCollections.observableArrayList());
+            } else {
+                tableViewClientes.setItems(FXCollections.observableArrayList(clientesConsultados));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            MetodosFrecuentes.mostrarError("Error", "Ocurrió un error: " + e.getMessage());
+        }
     }
 }

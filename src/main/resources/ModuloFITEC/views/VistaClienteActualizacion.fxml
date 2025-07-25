@@ -66,42 +66,33 @@
         </Pane>
         <Pane layoutX="278.0" layoutY="18.0" prefHeight="573.0" prefWidth="503.0">
             <children>
-                <Text fill="WHITE" layoutX="46.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clientes" wrappingWidth="200.0">
+                <Text fill="WHITE" layoutX="23.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clientes" wrappingWidth="200.0">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
                 </Text>
-                <Text fill="WHITE" layoutX="43.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+                <Text fill="WHITE" layoutX="51.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre/Cedula" wrappingWidth="65.20001220703125">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="15.0" />
                     </font>
                 </Text>
-                <TextField layoutX="144.0" layoutY="76.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el número de cédula" />
-                <Button fx:id="buttonConsultarFormulario" layoutX="386.0" layoutY="76.0" mnemonicParsing="false" onAction="#consultarFormulario" prefHeight="25.0" prefWidth="76.0" text="Consultar">
+                <Button fx:id="buttonConsultarFormulario" layoutX="385.0" layoutY="48.0" mnemonicParsing="false" onAction="#consultarFormulario" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
                 <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="367.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
-                <TableView layoutX="30.0" layoutY="115.0" prefHeight="74.0" prefWidth="444.0">
-                    <columns>
-                        <TableColumn prefWidth="113.60003662109375" text="Cédula" />
-                        <TableColumn prefWidth="107.20001220703125" text="Suscripción" />
-                        <TableColumn minWidth="6.0" prefWidth="106.39996337890625" text="Nombre" />
-                        <TableColumn minWidth="0.0" prefWidth="116.79998779296875" text="Apellido" />
-                    </columns>
-                </TableView>
             <Text fill="WHITE" layoutX="90.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suscripción:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="90.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="89.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="90.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido: " wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="89.0" layoutY="339.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido: " wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
@@ -111,38 +102,64 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="90.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="89.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="90.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha nacimiento:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="89.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha nacimiento:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="90.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="89.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="191.0" layoutY="260.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
-            <TextField layoutX="191.0" layoutY="309.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el apellido" />
+            <TextField layoutX="190.0" layoutY="286.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
+            <TextField layoutX="190.0" layoutY="321.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el apellido" />
             <TextField layoutX="191.0" layoutY="357.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el teléfono" />
-            <TextField layoutX="191.0" layoutY="402.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el e-mail" />
-            <TextField layoutX="191.0" layoutY="517.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la dirreción" />
+            <TextField layoutX="190.0" layoutY="395.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el e-mail" />
+            <TextField layoutX="190.0" layoutY="472.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la dirreción" />
             <SplitMenuButton layoutX="191.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja el tipo de suscripción" textFill="#00000048">
                <items>
                   <MenuItem mnemonicParsing="false" text="Action 1" />
                   <MenuItem mnemonicParsing="false" text="Action 2" />
                </items>
             </SplitMenuButton>
-            <DatePicker layoutX="191.0" layoutY="465.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la fecha de nacimiento" />
-            <Button fx:id="buttonActualizarFormulario" layoutX="259.0" layoutY="566.0" mnemonicParsing="false" onAction="#actualizarFormulario" prefHeight="25.0" prefWidth="76.0" text="Actualizar">
+            <DatePicker layoutX="190.0" layoutY="435.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la fecha de nacimiento" />
+            <Button fx:id="buttonActualizarFormulario" layoutX="252.0" layoutY="520.0" mnemonicParsing="false" onAction="#actualizarFormulario" prefHeight="25.0" prefWidth="76.0" text="Actualizar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <TableView fx:id="tableViewClientes" layoutX="37.0" layoutY="91.0" prefHeight="100.0" prefWidth="444.0">
+               <columns>
+                  <TableColumn fx:id="columnSucursal" prefWidth="93.5999755859375" text="Sucursal" />
+                  <TableColumn fx:id="columnCedula" minWidth="0.0" prefWidth="82.4000244140625" text="Cédula" />
+                  <TableColumn fx:id="columnNombre" minWidth="0.0" prefWidth="102.4000244140625" text="Nombre" />
+                  <TableColumn fx:id="columnApellido" minWidth="0.0" prefWidth="84.0" text="Apellido" />
+                  <TableColumn fx:id="columnIdSuscripcion" minWidth="0.0" prefWidth="70.39996337890625" text="idSuscripción" />
+                  <TableColumn fx:id="columnTelefono" minWidth="0.0" prefWidth="89.5999755859375" text="Teléfono" />
+                  <TableColumn fx:id="columnEmail" minWidth="0.0" prefWidth="89.5999755859375" text="E-mail" />
+                  <TableColumn fx:id="columnFechaNacimiento" minWidth="0.0" prefWidth="89.5999755859375" text="FechaNaciomiento" />
+                  <TableColumn fx:id="columnFechaRegistro" minWidth="0.0" prefWidth="89.5999755859375" text="FechaRegistro" />
+                  <TableColumn fx:id="columnDireccion" minWidth="0.0" prefWidth="89.5999755859375" text="Dirección" />
+               </columns>
+            </TableView>
+            <TextField fx:id="textFieldNombreCedula" layoutX="128.0" layoutY="48.0" prefHeight="25.0" prefWidth="235.0" promptText="Ingrese el número de cédula o nombre" />
+            <Text fill="WHITE" layoutX="89.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sucursal" wrappingWidth="92.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
+            <SplitMenuButton layoutX="190.0" layoutY="249.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja la sucursal" textFill="#00000048">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </SplitMenuButton>
             </children>
         </Pane>
       <Pane prefHeight="640.0" prefWidth="251.0" style="-fx-background-color: #615E5E;">
