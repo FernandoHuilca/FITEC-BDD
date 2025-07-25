@@ -2,7 +2,7 @@ package ModuloFITEC.Controllers;
 
 
 import MetodosGlobales.MetodosFrecuentes;
-import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -73,13 +73,7 @@ public class ControladorSuscripcionBusqueda {
     @FXML
     private TextField textFieldCodigo;
 
-    private SuscripcionesDAO suscripcionesDAO;
-
     private javafx.collections.ObservableList<Suscripcion> suscripcionesList;
-
-    public ControladorSuscripcionBusqueda() {
-        this.suscripcionesDAO = new SuscripcionesDAO();
-    }
 
     @FXML
     void initialize() {
@@ -92,7 +86,7 @@ public class ControladorSuscripcionBusqueda {
         tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
 
         try {
-            suscripcionesList.addAll(suscripcionesDAO.listarSuscripciones());
+            suscripcionesList.addAll(SuscripcionDAO.getInstancia().listarSuscripciones());
         } catch (Exception e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudieron cargar las suscripciones: " + e.getMessage());
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
-import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,15 +87,12 @@ public class ControladorSuscripcionActualizacion {
 
     @FXML
     private TextField textFieldTipo;
-
-    SuscripcionesDAO suscripcionesDAO;
     
     private ObservableList<Suscripcion> suscripcionesList;
 
     private int codigoSuscripcionPorActualizar;
 
     public ControladorSuscripcionActualizacion() {
-        this.suscripcionesDAO = new SuscripcionesDAO();
         codigoSuscripcionPorActualizar = 0;
     }
 
@@ -146,7 +143,7 @@ public class ControladorSuscripcionActualizacion {
                 return;
             }
 
-            suscripcion = suscripcionesDAO.actualizarSuscripción(suscripcion);
+            suscripcion = SuscripcionDAO.getInstancia().actualizarSuscripción(suscripcion);
             if (suscripcion == null) {
                 MetodosFrecuentes.mostrarError("Error", "No se pudo actualizar la suscripción.");
                 return;
