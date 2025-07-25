@@ -152,27 +152,27 @@
                </font>
             </Text>
             <TextField layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el número de cédula" />
-            <Text fill="WHITE" layoutX="70.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suscripción:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suscripción:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido: " wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido: " wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teléfono: " wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teléfono: " wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
@@ -187,12 +187,12 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="205.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
-            <TextField layoutX="171.0" layoutY="254.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el apellido" />
-            <TextField layoutX="171.0" layoutY="302.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el teléfono" />
-            <TextField layoutX="171.0" layoutY="347.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el e-mail" />
+            <TextField layoutX="171.0" layoutY="229.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
+            <TextField layoutX="171.0" layoutY="273.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el apellido" />
+            <TextField layoutX="171.0" layoutY="316.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el teléfono" />
+            <TextField layoutX="171.0" layoutY="361.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el e-mail" />
             <TextField layoutX="171.0" layoutY="462.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la dirreción" />
-            <SplitMenuButton layoutX="171.0" layoutY="154.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja el tipo de suscripción" textFill="#00000048">
+            <SplitMenuButton layoutX="171.0" layoutY="138.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja el tipo de suscripción" textFill="#00000048">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -205,6 +205,17 @@
                </cursor>
             </Button>
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="347.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
+            <Text fill="WHITE" layoutX="70.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sucursal" wrappingWidth="92.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
+            <SplitMenuButton layoutX="171.0" layoutY="183.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja la sucursal" textFill="#00000048">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </SplitMenuButton>
          </children>
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
