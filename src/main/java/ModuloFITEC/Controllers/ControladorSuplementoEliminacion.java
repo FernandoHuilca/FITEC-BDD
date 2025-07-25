@@ -1,5 +1,7 @@
 package ModuloFITEC.Controllers;
 
+import java.util.List;
+
 import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.logic.DAOs.SuplementoDAO;
 import ModuloFITEC.logic.Models.Suplemento;
@@ -170,47 +172,64 @@ public class ControladorSuplementoEliminacion {
     @FXML
     void consultarSuplemento(ActionEvent event) {
         try {
-            suplementoSeleccionado = suplementoDAO.buscarPorNombre(textFieldNombreSuplemento.getText());
-            if (suplementoSeleccionado != null) {
+            String nombre = textFieldNombreSuplemento.getText().trim();
+            if (nombre.isEmpty()) {
+                mostrarAlerta("Campo vacío", "Por favor, ingrese un nombre de suplemento.");
+                return;
+            }
+
+            List<Suplemento> suplementosEncontrados = suplementoDAO.buscarPorNombre(nombre);
+            if (!suplementosEncontrados.isEmpty()) {
                 suplementos.clear();
-                suplementos.add(suplementoSeleccionado);
+                suplementos.addAll(suplementosEncontrados);
                 tableSuplementos.setItems(suplementos);
             } else {
-                mostrarAlerta("Suplemento no encontrado", "No se encontró un suplemento con ese nombre.");
+                mostrarAlerta("Suplemento no encontrado", "No se encontraron suplementos con ese nombre.");
             }
         } catch (Exception e) {
             mostrarAlerta("Error", "Ocurrió un error al buscar el suplemento.");
             e.printStackTrace();
         }
 
-        textFieldNombreSuplemento.clear();
+        //textFieldNombreSuplemento.clear();
     }
 
     @FXML
     void seleccionarSuplemento(MouseEvent event) {
         suplementoSeleccionado = this.tableSuplementos.getSelectionModel().getSelectedItem();
+        if (suplementoSeleccionado != null) {
+            textFieldNombreSuplemento.setText(suplementoSeleccionado.getNombre());
+        } else {
+            textFieldNombreSuplemento.clear();
+        }
     }
 
     @FXML
     void eliminarSuplemento(ActionEvent event) {
-        if (suplementoSeleccionado != null) {
-            try {
-                suplementoDAO.eliminarSuplemento(suplementoSeleccionado.getIdSuplemento());
-                mostrarAlerta("Éxito", "Suplemento eliminado correctamente.");
-                suplementos.remove(suplementoSeleccionado);
-                if (tableSuplementos.getItems().isEmpty()) {
-                    suplementos.setAll(suplementoDAO.listarSuplementos());
-                    tableSuplementos.setItems(suplementos);
-                }
-                suplementoSeleccionado = null;
-            } catch (Exception e) {
-                mostrarAlerta("Error", "Ocurrió un error al eliminar el suplemento.");
-                e.printStackTrace();
-            }
-        } else {
-            mostrarAlerta("Advertencia", "Por favor, seleccione un suplemento para eliminar.");
+        String nombre = textFieldNombreSuplemento.getText().trim();
+
+        if (nombre.isEmpty()) {
+            mostrarAlerta("Campo vacío", "Por favor, ingrese un nombre de suplemento.");
+            return;
         }
+
+        try {
+            suplementoDAO.eliminarPorNombre(nombre);
+            mostrarAlerta("Éxito", "Suplementos eliminados correctamente.");
+            suplementos.removeIf(s -> s.getNombre().equalsIgnoreCase(nombre));
+
+            if (tableSuplementos.getItems().isEmpty()) {
+                suplementos.setAll(suplementoDAO.listarSuplementos());
+                tableSuplementos.setItems(suplementos);
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Ocurrió un error al eliminar los suplementos.");
+            e.printStackTrace();
+        }
+
+        textFieldNombreSuplemento.clear();
     }
+
 
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alerta = new Alert(AlertType.INFORMATION);

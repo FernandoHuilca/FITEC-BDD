@@ -156,7 +156,7 @@
                </font>
             </Text>
             <TextField fx:id="textFieldValorConsulta" layoutX="171.0" layoutY="138.0" prefHeight="25.0" prefWidth="223.0" />
-            <Button layoutX="413.0" layoutY="138.0" mnemonicParsing="false" onAction="#consultarCompras" prefHeight="25.0" prefWidth="76.0" text="Consultar">
+            <Button fx:id="buttonConsultar" layoutX="413.0" layoutY="138.0" mnemonicParsing="false" onAction="#consultarCompras" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -173,7 +173,7 @@
                   <TableColumn fx:id="columnSucursal" minWidth="0.0" prefWidth="135.0" text="Sucursal" />
               </columns>
             </TableView>
-            <SplitMenuButton fx:id="splitMenuButtonSeleccion" layoutX="171.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="223.0" text="Todo">
+            <SplitMenuButton fx:id="splitMenuButtonSeleccion" layoutX="171.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="223.0" text="Todo" textFill="#00000047">
               <items>
                 <MenuItem mnemonicParsing="false" text="Todo" />
                 <MenuItem mnemonicParsing="false" text="Cliente" />

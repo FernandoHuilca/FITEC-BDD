@@ -61,7 +61,7 @@ public class SuplementoDAO {
         db.ejecutarActualizacion(sql);
     }   
 
-    public Suplemento buscarPorNombre(String nombre) throws Exception {
+    public List<Suplemento> buscarPorNombre(String nombre) throws Exception {
         String sql = """
             SET XACT_ABORT ON;
             SELECT * FROM SUPLEMENTO
@@ -72,7 +72,7 @@ public class SuplementoDAO {
         Statement st = null;
         try {
             rs = db.ejecutarConsulta(sql);
-            return rs.next() ? mapear(rs) : null;
+            return mapearLista(rs);
         } finally {
             ConexionBaseSingleton.cerrarRecursos(rs, st);
         }
@@ -117,5 +117,47 @@ public class SuplementoDAO {
             """.formatted(id);
 
         db.ejecutarActualizacion(sql);
+    }
+
+    public void eliminarPorNombre(String nombre) throws Exception {
+        String sql = """
+            SET XACT_ABORT ON;
+            DELETE FROM SUPLEMENTO WHERE NOMBRE = '%s'
+            """.formatted(nombre);
+        db.ejecutarActualizacion(sql);
+    }
+
+    public Suplemento buscarPorId(int id) throws Exception {
+        String sql = """
+            SET XACT_ABORT ON;
+            SELECT * FROM SUPLEMENTO
+            WHERE IDSUPLEMENTO = %d
+            """.formatted(id);
+
+        ResultSet rs = null;
+        Statement st = null;
+        try {
+            rs = db.ejecutarConsulta(sql);
+            return rs.next() ? mapear(rs) : null;
+        } finally {
+            ConexionBaseSingleton.cerrarRecursos(rs, st);
+        }
+    }
+
+    public Suplemento buscarPorNombreEId(String nombre, int id) throws Exception {
+        String sql = """
+            SET XACT_ABORT ON;
+            SELECT * FROM SUPLEMENTO
+            WHERE NOMBRE = '%s' AND IDSUPLEMENTO = %d
+            """.formatted(nombre, id);
+
+        ResultSet rs = null;
+        Statement st = null;
+        try {
+            rs = db.ejecutarConsulta(sql);
+            return rs.next() ? mapear(rs) : null;
+        } finally {
+            ConexionBaseSingleton.cerrarRecursos(rs, st);
+        }
     }
 }

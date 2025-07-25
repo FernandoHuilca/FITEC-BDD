@@ -135,17 +135,41 @@ public class ControladorCompraEliminacion {
                     case "Cliente" -> {
                         textSeleccion.setText("Cliente:");
                         textFieldValorConsulta.clear();
-                        textFieldValorConsulta.setPromptText("Escriba el número de cédula del cliente");
+                        textFieldValorConsulta.setPromptText("Ingrese el número de cédula del cliente");
+
+                        try {
+                            compras.setAll(compraDAO.listarCompras());
+                        } catch (Exception e) {
+                            mostrarAlerta("Error al cargar compras", "No se pudieron obtener los datos de la base.");
+                            e.printStackTrace();
+                        }
+                        tableCompras.setItems(compras);
                     }
                     case "Suplemento" -> {
                         textSeleccion.setText("Suplemento:");
                         textFieldValorConsulta.clear();
-                        textFieldValorConsulta.setPromptText("Escriba el nombre del suplemento");
+                        textFieldValorConsulta.setPromptText("Ingrese el nombre del suplemento");
+
+                    try {
+                            compras.setAll(compraDAO.listarCompras());
+                        } catch (Exception e) {
+                            mostrarAlerta("Error al cargar compras", "No se pudieron obtener los datos de la base.");
+                            e.printStackTrace();
+                        }
+                        tableCompras.setItems(compras);
                     }
                     case "Sucursal" -> {
                         textSeleccion.setText("Sucursal:");
                         textFieldValorConsulta.clear();
-                        textFieldValorConsulta.setPromptText("Escriba el código de la sucursal");
+                        textFieldValorConsulta.setPromptText("Ingrese el código de la sucursal");
+
+                        try {
+                            compras.setAll(compraDAO.listarCompras());
+                        } catch (Exception e) {
+                            mostrarAlerta("Error al cargar compras", "No se pudieron obtener los datos de la base.");
+                            e.printStackTrace();
+                        }
+                        tableCompras.setItems(compras);
                     }
                     default -> {
                         textSeleccion.setText("");
@@ -209,7 +233,10 @@ public class ControladorCompraEliminacion {
     @FXML
     void seleccionarCompra(MouseEvent event) {
         Compra compraSeleccionada = tableCompras.getSelectionModel().getSelectedItem();
-        textFieldValorConsulta.setText(compraSeleccionada.getIdCompra() + "");
+        
+        if (compraSeleccionada != null && splitMenuButtonSeleccion.getText().equals("Código Compra")) {
+            textFieldValorConsulta.setText(String.valueOf(compraSeleccionada.getIdCompra()));
+        }
     }
 
     @FXML

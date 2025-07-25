@@ -60,7 +60,7 @@ public class ControladorCompraCreacion {
     private TextField textFieldCodigo;
 
     @FXML
-    private TextField textFieldNombreSuplemento;
+    private TextField textFieldCodigoSuplemento;
 
     @FXML
     public void initialize() {
@@ -137,7 +137,7 @@ public class ControladorCompraCreacion {
             Compra compra = new Compra(
                 Integer.parseInt(textFieldCodigo.getText()),
                 textFieldCedulaCliente.getText(),
-                suplemento.getNombre(),
+                suplemento.getIdSuplemento(),
                 cantidadPedida,
                 java.time.LocalDateTime.now(),
                 suplemento.getPrecio(),
@@ -145,6 +145,9 @@ public class ControladorCompraCreacion {
             );
 
             new CompraDAO().crearCompra(compra);
+
+            suplemento.setCantidadDisponible(suplemento.getCantidadDisponible() - cantidadPedida);
+            new SuplementoDAO().actualizarSuplemento(suplemento);
 
             mostrarAlerta("Éxito", "Compra registrada correctamente.");
             limpiarFormulario();
@@ -169,14 +172,14 @@ public class ControladorCompraCreacion {
         textFieldCodigo.clear();
         splitMenuButtonSucursal.setText("Escoja la sucursal"); 
         textFieldCedulaCliente.clear();
-        textFieldNombreSuplemento.clear();
+        textFieldCodigoSuplemento.clear();
         textFieldCantidad.clear();
     }
 
     private boolean validarCampos() {
         if (textFieldCodigo.getText().isBlank() ||
             textFieldCedulaCliente.getText().isBlank() ||
-            textFieldNombreSuplemento.getText().isBlank() ||
+            textFieldCodigoSuplemento.getText().isBlank() ||
             textFieldCantidad.getText().isBlank() ||
             splitMenuButtonSucursal.getText().equals("Escoja la sucursal")) {
             
@@ -188,12 +191,22 @@ public class ControladorCompraCreacion {
 
     private Suplemento obtenerSuplemento() throws Exception {
         SuplementoDAO suplementoDAO = new SuplementoDAO();
-        Suplemento suplemento = suplementoDAO.buscarPorNombre(textFieldNombreSuplemento.getText());
 
-        if (suplemento == null) {
-            mostrarAlerta("Suplemento no encontrado", "El suplemento ingresado no existe.");
+        int idSuplemento;
+        try {
+            idSuplemento = Integer.parseInt(textFieldCodigoSuplemento.getText().trim());
+        } catch (NumberFormatException e) {
+            mostrarAlerta("ID inválido", "El ID del suplemento debe ser un número entero.");
             return null;
         }
+
+        Suplemento suplemento = suplementoDAO.buscarPorId(idSuplemento);
+
+        if (suplemento == null) {
+            mostrarAlerta("Suplemento no encontrado", "No existe un suplemento con ID: " + idSuplemento);
+            return null;
+        }
+
         return suplemento;
     }
 

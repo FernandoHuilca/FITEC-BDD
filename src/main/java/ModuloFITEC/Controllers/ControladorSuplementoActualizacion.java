@@ -68,7 +68,7 @@ public class ControladorSuplementoActualizacion {
     private TextField textFieldCantidad;
 
     @FXML
-    private TextField textFieldNombreSuplemento;
+    private TextField textFieldCodigoSuplemento;
 
     @FXML
     private TextField textFieldNombre;
@@ -110,6 +110,8 @@ public class ControladorSuplementoActualizacion {
     @FXML
     public void initialize() {
         textFieldCodigo.setDisable(true);
+
+        deshabilitarCampos();
 
         for (MenuItem item : splitMenuButtonSucursal.getItems()) {
             item.setOnAction(event -> {
@@ -202,36 +204,46 @@ public class ControladorSuplementoActualizacion {
     @FXML
     void consultarSuplemento(ActionEvent event) {
         limpiarFormulario();
+        splitMenuButtonSucursal.setStyle("-fx-text-fill: black;");
+        splitMenuButtonCategoria.setStyle("-fx-text-fill: black;");
+        habilitarCampos();
         try {
-            Suplemento suplemento = suplementoDAO.buscarPorNombre(textFieldNombreSuplemento.getText());
+            int id = Integer.parseInt(textFieldCodigoSuplemento.getText().trim());
+            Suplemento suplemento = suplementoDAO.buscarPorId(id);
+
             if (suplemento != null) {
                 textFieldCodigo.setText(String.valueOf(suplemento.getIdSuplemento()));
                 splitMenuButtonSucursal.setText(suplemento.getIdSucursal());
                 textFieldNombre.setText(suplemento.getNombre());
-                splitMenuButtonCategoria.setStyle("-fx-text-fill: black;");
                 splitMenuButtonCategoria.setText(suplemento.getCategoria());
                 textFieldPrecio.setText(String.valueOf(suplemento.getPrecio()));
                 textFieldCantidad.setText(String.valueOf(suplemento.getCantidadDisponible()));
                 datePickerFechaVencimiento.setValue(suplemento.getFechaVencimiento());
             } else {
-                mostrarAlerta("Suplemento no encontrado", "No se encontró un suplemento con ese nombre.");
+                mostrarAlerta("Suplemento no encontrado", "No se encontró un suplemento con ese ID.");
             }
+        } catch (NumberFormatException e) {
+            mostrarAlerta("ID inválido", "Por favor, ingrese un número entero válido como ID.");
         } catch (Exception e) {
             mostrarAlerta("Error", "Ocurrió un error al buscar el suplemento.");
             e.printStackTrace();
         }
-        textFieldNombreSuplemento.clear();
+
+        //textFieldCodigoSuplemento.clear();
     }
 
     @FXML
     void seleccionarSuplemento(MouseEvent event) {
+        textFieldCodigoSuplemento.clear();
         limpiarFormulario();
+        splitMenuButtonSucursal.setStyle("-fx-text-fill: black;");
+        splitMenuButtonCategoria.setStyle("-fx-text-fill: black;");
+        habilitarCampos();
         Suplemento suplemento = this.tableSuplementos.getSelectionModel().getSelectedItem();
         if (suplemento != null) {
             textFieldCodigo.setText(String.valueOf(suplemento.getIdSuplemento()));
             splitMenuButtonSucursal.setText(suplemento.getIdSucursal());
             textFieldNombre.setText(suplemento.getNombre());
-            splitMenuButtonCategoria.setStyle("-fx-text-fill: black;");
             splitMenuButtonCategoria.setText(suplemento.getCategoria());
             textFieldPrecio.setText(String.valueOf(suplemento.getPrecio()));
             textFieldCantidad.setText(String.valueOf(suplemento.getCantidadDisponible()));
@@ -269,6 +281,8 @@ public class ControladorSuplementoActualizacion {
                 suplementoDAO.actualizarSuplemento(suplemento);
                 mostrarAlerta("Éxito", "Suplemento actualizado correctamente.");
                 limpiarFormulario();
+                textFieldCodigoSuplemento.clear();
+                deshabilitarCampos();
 
                 suplementos.setAll(suplementoDAO.listarSuplementos());
                 tableSuplementos.setItems(suplementos);
@@ -299,5 +313,23 @@ public class ControladorSuplementoActualizacion {
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+
+    private void deshabilitarCampos() {
+        splitMenuButtonSucursal.setDisable(true);
+        textFieldNombre.setDisable(true);
+        splitMenuButtonCategoria.setDisable(true);
+        textFieldPrecio.setDisable(true);
+        textFieldCantidad.setDisable(true);
+        datePickerFechaVencimiento.setDisable(true);
+    }
+
+    private void habilitarCampos() {
+        splitMenuButtonSucursal.setDisable(false);
+        textFieldNombre.setDisable(false);
+        splitMenuButtonCategoria.setDisable(false);
+        textFieldPrecio.setDisable(false);
+        textFieldCantidad.setDisable(false);
+        datePickerFechaVencimiento.setDisable(false);
     }
 }

@@ -1,5 +1,7 @@
 package ModuloFITEC.Controllers;
 
+import java.util.List;
+
 import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.logic.DAOs.SuplementoDAO;
 import ModuloFITEC.logic.Models.Suplemento;
@@ -166,20 +168,26 @@ public class ControladorSuplementoBusqueda {
     @FXML
     void consultarSuplemento(ActionEvent event) {
         try {
-            Suplemento suplemento = suplementoDAO.buscarPorNombre(textFieldNombreSuplemento.getText());
-            if (suplemento != null) {
+            String nombre = textFieldNombreSuplemento.getText().trim();
+            if (nombre.isEmpty()) {
+                mostrarAlerta("Campo vacío", "Por favor, ingrese un nombre de suplemento.");
+                return;
+            }
+
+            List<Suplemento> suplementosEncontrados = suplementoDAO.buscarPorNombre(nombre);
+            if (!suplementosEncontrados.isEmpty()) {
                 suplementos.clear();
-                suplementos.add(suplemento);
+                suplementos.addAll(suplementosEncontrados);
                 tableSuplementos.setItems(suplementos);
             } else {
-                mostrarAlerta("Suplemento no encontrado", "No se encontró un suplemento con ese nombre.");
+                mostrarAlerta("Suplemento no encontrado", "No se encontraron suplementos con ese nombre.");
             }
         } catch (Exception e) {
-            mostrarAlerta("Error", "Ocurrió un error al buscar el suplemento.");
+            mostrarAlerta("Error", "Ocurrió un error al buscar los suplementos.");
             e.printStackTrace();
         }
 
-        textFieldNombreSuplemento.clear();
+        //textFieldNombreSuplemento.clear();
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {

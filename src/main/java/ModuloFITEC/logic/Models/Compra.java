@@ -5,11 +5,23 @@ import java.time.LocalDateTime;
 public class Compra {
     private int idCompra;
     private String cedulaCliente;
+    private int idSuplemento;
     private String nombreSuplemento;
     private int cantidadComprada;
     private LocalDateTime fechaCompra;
     private double precioCompra;
     private String idSucursal;
+
+    public Compra(int idCompra, String cedulaCliente, int idSuplemento, int cantidadComprada, LocalDateTime fechaCompra,
+            double precioCompra, String idSucursal) {
+        this.idCompra = idCompra;
+        this.cedulaCliente = cedulaCliente;
+        this.idSuplemento = idSuplemento;
+        this.cantidadComprada = cantidadComprada;
+        this.fechaCompra = fechaCompra;
+        this.precioCompra = precioCompra;
+        this.idSucursal = idSucursal;
+    }
 
     public Compra(int idCompra, String cedulaCliente, String nombreSuplemento, int cantidadComprada,
             LocalDateTime fechaCompra, double precioCompra, String idSucursal) {
@@ -65,5 +77,11 @@ public class Compra {
         this.idSucursal = idSucursal;
     }
 
-    
+    public int getIdSuplemento() {
+        return idSuplemento;
+    }
+
+    public void setIdSuplemento(int idSuplemento) {
+        this.idSuplemento = idSuplemento;
+    }
 }

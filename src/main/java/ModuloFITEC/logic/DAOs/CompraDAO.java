@@ -20,13 +20,11 @@ public class CompraDAO {
     }
 
     public void crearCompra(Compra compra) throws Exception {
-        // Obtener el ID del suplemento desde su nombre
-        Suplemento suplemento = new SuplementoDAO().buscarPorNombre(compra.getNombreSuplemento());
+        // Verificar si existe el suplemento con el ID proporcionado
+        Suplemento suplemento = new SuplementoDAO().buscarPorId(compra.getIdSuplemento());
         if (suplemento == null) {
-            throw new Exception("No se encontró el suplemento con nombre: " + compra.getNombreSuplemento());
+            throw new Exception("No existe un suplemento con ID: " + compra.getIdSuplemento());
         }
-
-        int idSuplemento = suplemento.getIdSuplemento();
 
         String sql = """
             SET XACT_ABORT ON;
@@ -36,7 +34,7 @@ public class CompraDAO {
             """.formatted(
                 compra.getIdCompra(),
                 compra.getCedulaCliente(),
-                idSuplemento,
+                compra.getIdSuplemento(),
                 compra.getCantidadComprada(),
                 compra.getFechaCompra().format(formatter),
                 compra.getPrecioCompra(),
@@ -47,12 +45,11 @@ public class CompraDAO {
     }
 
     public void actualizarCompra(Compra c) throws Exception {
-        Suplemento suplemento = new SuplementoDAO().buscarPorNombre(c.getNombreSuplemento());
+        // Verificar si existe el suplemento con el ID proporcionado
+        Suplemento suplemento = new SuplementoDAO().buscarPorId(c.getIdSuplemento());
         if (suplemento == null) {
-            throw new Exception("No se encontró el suplemento con nombre: " + c.getNombreSuplemento());
+            throw new Exception("No existe un suplemento con ID: " + c.getIdSuplemento());
         }
-
-        int idSuplemento = suplemento.getIdSuplemento();
 
         String sql = """
             SET XACT_ABORT ON;
@@ -66,7 +63,7 @@ public class CompraDAO {
             WHERE IDCOMPRA = %d
             """.formatted(
                 c.getCedulaCliente(),
-                idSuplemento,
+                c.getIdSuplemento(),
                 c.getCantidadComprada(),
                 c.getFechaCompra().format(formatter),
                 c.getPrecioCompra(),
@@ -76,6 +73,7 @@ public class CompraDAO {
 
         db.ejecutarActualizacion(sql);
     }
+
 
     public Compra buscarPorIdCompra(int idCompra) throws Exception {
         String sql = """
@@ -195,17 +193,20 @@ public class CompraDAO {
     }
 
     public void eliminarPorSuplemento(String nombreSuplemento) throws Exception {
-        Suplemento suplemento = new SuplementoDAO().buscarPorNombre(nombreSuplemento);
-        if (suplemento == null) {
-            throw new Exception("No se encontró el suplemento con nombre: " + nombreSuplemento);
+        List<Suplemento> suplementos = new SuplementoDAO().buscarPorNombre(nombreSuplemento);
+
+        if (suplementos.isEmpty()) {
+            throw new Exception("No se encontró ningún suplemento con nombre: " + nombreSuplemento);
         }
 
-        String sql = """
-            SET XACT_ABORT ON;
-            DELETE FROM COMPRA WHERE IDSUPLEMENTO = %d
-            """.formatted(suplemento.getIdSuplemento());
+        for (Suplemento suplemento : suplementos) {
+            String sql = """
+                SET XACT_ABORT ON;
+                DELETE FROM COMPRA WHERE IDSUPLEMENTO = %d
+                """.formatted(suplemento.getIdSuplemento());
 
-        db.ejecutarActualizacion(sql);
+            db.ejecutarActualizacion(sql);
+        }
     }
 
     public void eliminarPorCliente(String cedulaCliente) throws Exception {

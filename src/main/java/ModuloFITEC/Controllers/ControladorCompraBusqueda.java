@@ -53,6 +53,9 @@ public class ControladorCompraBusqueda {
     private Button buttonSuscripciones;
 
     @FXML
+    private Button buttonConsultar;
+
+    @FXML
     private SplitMenuButton splitMenuButtonSeleccion;
 
     @FXML
@@ -91,6 +94,9 @@ public class ControladorCompraBusqueda {
 
     @FXML
     public void initialize() {
+
+        deshabilitarCamposConsulta();
+
         compras = FXCollections.observableArrayList();
 
         columnCodigo.setCellValueFactory(new PropertyValueFactory<>("idCompra"));
@@ -118,9 +124,12 @@ public class ControladorCompraBusqueda {
                 // Cambiar texto y placeholder según la opción
                 switch (seleccion) {
                     case "Todo" -> {
+                        deshabilitarCamposConsulta();
+
                         textSeleccion.setText("");
                         textFieldValorConsulta.clear();
                         textFieldValorConsulta.setPromptText("");
+
                         try {
                             compras.setAll(compraDAO.listarCompras());
                         } catch (Exception e) {
@@ -130,16 +139,19 @@ public class ControladorCompraBusqueda {
                         tableCompras.setItems(compras);
                     }
                     case "Cliente" -> {
+                        habilitarCamposConsulta();
                         textSeleccion.setText("Cliente:");
                         textFieldValorConsulta.clear();
                         textFieldValorConsulta.setPromptText("Escriba el número de cédula del cliente");
                     }
                     case "Suplemento" -> {
+                        habilitarCamposConsulta();
                         textSeleccion.setText("Suplemento:");
                         textFieldValorConsulta.clear();
                         textFieldValorConsulta.setPromptText("Escriba el nombre del suplemento");
                     }
                     case "Sucursal" -> {
+                        habilitarCamposConsulta();
                         textSeleccion.setText("Sucursal:");
                         textFieldValorConsulta.clear();
                         textFieldValorConsulta.setPromptText("Escriba el código de la sucursal");
@@ -210,10 +222,10 @@ public class ControladorCompraBusqueda {
 
         try {
             switch (opcion) {
-                case "Todo" -> {
-                    compras.setAll(compraDAO.listarCompras());
-                    tableCompras.setItems(compras);
-                }
+                // case "Todo" -> {
+                //     compras.setAll(compraDAO.listarCompras());
+                //     tableCompras.setItems(compras);
+                // }
                 case "Cliente" -> {
                     if (valor.isEmpty()) {
                         mostrarAlerta("Campo vacío", "Ingrese una cédula para consultar.");
@@ -279,5 +291,15 @@ public class ControladorCompraBusqueda {
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+
+    private void habilitarCamposConsulta() {
+        textFieldValorConsulta.setDisable(false);
+        buttonConsultar.setDisable(false);
+    }
+
+    private void deshabilitarCamposConsulta() {
+        textFieldValorConsulta.setDisable(true);
+        buttonConsultar.setDisable(true);
     }
 }

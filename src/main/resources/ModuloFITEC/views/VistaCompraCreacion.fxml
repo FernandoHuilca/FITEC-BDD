@@ -170,7 +170,7 @@
                </font>
             </Text>
             <TextField fx:id="textFieldCedulaCliente" layoutX="171.0" layoutY="191.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el número de cédula del cliente" />
-            <TextField fx:id="textFieldNombreSuplemento" layoutX="171.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el nombre del suplemento" />
+            <TextField fx:id="textFieldCodigoSuplemento" layoutX="171.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código del suplemento" />
             <TextField fx:id="textFieldCantidad" layoutX="170.0" layoutY="288.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese la cantidad disponible" />
             <Button layoutX="239.0" layoutY="336.0" mnemonicParsing="false" onAction="#registrarCompra" prefHeight="25.0" prefWidth="76.0" text="Registrar">
                <cursor>
