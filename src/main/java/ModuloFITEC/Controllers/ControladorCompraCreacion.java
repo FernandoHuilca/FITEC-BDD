@@ -1,9 +1,18 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.CompraDAO;
+import ModuloFITEC.logic.DAOs.SuplementoDAO;
+import ModuloFITEC.logic.Models.Compra;
+import ModuloFITEC.logic.Models.Suplemento;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ControladorCompraCreacion {
@@ -38,7 +47,32 @@ public class ControladorCompraCreacion {
     @FXML
     private Button buttonSuscripciones;
 
-@FXML
+    @FXML
+    private SplitMenuButton splitMenuButtonSucursal;
+
+    @FXML
+    private TextField textFieldCantidad;
+
+    @FXML
+    private TextField textFieldCedulaCliente;
+
+    @FXML
+    private TextField textFieldCodigo;
+
+    @FXML
+    private TextField textFieldNombreSuplemento;
+
+    @FXML
+    public void initialize() {
+        for (MenuItem item : splitMenuButtonSucursal.getItems()) {
+            item.setOnAction(event -> {
+                splitMenuButtonSucursal.setText(item.getText());
+                splitMenuButtonSucursal.setStyle("-fx-text-fill: black;");
+            });
+        }
+    }
+
+    @FXML
     void cambiarVentanaClientes(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonClientes.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Registrar Cliente");
     }
@@ -88,4 +122,86 @@ public class ControladorCompraCreacion {
         MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Registrar Suscripción");
     }
 
+    @FXML
+    void registrarCompra(ActionEvent event) {
+            try {
+            if (!validarCampos()) return;
+
+            Suplemento suplemento = obtenerSuplemento();
+            if (suplemento == null) return;
+
+            int cantidadPedida = Integer.parseInt(textFieldCantidad.getText());
+
+            if (!validarCantidadDisponible(suplemento, cantidadPedida)) return;
+
+            Compra compra = new Compra(
+                Integer.parseInt(textFieldCodigo.getText()),
+                textFieldCedulaCliente.getText(),
+                suplemento.getNombre(),
+                cantidadPedida,
+                java.time.LocalDateTime.now(),
+                suplemento.getPrecio(),
+                splitMenuButtonSucursal.getText()
+            );
+
+            new CompraDAO().crearCompra(compra);
+
+            mostrarAlerta("Éxito", "Compra registrada correctamente.");
+            limpiarFormulario();
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error de formato", "Verifica que el código y la cantidad sean números válidos.");
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Ocurrió un error al registrar la compra:\n" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alerta = new Alert(AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
+    private void limpiarFormulario() {
+        textFieldCodigo.clear();
+        splitMenuButtonSucursal.setText("Escoja la sucursal"); 
+        textFieldCedulaCliente.clear();
+        textFieldNombreSuplemento.clear();
+        textFieldCantidad.clear();
+    }
+
+    private boolean validarCampos() {
+        if (textFieldCodigo.getText().isBlank() ||
+            textFieldCedulaCliente.getText().isBlank() ||
+            textFieldNombreSuplemento.getText().isBlank() ||
+            textFieldCantidad.getText().isBlank() ||
+            splitMenuButtonSucursal.getText().equals("Escoja la sucursal")) {
+            
+            mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos.");
+            return false;
+        }
+        return true;
+    }
+
+    private Suplemento obtenerSuplemento() throws Exception {
+        SuplementoDAO suplementoDAO = new SuplementoDAO();
+        Suplemento suplemento = suplementoDAO.buscarPorNombre(textFieldNombreSuplemento.getText());
+
+        if (suplemento == null) {
+            mostrarAlerta("Suplemento no encontrado", "El suplemento ingresado no existe.");
+            return null;
+        }
+        return suplemento;
+    }
+
+    private boolean validarCantidadDisponible(Suplemento suplemento, int cantidadPedida) {
+        if (cantidadPedida > suplemento.getCantidadDisponible()) {
+            mostrarAlerta("Cantidad excedida", "No hay suficiente cantidad disponible del suplemento.");
+            return false;
+        }
+        return true;
+    }
 }

@@ -195,10 +195,14 @@ public class ControladorSuplementoEliminacion {
     void eliminarSuplemento(ActionEvent event) {
         if (suplementoSeleccionado != null) {
             try {
-                suplementos.setAll(suplementoDAO.listarSuplementos());
-                tableSuplementos.setItems(suplementos);
-                suplementoSeleccionado = null;
+                suplementoDAO.eliminarSuplemento(suplementoSeleccionado.getIdSuplemento());
                 mostrarAlerta("Éxito", "Suplemento eliminado correctamente.");
+                suplementos.remove(suplementoSeleccionado);
+                if (tableSuplementos.getItems().isEmpty()) {
+                    suplementos.setAll(suplementoDAO.listarSuplementos());
+                    tableSuplementos.setItems(suplementos);
+                }
+                suplementoSeleccionado = null;
             } catch (Exception e) {
                 mostrarAlerta("Error", "Ocurrió un error al eliminar el suplemento.");
                 e.printStackTrace();

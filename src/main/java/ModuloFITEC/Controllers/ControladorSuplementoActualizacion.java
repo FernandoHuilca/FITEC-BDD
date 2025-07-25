@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -108,7 +109,21 @@ public class ControladorSuplementoActualizacion {
 
     @FXML
     public void initialize() {
-        textFieldCodigo.setEditable(false);
+        textFieldCodigo.setDisable(true);
+
+        for (MenuItem item : splitMenuButtonSucursal.getItems()) {
+            item.setOnAction(event -> {
+                splitMenuButtonSucursal.setText(item.getText());
+                splitMenuButtonSucursal.setStyle("-fx-text-fill: black;");
+            });
+        }
+
+        for (MenuItem item : splitMenuButtonCategoria.getItems()) {
+            item.setOnAction(event -> {
+                splitMenuButtonCategoria.setText(item.getText());
+                splitMenuButtonCategoria.setStyle("-fx-text-fill: black;");
+            });
+        }
         
         suplementos = FXCollections.observableArrayList();
 
@@ -190,8 +205,10 @@ public class ControladorSuplementoActualizacion {
         try {
             Suplemento suplemento = suplementoDAO.buscarPorNombre(textFieldNombreSuplemento.getText());
             if (suplemento != null) {
+                textFieldCodigo.setText(String.valueOf(suplemento.getIdSuplemento()));
                 splitMenuButtonSucursal.setText(suplemento.getIdSucursal());
                 textFieldNombre.setText(suplemento.getNombre());
+                splitMenuButtonCategoria.setStyle("-fx-text-fill: black;");
                 splitMenuButtonCategoria.setText(suplemento.getCategoria());
                 textFieldPrecio.setText(String.valueOf(suplemento.getPrecio()));
                 textFieldCantidad.setText(String.valueOf(suplemento.getCantidadDisponible()));
@@ -211,8 +228,10 @@ public class ControladorSuplementoActualizacion {
         limpiarFormulario();
         Suplemento suplemento = this.tableSuplementos.getSelectionModel().getSelectedItem();
         if (suplemento != null) {
+            textFieldCodigo.setText(String.valueOf(suplemento.getIdSuplemento()));
             splitMenuButtonSucursal.setText(suplemento.getIdSucursal());
             textFieldNombre.setText(suplemento.getNombre());
+            splitMenuButtonCategoria.setStyle("-fx-text-fill: black;");
             splitMenuButtonCategoria.setText(suplemento.getCategoria());
             textFieldPrecio.setText(String.valueOf(suplemento.getPrecio()));
             textFieldCantidad.setText(String.valueOf(suplemento.getCantidadDisponible()));
@@ -250,6 +269,9 @@ public class ControladorSuplementoActualizacion {
                 suplementoDAO.actualizarSuplemento(suplemento);
                 mostrarAlerta("Éxito", "Suplemento actualizado correctamente.");
                 limpiarFormulario();
+
+                suplementos.setAll(suplementoDAO.listarSuplementos());
+                tableSuplementos.setItems(suplementos);
             }
 
         } catch (NumberFormatException e) {

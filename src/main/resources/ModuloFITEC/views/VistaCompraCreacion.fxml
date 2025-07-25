@@ -2,6 +2,8 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
@@ -71,7 +73,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="328.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -82,7 +84,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="285.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -122,12 +124,12 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="331.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="287.0">
                <image>
                   <Image url="@../data/icono_suscripcion.png" />
                </image>
@@ -151,31 +153,42 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código" />
-            <Text fill="WHITE" layoutX="70.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente:" wrappingWidth="92.39996337890625">
+            <TextField fx:id="textFieldCodigo" layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código" />
+            <Text fill="WHITE" layoutX="70.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suplemento:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suplemento:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad: " wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad: " wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="153.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el número de cédula del cliente" />
-            <TextField layoutX="171.0" layoutY="204.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el nombre del suplemento" />
-            <TextField layoutX="171.0" layoutY="252.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese la cantidad disponible" />
-            <Button layoutX="239.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Registrar">
+            <TextField fx:id="textFieldCedulaCliente" layoutX="171.0" layoutY="191.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el número de cédula del cliente" />
+            <TextField fx:id="textFieldNombreSuplemento" layoutX="171.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el nombre del suplemento" />
+            <TextField fx:id="textFieldCantidad" layoutX="170.0" layoutY="288.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese la cantidad disponible" />
+            <Button layoutX="239.0" layoutY="336.0" mnemonicParsing="false" onAction="#registrarCompra" prefHeight="25.0" prefWidth="76.0" text="Registrar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="367.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
+            <Text fill="WHITE" layoutX="70.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sucursal:" wrappingWidth="92.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
+            <SplitMenuButton fx:id="splitMenuButtonSucursal" layoutX="171.0" layoutY="144.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="223.0" text="Escoja la sucursal" textFill="#00000047">
+              <items>
+                <MenuItem mnemonicParsing="false" text="QUITO_NORTE" />
+                <MenuItem mnemonicParsing="false" text="QUITO_SUR" />
+              </items>
+            </SplitMenuButton>
          </children>
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">

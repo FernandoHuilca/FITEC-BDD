@@ -2,6 +2,8 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -73,7 +75,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="328.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -84,7 +86,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="285.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -124,12 +126,12 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="331.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="287.0">
                <image>
                   <Image url="@../data/icono_suscripcion.png" />
                </image>
@@ -148,28 +150,42 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="70.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="67.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultar por:" wrappingWidth="103.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código" />
-            <Button layoutX="413.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="76.0" text="Actualizar">
+            <TextField fx:id="textFieldValorConsulta" layoutX="171.0" layoutY="138.0" prefHeight="25.0" prefWidth="223.0" />
+            <Button layoutX="413.0" layoutY="138.0" mnemonicParsing="false" onAction="#consultarCompras" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="367.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
-            <TableView layoutX="46.0" layoutY="184.0" prefHeight="200.0" prefWidth="444.0">
+            <TableView fx:id="tableCompras" layoutX="9.0" layoutY="187.0" prefHeight="234.0" prefWidth="481.0">
               <columns>
-                <TableColumn prefWidth="67.0" text="Código" />
-                <TableColumn prefWidth="90.0" text="Cédula Cliente" />
-                  <TableColumn prefWidth="130.0" text="Nombre Suplemento" />
-                  <TableColumn minWidth="6.0" prefWidth="59.0" text="Cantidad Comprada" />
-                  <TableColumn minWidth="0.0" prefWidth="97.0" text="Fecha Compra" />
-                  <TableColumn minWidth="0.0" prefWidth="0.0" text="Precio Compra" />
+                <TableColumn fx:id="columnCodigo" prefWidth="67.0" text="Código" />
+                <TableColumn fx:id="columnCedulaCliente" prefWidth="90.0" text="Cédula Cliente" />
+                  <TableColumn fx:id="columnNombreSuplemento" prefWidth="123.0" text="Nombre Suplemento" />
+                  <TableColumn fx:id="columnCantidadComprada" minWidth="6.0" prefWidth="66.0" text="Cantidad Comprada" />
+                  <TableColumn fx:id="columnFechaCompra" minWidth="0.0" prefWidth="133.0" text="Fecha Compra" />
+                  <TableColumn fx:id="columnPrecioCompra" prefWidth="55.0" text="Precio Compra" />
+                  <TableColumn fx:id="columnSucursal" minWidth="0.0" prefWidth="135.0" text="Sucursal" />
               </columns>
             </TableView>
+            <SplitMenuButton fx:id="splitMenuButtonSeleccion" layoutX="171.0" layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="223.0" text="Todo">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Todo" />
+                <MenuItem mnemonicParsing="false" text="Cliente" />
+                <MenuItem mnemonicParsing="false" text="Suplemento" />
+                <MenuItem mnemonicParsing="false" text="Sucursal" />
+              </items>
+            </SplitMenuButton>
+            <Text fx:id="textSeleccion" fill="WHITE" layoutX="67.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="103.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
