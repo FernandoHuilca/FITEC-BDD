@@ -150,7 +150,7 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="textFieldCodigo" layoutX="151.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código" />
+            <TextField fx:id="textFieldCodigoAConsultar" layoutX="151.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código" />
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="366.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
             <Button fx:id="buttonConsultar" layoutX="393.0" layoutY="98.0" mnemonicParsing="false" onAction="#consultarCodigo" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                <cursor>
@@ -159,14 +159,14 @@
             </Button>
             <TableView fx:id="tableViewSuscripcion" layoutX="37.0" layoutY="158.0" prefHeight="122.0" prefWidth="444.0">
               <columns>
-                <TableColumn fx:id="tableColumncodigo" editable="false" prefWidth="77.60003662109375" text="Código" />
+                <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="77.60003662109375" text="Código" />
                 <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="68.0" text="Tipo" />
                   <TableColumn fx:id="tableColumnDescripcion" editable="false" prefWidth="123.199951171875" text="Descripción" />
                   <TableColumn fx:id="tableColumnPrecio" editable="false" prefWidth="50.39996337890625" text="Precio" />
                   <TableColumn fx:id="tableColumnDuracion" editable="false" prefWidth="117.5999755859375" text="Duración (Meses)" />
               </columns>
             </TableView>
-            <Button fx:id="buttonEliminarFormulario" layoutX="221.0" layoutY="312.0" mnemonicParsing="false" onAction="#eliminarSuscripcionFormulario" prefHeight="25.0" prefWidth="76.0" text="Eliminar">
+            <Button fx:id="buttonEliminar" layoutX="221.0" layoutY="312.0" mnemonicParsing="false" onAction="#eliminarSuscripcionFormulario" prefHeight="25.0" prefWidth="76.0" text="Eliminar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

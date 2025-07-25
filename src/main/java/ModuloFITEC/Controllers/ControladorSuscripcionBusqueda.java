@@ -1,12 +1,17 @@
 package ModuloFITEC.Controllers;
 
+
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.Models.Suscripcion;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class ControladorSuscripcionBusqueda {
@@ -63,10 +68,38 @@ public class ControladorSuscripcionBusqueda {
     private TableColumn<?, ?> tableColumncodigo;
 
     @FXML
-    private TableView<?> tableViewSuscripcion;
+    private TableView<Suscripcion> tableViewSuscripcion;
 
     @FXML
     private TextField textFieldCodigo;
+
+    private SuscripcionesDAO suscripcionesDAO;
+
+    private javafx.collections.ObservableList<Suscripcion> suscripcionesList;
+
+    public ControladorSuscripcionBusqueda() {
+        this.suscripcionesDAO = new SuscripcionesDAO();
+    }
+
+    @FXML
+    void initialize() {
+        suscripcionesList = FXCollections.observableArrayList();
+
+        tableColumncodigo.setCellValueFactory(new PropertyValueFactory("idSuscripcion"));
+        tableColumnTipo.setCellValueFactory(new PropertyValueFactory("tipo"));
+        tableColumnDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        tableColumnPrecio.setCellValueFactory(new PropertyValueFactory("precio"));
+        tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
+
+        try {
+            suscripcionesList.addAll(suscripcionesDAO.listarSuscripciones());
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudieron cargar las suscripciones: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+        tableViewSuscripcion.setItems(suscripcionesList);
+    }
 
     @FXML
     void actualizarSuscripcion(ActionEvent event) {
@@ -111,8 +144,22 @@ public class ControladorSuscripcionBusqueda {
 
     @FXML
     void consultarCodigo(ActionEvent event) {
+        Suscripcion suscripcion = null;
 
+        int codigo = ControladorGeneral.obtenerCodigo(textFieldCodigo.getText());
+        if(codigo <= 0) {
+            return;
+        }
+
+        suscripcion = ControladorGeneral.obtenerSuscripcionPorCodigo(codigo);
+        if (suscripcion == null) {
+            return;
+        }
+        tableViewSuscripcion.getItems().clear();
+        suscripcionesList.add(suscripcion);
+        tableViewSuscripcion.setItems(suscripcionesList);
     }
+
 
     @FXML
     void consultarSuscripcion(ActionEvent event) {

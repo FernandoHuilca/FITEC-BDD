@@ -1,30 +1,35 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.Models.Suscripcion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class ControladorSuscripcionActualizacion {
 
     @FXML
-    private TableColumn<?, ?> TableColumnCantidadDisponible;
+    private TableColumn<?, ?> tableColumnPrecio;
 
     @FXML
-    private TableColumn<?, ?> TableColumnCodigo;
+    private TableColumn<?, ?> tableColumnCodigo;
 
     @FXML
-    private TableColumn<?, ?> TableColumnDescripcion;
+    private TableColumn<?, ?> tableColumnDescripcion;
 
     @FXML
-    private TableColumn<?, ?> TableColumnDuracion;
+    private TableColumn<?, ?> tableColumnDuracion;
 
     @FXML
-    private TableColumn<?, ?> TableColumnTipo;
+    private TableColumn<?, ?> tableColumnTipo;
 
     @FXML
     private Button buttonActualizarFormulario;
@@ -36,7 +41,7 @@ public class ControladorSuscripcionActualizacion {
     private Button buttonClientes;
 
     @FXML
-    private Button buttonConsultarFormulario;
+    private Button buttonConsultar;
 
     @FXML
     private Button buttonConsultarSuscripcion;
@@ -66,7 +71,7 @@ public class ControladorSuscripcionActualizacion {
     private Button buttonSuscripciones;
 
     @FXML
-    private TableView<?> tableViewSuscripcion;
+    private TableView<Suscripcion> tableViewSuscripcion;
 
     @FXML
     private TextField textFieldCodigoAConsultar;
@@ -83,6 +88,29 @@ public class ControladorSuscripcionActualizacion {
     @FXML
     private TextField textFieldTipo;
 
+    SuscripcionesDAO suscripcionesDAO;
+    
+    private ObservableList<Suscripcion> suscripcionesList;
+
+    private int codigoSuscripcionPorActualizar;
+
+    public ControladorSuscripcionActualizacion() {
+        this.suscripcionesDAO = new SuscripcionesDAO();
+        codigoSuscripcionPorActualizar = 0;
+    }
+
+    @FXML
+    void initialize() {
+                
+        this.suscripcionesList = FXCollections.observableArrayList();
+        
+        tableColumnCodigo.setCellValueFactory(new PropertyValueFactory("idSuscripcion"));
+        tableColumnTipo.setCellValueFactory(new PropertyValueFactory("tipo"));
+        tableColumnDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        tableColumnPrecio.setCellValueFactory(new PropertyValueFactory("precio"));
+        tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
+    }
+
     @FXML
     void actualizarSuscripcion(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarSuscripcion.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionActualizacion.fxml", "Actualizar Suscripción");
@@ -92,9 +120,49 @@ public class ControladorSuscripcionActualizacion {
     @FXML
     void buttonActualizarFormulario(ActionEvent event) {
 
+        if (codigoSuscripcionPorActualizar == 0) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, consulte una suscripción antes de actualizar.");
+            return;
+        }
+
+        if(textFieldCodigoAConsultar.getText().isEmpty() || textFieldTipo.getText().isEmpty() || textFieldDescripcion.getText().isEmpty() ||
+           textFieldPrecio.getText().isEmpty() || textFieldDuracion.getText().isEmpty()) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, complete todos los campos.");
+            return;
+        }
+
+        Suscripcion suscripcion = null;
+        try {
+            suscripcion = new Suscripcion(
+            codigoSuscripcionPorActualizar,
+            textFieldTipo.getText(),
+            textFieldDescripcion.getText(),
+            Double.parseDouble(textFieldPrecio.getText()),
+            Integer.parseInt(textFieldDuracion.getText())
+            );
+            if(suscripcion.getIdSuscripcion() <= 0 || suscripcion.getDuracionMeses() <= 0 || suscripcion.getPrecio() <= 0) {
+                MetodosFrecuentes.mostrarError("Error", "No se pueden ingresar valores negativos o cero.");
+                suscripcion = null;
+                return;
+            }
+
+            suscripcion = suscripcionesDAO.actualizarSuscripción(suscripcion);
+            if (suscripcion == null) {
+                MetodosFrecuentes.mostrarError("Error", "No se pudo actualizar la suscripción.");
+                return;
+            }
+            MetodosFrecuentes.mostrarInfo("Éxito", "Suscripción actualizada correctamente.");
+            tableViewSuscripcion.getItems().clear();
+            colocarSuscripcionEnTabla(suscripcion);
+
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo actualizar la suscripción: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
     }
 
-     @FXML
+    @FXML
     void cambiarVentanaClientes(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonClientes.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Clientes");
     }
@@ -132,7 +200,44 @@ public class ControladorSuscripcionActualizacion {
 
     @FXML
     void consultarFormulario(ActionEvent event) {
+        int codigo = ControladorGeneral.obtenerCodigo(textFieldCodigoAConsultar.getText());
+        
+        if (codigo <= 0) {
+            return;
+        }
 
+        Suscripcion suscripcion = ControladorGeneral.obtenerSuscripcionPorCodigo(codigo);
+        if (suscripcion == null) {
+            return;
+        }
+
+        tableViewSuscripcion.getItems().clear();
+        suscripcionesList.clear();
+
+        colocarSuscripcionEnTabla(suscripcion);
+        colocarVariablesEnCampos(suscripcion);
+        codigoSuscripcionPorActualizar = codigo;
+    }
+
+    private void colocarSuscripcionEnTabla(Suscripcion suscripcion) {
+        suscripcionesList.add(suscripcion);
+        tableViewSuscripcion.setItems(suscripcionesList);
+    }
+
+    private void limpiarCampos() {
+        textFieldCodigoAConsultar.clear();
+        textFieldTipo.clear();
+        textFieldDescripcion.clear();
+        textFieldPrecio.clear();
+        textFieldDuracion.clear();
+        codigoSuscripcionPorActualizar = 0;
+    }
+
+    private void colocarVariablesEnCampos(Suscripcion suscripcion) {
+        textFieldTipo.setText(suscripcion.getTipo());
+        textFieldDescripcion.setText(suscripcion.getDescripcion());
+        textFieldPrecio.setText(String.valueOf(suscripcion.getPrecio()));
+        textFieldDuracion.setText(String.valueOf(suscripcion.getDuracionMeses()));
     }
 
     @FXML

@@ -159,11 +159,11 @@
             </Button>
             <TableView fx:id="tableViewSuscripcion" layoutX="46.0" layoutY="198.0" prefHeight="200.0" prefWidth="432.0">
               <columns>
-                <TableColumn fx:id="tableColumncodigo" editable="false" prefWidth="77.60003662109375" text="Código" />
-                <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="68.0" text="Tipo" />
-                  <TableColumn fx:id="tableColumnDescripcion" editable="false" prefWidth="123.199951171875" text="Descripción" />
-                  <TableColumn fx:id="tableColumnPrecio" editable="false" prefWidth="50.39996337890625" text="Precio" />
-                  <TableColumn fx:id="tableColumnDuracion" editable="false" prefWidth="117.5999755859375" text="Duración (Meses)" />
+                <TableColumn fx:id="tableColumncodigo" editable="false" prefWidth="77.60003662109375" resizable="false" text="Código" />
+                <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="68.0" resizable="false" text="Tipo" />
+                  <TableColumn fx:id="tableColumnDescripcion" editable="false" prefWidth="123.199951171875" resizable="false" text="Descripción" />
+                  <TableColumn fx:id="tableColumnPrecio" editable="false" prefWidth="50.39996337890625" resizable="false" text="Precio" />
+                  <TableColumn fx:id="tableColumnDuracion" editable="false" prefWidth="117.5999755859375" resizable="false" text="Duración (Meses)" />
               </columns>
             </TableView>
          </children>

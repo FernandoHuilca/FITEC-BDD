@@ -181,18 +181,18 @@
                </font>
             </Text>
             <TextField fx:id="textFieldTipo" layoutX="171.0" layoutY="289.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
-            <Button fx:id="buttonConsultarFormulario" layoutX="404.0" layoutY="98.0" mnemonicParsing="false" onAction="#consultarFormulario" prefHeight="25.0" prefWidth="76.0" text="Consultar">
+            <Button fx:id="buttonConsultar" layoutX="404.0" layoutY="98.0" mnemonicParsing="false" onAction="#consultarFormulario" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <TableView fx:id="tableViewSuscripcion" layoutX="48.0" layoutY="138.0" prefHeight="134.0" prefWidth="431.0">
               <columns>
-                <TableColumn fx:id="TableColumnCodigo" editable="false" prefWidth="58.4000244140625" text="Código" />
-                  <TableColumn fx:id="TableColumnTipo" editable="false" prefWidth="60.00006103515625" text="Tipo" />
-                  <TableColumn fx:id="TableColumnDescripcion" editable="false" prefWidth="85.60003662109375" text="Descripción" />
-                  <TableColumn fx:id="TableColumnCantidadDisponible" editable="false" prefWidth="118.4000244140625" text="Cantidad Disponible" />
-                  <TableColumn fx:id="TableColumnDuracion" editable="false" prefWidth="109.5999755859375" text="Duración (Meses)" />
+                <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="58.4000244140625" resizable="false" text="Código" />
+                  <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="60.00006103515625" resizable="false" text="Tipo" />
+                  <TableColumn fx:id="tableColumnDescripcion" editable="false" prefWidth="143.20001220703125" resizable="false" text="Descripción" />
+                  <TableColumn fx:id="tableColumnPrecio" editable="false" prefWidth="48.0" resizable="false" text="Precio" />
+                  <TableColumn fx:id="tableColumnDuracion" editable="false" prefWidth="125.60003662109375" resizable="false" text="Duración (Meses)" />
               </columns>
             </TableView>
          </children>
