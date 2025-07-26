@@ -1,6 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.DAOGeneral;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.FXCollections;
@@ -14,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class ControladorSuscripcionActualizacion {
+public class ControladorSuscripcionActualizacion extends ControladorGeneral<Suscripcion> {
 
     @FXML
     private TableColumn<?, ?> tableColumnPrecio;
@@ -143,14 +144,13 @@ public class ControladorSuscripcionActualizacion {
                 return;
             }
 
-            suscripcion = SuscripcionDAO.getInstancia().actualizarSuscripción(suscripcion);
+            suscripcion = SuscripcionDAO.getInstancia().actualizar(suscripcion);
             if (suscripcion == null) {
                 MetodosFrecuentes.mostrarError("Error", "No se pudo actualizar la suscripción.");
                 return;
             }
             MetodosFrecuentes.mostrarInfo("Éxito", "Suscripción actualizada correctamente.");
-            tableViewSuscripcion.getItems().clear();
-            colocarSuscripcionEnTabla(suscripcion);
+            colocarObjetoEnTabla(suscripcion, suscripcionesList, tableViewSuscripcion);
 
         } catch (Exception e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudo actualizar la suscripción: " + e.getMessage());
@@ -197,37 +197,25 @@ public class ControladorSuscripcionActualizacion {
 
     @FXML
     void consultarFormulario(ActionEvent event) {
-        int codigo = ControladorGeneral.obtenerCodigo(textFieldCodigoAConsultar.getText());
+        /*int codigo = obtenerCodigoDeTextField(textFieldCodigoAConsultar.getText());
         
         if (codigo <= 0) {
             return;
         }
-
-        Suscripcion suscripcion = ControladorGeneral.obtenerSuscripcionPorCodigo(codigo);
+        Suscripcion suscripcion = obtenerObjetoPorCodigo(codigo, SuscripcionDAO.getInstancia(), "SUSCRIPCION", "IDSUSCRIPCION");
         if (suscripcion == null) {
             return;
         }
 
-        tableViewSuscripcion.getItems().clear();
-        suscripcionesList.clear();
-
-        colocarSuscripcionEnTabla(suscripcion);
+        colocarObjetoEnTabla(suscripcion, suscripcionesList, tableViewSuscripcion);*/
+        Suscripcion suscripcion = mostrarEnTabla(textFieldCodigoAConsultar, SuscripcionDAO.getInstancia(), "SUSCRIPCION", "IDSUSCRIPCION", suscripcionesList, tableViewSuscripcion);
+        
+        if (suscripcion == null) {
+            return;
+        }
+        
         colocarVariablesEnCampos(suscripcion);
-        codigoSuscripcionPorActualizar = codigo;
-    }
-
-    private void colocarSuscripcionEnTabla(Suscripcion suscripcion) {
-        suscripcionesList.add(suscripcion);
-        tableViewSuscripcion.setItems(suscripcionesList);
-    }
-
-    private void limpiarCampos() {
-        textFieldCodigoAConsultar.clear();
-        textFieldTipo.clear();
-        textFieldDescripcion.clear();
-        textFieldPrecio.clear();
-        textFieldDuracion.clear();
-        codigoSuscripcionPorActualizar = 0;
+        codigoSuscripcionPorActualizar = suscripcion.getIdSuscripcion();
     }
 
     private void colocarVariablesEnCampos(Suscripcion suscripcion) {

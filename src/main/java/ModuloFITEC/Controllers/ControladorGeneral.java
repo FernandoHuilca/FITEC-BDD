@@ -1,48 +1,45 @@
 package ModuloFITEC.Controllers;
-
-import java.util.Observable;
-
 import MetodosGlobales.MetodosFrecuentes;
-import ModuloFITEC.logic.DAOs.SuscripcionDAO;
-import ModuloFITEC.logic.Models.Suscripcion;
+import ModuloFITEC.logic.DAOs.DAOGeneral;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
-public class ControladorGeneral {
+public class ControladorGeneral<T> {
 
-    public static Suscripcion obtenerSuscripcionPorCodigo(int codigo) {
-        Suscripcion suscripcion;
+    public T obtenerObjetoPorCodigo(int codigo, DAOGeneral<T> dao, String nombreTabla, String nombreColumna) {
+        T objeto;
         try {
-            suscripcion = SuscripcionDAO.getInstancia().buscarPorCodigo(codigo);
+            objeto = dao.buscarPorCodigo(codigo, nombreTabla, nombreColumna);
         } catch (Exception e) {
-            MetodosFrecuentes.mostrarError("Error", "No se pudo consultar la suscripción: " + e.getMessage());
-            System.out.println("Error al consultar la suscripción: " + e.getMessage());
+            MetodosFrecuentes.mostrarError("Error", "No se pudo realizar la consulta: " + e.getMessage());
+            System.out.println("Error al realizar la consulta: " + e.getMessage());
             return null;
         }
 
-        if (suscripcion == null) {
-            MetodosFrecuentes.mostrarError("Error", "Suscripción no encontrada");
+        if (objeto == null) {
+            MetodosFrecuentes.mostrarError("Error", "Información no encontrada");
             return null;
         }
-        
-        MetodosFrecuentes.mostrarInfo("Información", "Suscripción encontrada: " + suscripcion.getTipo());
-        return suscripcion;
+
+        //MetodosFrecuentes.mostrarInfo("Información", "Información encontrada");
+        return objeto;
     }
 
-    public static int obtenerCodigo(String textFieldCodigo) {
-        if (textFieldCodigo.isEmpty()) {
+    public int obtenerCodigoDeTextField(String textFieldCodigo) {
+        textFieldCodigo = textFieldCodigo.strip();
+        if (textFieldCodigo.strip().isEmpty() || textFieldCodigo.strip().isBlank() || textFieldCodigo == null) {
             MetodosFrecuentes.mostrarError("Error", "Por favor, ingrese un código.");
             return 0;
         }
 
         try {
-            int codigo = Integer.parseInt(textFieldCodigo);
+            int codigo = Integer.parseInt(textFieldCodigo.strip());
             if (codigo <= 0) {
                 MetodosFrecuentes.mostrarError("Error", "El código debe ser un número positivo.");
                 return 0;
             }
+            MetodosFrecuentes.mostrarInfo("Información", "Código obtenido correctamente.");
             return codigo;
             
         } catch (NumberFormatException e) {
@@ -51,4 +48,26 @@ public class ControladorGeneral {
         }
     }
 
+    public void colocarObjetoEnTabla(T objetoT, ObservableList<T> lista, TableView<T> tabla) {
+        tabla.getItems().clear();
+        lista.add(objetoT);
+        tabla.setItems(lista);
+    }
+
+    T mostrarEnTabla(TextField textFieldCodigo, DAOGeneral<T> dao, String nombreTabla, String nombreColumna, ObservableList<T> lista, TableView<T> tableView) {
+        int codigo = obtenerCodigoDeTextField(textFieldCodigo.getText().strip());
+        if (codigo <= 0) {
+            return null;
+        }
+
+        T objeto = obtenerObjetoPorCodigo(codigo, dao, nombreTabla, nombreColumna);
+        if (objeto == null) {
+            return null;
+        }
+
+        colocarObjetoEnTabla(objeto, lista, tableView);
+
+        return objeto;
+        
+    }
 }

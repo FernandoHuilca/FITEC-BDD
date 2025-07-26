@@ -1,15 +1,11 @@
 package ModuloFITEC.logic.DAOs;
-
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.Models.Suscripcion;
 
-public class SuscripcionDAO {
+public class SuscripcionDAO extends DAOGeneral<Suscripcion> implements InterfaceDAOCreacion<Suscripcion>, InterfaceDAOActualizacion<Suscripcion> {
 
     private static SuscripcionDAO instancia;
 
@@ -23,7 +19,8 @@ public class SuscripcionDAO {
         return instancia;
     }
 
-    public void crearSuscripcion(Suscripcion suscripcion) throws Exception {
+    /*
+    public void crearSuscripcion(Suscripcion suscripcion) throws SQLException {
 
         String consulta = 
         """
@@ -54,7 +51,7 @@ public class SuscripcionDAO {
         try {
             rs = ConexionBaseSingleton.getInstancia().ejecutarConsulta(consulta);
             return rs.next() ? mapear(rs) : null;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new Exception("Error al buscar suscripción por ID: " + e.getMessage(), e);
         } finally {
             ConexionBaseSingleton.cerrarRecursos(rs, st);
@@ -77,13 +74,86 @@ public class SuscripcionDAO {
                 suscripcionesList.add(suscripcion);
             }
             return suscripcionesList;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new Exception("Error al listar suscripciones: " + e.getMessage(), e);
         } finally {
             ConexionBaseSingleton.cerrarRecursos(rs, st);
         }
     }
+        */
 
+
+    /* 
+    public Suscripcion actualizarSuscripcion(Suscripcion suscripcion) throws Exception {
+        String consulta = 
+        """
+        SET XACT_ABORT ON;
+        UPDATE SUSCRIPCION
+        SET TIPO = '%S', DESCRIPCION = '%s', PRECIO = %.2f, DURACIONMESES = %d
+        WHERE IDSUSCRIPCION = %d
+        """.formatted(
+            entidadT.getTipo(),
+            entidadT.getDescripcion(),
+            entidadT.getPrecio(),
+            entidadT.getDuracionMeses(),
+            entidadT.getIdSuscripcion()
+        );
+
+        ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
+
+        return buscarPorCodigo(entidadT.getIdSuscripcion());
+        
+    }*/
+
+    /* 
+    public void eliminarPorCodigo(int codigoSuscripcionPorEliminar) throws SQLException {
+        String consulta =
+        """ 
+        DELETE SUSCRIPCION WHERE IDSUSCRIPCION = %d
+        """.formatted(codigoSuscripcionPorEliminar);
+        ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
+    }*/
+
+    @Override
+    public Suscripcion actualizar(Suscripcion entidadT) throws Exception {
+        String consulta = 
+        """
+        SET XACT_ABORT ON;
+        UPDATE SUSCRIPCION
+        SET TIPO = '%S', DESCRIPCION = '%s', PRECIO = %.2f, DURACIONMESES = %d
+        WHERE IDSUSCRIPCION = %d
+        """.formatted(
+            entidadT.getTipo(),
+            entidadT.getDescripcion(),
+            entidadT.getPrecio(),
+            entidadT.getDuracionMeses(),
+            entidadT.getIdSuscripcion()
+        );
+
+        ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
+
+        return entidadT;
+    }
+
+    @Override
+    public void crear(Suscripcion entidadT) throws SQLException {
+        String consulta = 
+        """
+        SET XACT_ABORT ON;
+        INSERT INTO SUSCRIPCION (IDSUSCRIPCION, TIPO, DESCRIPCION, PRECIO, DURACIONMESES) 
+        VALUES (%d, '%s', '%s', %.2f, %d)
+        """.formatted(
+            entidadT.getIdSuscripcion(),
+            entidadT.getTipo(),
+            entidadT.getDescripcion(),
+            entidadT.getPrecio(),
+            entidadT.getDuracionMeses()
+        );
+
+        ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
+    }
+
+    @Override
     public Suscripcion mapear(ResultSet rs) throws SQLException {
         Suscripcion suscripcion = new Suscripcion(
             rs.getInt("IDSUSCRIPCION"),
@@ -93,34 +163,6 @@ public class SuscripcionDAO {
             rs.getInt("DURACIONMESES")
         );
         return suscripcion;
-    }
-
-    public Suscripcion actualizarSuscripción(Suscripcion suscripcion) throws Exception {
-        String consulta = 
-        """
-        SET XACT_ABORT ON;
-        UPDATE SUSCRIPCION
-        SET TIPO = '%S', DESCRIPCION = '%s', PRECIO = %.2f, DURACIONMESES = %d
-        WHERE IDSUSCRIPCION = %d
-        """.formatted(
-            suscripcion.getTipo(),
-            suscripcion.getDescripcion(),
-            suscripcion.getPrecio(),
-            suscripcion.getDuracionMeses(),
-            suscripcion.getIdSuscripcion()
-        );
-
-        ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
-
-        return buscarPorCodigo(suscripcion.getIdSuscripcion());
-    }
-
-    public void eliminarPorCodigo(int codigoSuscripcionPorEliminar) throws SQLException {
-        String consulta =
-        """ 
-        DELETE SUSCRIPCION WHERE IDSUSCRIPCION = %d
-        """.formatted(codigoSuscripcionPorEliminar);
-        ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
     }
     
 }

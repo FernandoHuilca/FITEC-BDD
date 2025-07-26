@@ -1,10 +1,11 @@
 package ModuloFITEC.Controllers;
 
 import java.sql.SQLException;
-import java.util.Observable;
-
+import java.util.List;
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.ClienteDAO;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
+import ModuloFITEC.logic.Models.Cliente;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,9 +16,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ControladorSuscripcionEliminacion {
+public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscripcion>{
 
     @FXML
     private Button buttonActualizarSuscripcion;
@@ -84,9 +86,7 @@ public class ControladorSuscripcionEliminacion {
 
     private int codigoSuscripcionPorEliminar;
 
-    public ControladorSuscripcionEliminacion() {
-        // Constructor vacío
-        //this.suscripcionesDAO = new SuscripcionDAO();
+    public ControladorSuscripcionEliminacion(){
         codigoSuscripcionPorEliminar = 0;
     }
 
@@ -146,19 +146,8 @@ public class ControladorSuscripcionEliminacion {
     @FXML
     void consultarCodigo(ActionEvent event) {
 
-        int codigo = ControladorGeneral.obtenerCodigo(textFieldCodigoAConsultar.getText());
-        if (codigo <= 0) {
-            return;
-        }
-        Suscripcion suscripcion = ControladorGeneral.obtenerSuscripcionPorCodigo(codigo);
-        if (suscripcion == null) {
-            return;
-        }
-        tableViewSuscripcion.getItems().clear();
-        suscripcionesList.add(suscripcion);
-        tableViewSuscripcion.setItems(suscripcionesList);
-
-        codigoSuscripcionPorEliminar = codigo;
+        Suscripcion suscripcion = mostrarEnTabla(textFieldCodigoAConsultar, SuscripcionDAO.getInstancia(), "SUSCRIPCION", "IDSUSCRIPCION", suscripcionesList, tableViewSuscripcion);
+        codigoSuscripcionPorEliminar = suscripcion != null ? suscripcion.getIdSuscripcion() : 0;
     }
 
      @FXML
@@ -173,11 +162,29 @@ public class ControladorSuscripcionEliminacion {
             return;
         }
 
-        
+        List<Cliente> listaClientes = null;
+        try {
+            listaClientes = ClienteDAO.getInstancia().getListaClientesDB();
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo obtener la lista de clientes.");
+            e.printStackTrace();
+            System.out.println("Error al obtener la lista de clientes: " + e.getMessage());
+            return;
+        }
+
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getIdSuscripcion() == codigoSuscripcionPorEliminar) {
+                MetodosFrecuentes.mostrarError("Error", "No se puede eliminar la suscripción porque está asociada a un cliente.");
+                return;
+            }
+        }
 
         try {
-            SuscripcionDAO.getInstancia().eliminarPorCodigo(codigoSuscripcionPorEliminar);
+            SuscripcionDAO.getInstancia().eliminarPorCodigo(codigoSuscripcionPorEliminar, "SUSCRIPCION", "IDSUSCRIPCION");
             MetodosFrecuentes.mostrarInfo("Éxito", "Suscripción eliminada correctamente.");
+            textFieldCodigoAConsultar.clear();
+            codigoSuscripcionPorEliminar = 0;
+            tableViewSuscripcion.getItems().clear();
         } catch (SQLException e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudo eliminar la suscripción.");
         }
