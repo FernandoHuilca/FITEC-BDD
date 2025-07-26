@@ -6,7 +6,7 @@ import java.util.List;
 
 import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.logic.DAOs.ClienteDAO;
-import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Cliente;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.fxml.FXML;
@@ -56,7 +56,7 @@ public class ControladorClienteCreacion {
     private void cargarSuscripciones() {
         splitMenuSuscripcion.getItems().clear();
         try {
-            List<Suscripcion> suscripciones = new SuscripcionesDAO().listarSuscripciones();
+            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listarSuscripciones();
             for (Suscripcion s : suscripciones) {
                 MenuItem item = new MenuItem(s.getTipo());
                 // Al seleccionar, guarda el id en la variable y actualiza el texto
