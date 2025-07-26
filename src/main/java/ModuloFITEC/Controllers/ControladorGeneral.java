@@ -3,7 +3,7 @@ package ModuloFITEC.Controllers;
 import java.util.Observable;
 
 import MetodosGlobales.MetodosFrecuentes;
-import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
@@ -12,12 +12,10 @@ import javafx.scene.text.Text;
 
 public class ControladorGeneral {
 
-    private static SuscripcionesDAO suscripcionesDAO = new SuscripcionesDAO();
-
     public static Suscripcion obtenerSuscripcionPorCodigo(int codigo) {
         Suscripcion suscripcion;
         try {
-            suscripcion = suscripcionesDAO.buscarPorCodigo(codigo);
+            suscripcion = SuscripcionDAO.getInstancia().buscarPorCodigo(codigo);
         } catch (Exception e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudo consultar la suscripción: " + e.getMessage());
             System.out.println("Error al consultar la suscripción: " + e.getMessage());
