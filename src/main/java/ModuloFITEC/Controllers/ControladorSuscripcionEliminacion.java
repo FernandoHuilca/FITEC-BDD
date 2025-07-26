@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 import MetodosGlobales.MetodosFrecuentes;
-import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,13 +81,12 @@ public class ControladorSuscripcionEliminacion {
 
     ObservableList<Suscripcion> suscripcionesList;
 
-    private SuscripcionesDAO suscripcionesDAO;
 
     private int codigoSuscripcionPorEliminar;
 
     public ControladorSuscripcionEliminacion() {
         // Constructor vacío
-        this.suscripcionesDAO = new SuscripcionesDAO();
+        //this.suscripcionesDAO = new SuscripcionDAO();
         codigoSuscripcionPorEliminar = 0;
     }
 
@@ -174,8 +173,10 @@ public class ControladorSuscripcionEliminacion {
             return;
         }
 
+        
+
         try {
-            suscripcionesDAO.eliminarPorCodigo(codigoSuscripcionPorEliminar);
+            SuscripcionDAO.getInstancia().eliminarPorCodigo(codigoSuscripcionPorEliminar);
             MetodosFrecuentes.mostrarInfo("Éxito", "Suscripción eliminada correctamente.");
         } catch (SQLException e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudo eliminar la suscripción.");

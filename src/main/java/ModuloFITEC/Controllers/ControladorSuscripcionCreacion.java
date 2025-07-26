@@ -1,7 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
-import ModuloFITEC.logic.DAOs.SuscripcionesDAO;
+import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,12 +61,6 @@ public class ControladorSuscripcionCreacion {
 
     @FXML
     private TextField textFieldTipo;
-
-    private SuscripcionesDAO suscripcionesDAO;
-
-    public ControladorSuscripcionCreacion() {
-        this.suscripcionesDAO = new SuscripcionesDAO();
-    }
 
     @FXML
     void initialize() {
@@ -136,7 +130,7 @@ public class ControladorSuscripcionCreacion {
         try {
             int codigo = Integer.parseInt(textFieldCodigo.getText());
 
-            if (suscripcionesDAO.buscarPorCodigo(codigo) != null) {
+            if (SuscripcionDAO.getInstancia().buscarPorCodigo(codigo) != null) {
                 MetodosFrecuentes.mostrarError("Error", "La suscripción con el código " + codigo + " ya existe.");
                 return;
             }
@@ -147,7 +141,7 @@ public class ControladorSuscripcionCreacion {
             int duracion = Integer.parseInt(textFieldDuracion.getText());
 
             Suscripcion suscripcion = new Suscripcion(codigo, tipo, descripcion, precio, duracion);
-            suscripcionesDAO.crearSuscripcion(suscripcion);
+            SuscripcionDAO.getInstancia().crearSuscripcion(suscripcion);
 
         } catch (NumberFormatException e) {
             MetodosFrecuentes.mostrarError("Error", "Por favor, ingrese valores numéricos válidos para precio y duración.");
