@@ -235,4 +235,21 @@ public class CompraDAO {
         while (rs.next()) lista.add(mapear(rs));
         return lista;
     }
+
+    public boolean existeCompraPorCedula(String cedulaCliente) throws Exception {
+        String sql = "SELECT COUNT(*) FROM COMPRA WHERE CEDULACLIENTE = ?";
+        java.sql.PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = db.getConexion().prepareStatement(sql);
+            ps.setString(1, cedulaCliente);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
+        } finally {
+            ConexionBaseSingleton.cerrarRecursos(rs, ps);
+        }
+    }
 }
