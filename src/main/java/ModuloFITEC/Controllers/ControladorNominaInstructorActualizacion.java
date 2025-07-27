@@ -3,6 +3,7 @@ package ModuloFITEC.Controllers;
 import java.util.Observable;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.NominaInstructor;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorNominaInstructorActualizacion extends ControladorGeneral<NominaInstructor> {
@@ -89,6 +91,25 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
     }
 
     @FXML
+    private Text textNombreServidor;
+
+    ObservableList<NominaInstructor> listaNominaInstructores;
+
+    private String cedulaInstructorPorActualizar;
+
+    public ControladorNominaInstructorActualizacion() {
+        listaNominaInstructores = FXCollections.observableArrayList();
+        cedulaInstructorPorActualizar = "0";
+    }
+    @FXML
+    void initialize(){
+        tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
+        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacionSimple"));
+        tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+    }
+
+    @FXML
     void actualizarFormulario(ActionEvent event) {
 
         if(cedulaInstructorPorActualizar.strip().isEmpty() || cedulaInstructorPorActualizar.strip().isBlank() ||  cedulaInstructorPorActualizar == null || cedulaInstructorPorActualizar.equals("0")) {
@@ -126,12 +147,12 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
 
     @FXML
     void actualizarNomina(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorActualizacion.fxml", "Actualizar Nomina");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorActualizacion.fxml", "Actualizar Nómina");
     }
 
     @FXML
     void consultarNomina(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Consultar Nomina");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Consultar Nómina");
 
     }
 
@@ -152,6 +173,7 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
 
     @FXML
     void cambiarVentanaInstructores(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructores");
         System.out.println("Instructores button clicked");
     }
 
@@ -179,7 +201,6 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
         if (nominaInstructor == null) {
             return;
         }
-        
         colocarVariablesEnCampos(nominaInstructor);
         cedulaInstructorPorActualizar = nominaInstructor.getCedulaInstructor();
     }

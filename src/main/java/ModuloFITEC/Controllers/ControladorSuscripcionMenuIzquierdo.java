@@ -5,21 +5,20 @@ import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ControladorInicio {
-
-    @FXML
-    private Button buttonInicio;
+public class ControladorSuscripcionMenuIzquierdo {
 
     @FXML
     private Button buttonClientes;
 
     @FXML
     private Button buttonHistorialDeCompras;
+
+    @FXML
+    private Button buttonInicio;
 
     @FXML
     private Button buttonInstructores;
@@ -39,7 +38,7 @@ public class ControladorInicio {
     @FXML
     private Text textNombreServidor;
 
-    @FXML
+     @FXML
     void initialize() {
         // No es necesario inicializar nada aquí
         buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
@@ -66,8 +65,6 @@ public class ControladorInicio {
     void cambiarVentanaInstructores(ActionEvent event) {
         System.out.println("Instructores button clicked");
         MetodosFrecuentes.cambiarVentana((Stage) buttonInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructores");
-
-        
     }
 
     @FXML
@@ -84,4 +81,5 @@ public class ControladorInicio {
     void cambiarVentanaSuscripciones(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Suscripciones");
     }
+
 }

@@ -1,5 +1,4 @@
 package ModuloFITEC.logic.Models;
-
 import java.net.FileNameMap;
 
 public class Suscripcion {
