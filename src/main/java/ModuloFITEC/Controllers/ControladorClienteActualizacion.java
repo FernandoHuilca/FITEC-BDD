@@ -109,7 +109,7 @@ public class ControladorClienteActualizacion {
     private void cargarSuscripciones() {
         tipoSuscripcionMenu.getItems().clear();
         try {
-            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listarSuscripciones();
+            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listar("SUSCRIPCION");
             for (Suscripcion s : suscripciones) {
                 MenuItem item = new MenuItem(s.getTipo());
                 item.setOnAction(e -> {
@@ -144,7 +144,7 @@ public class ControladorClienteActualizacion {
 
     private String obtenerTipoSuscripcionPorId(int idSuscripcion) {
         try {
-            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listarSuscripciones();
+            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listar("SUSCRIPCION");
             for (Suscripcion s : suscripciones) {
                 if (s.getIdSuscripcion() == idSuscripcion) {
                     return s.getTipo();

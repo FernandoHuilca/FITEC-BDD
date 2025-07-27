@@ -126,12 +126,12 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
 
     @FXML
     void actualizarNomina(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorActualizacion.fxml", "Actualizar Nomina");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorActualizacion.fxml", "Actualizar Nómina");
     }
 
     @FXML
     void consultarNomina(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Consultar Nomina");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Consultar Nómina");
 
     }
 
@@ -152,6 +152,7 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
 
     @FXML
     void cambiarVentanaInstructores(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructores");
         System.out.println("Instructores button clicked");
     }
 

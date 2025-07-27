@@ -56,7 +56,7 @@ public class ControladorClienteCreacion {
     private void cargarSuscripciones() {
         splitMenuSuscripcion.getItems().clear();
         try {
-            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listarSuscripciones();
+            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listar("SUSCRIPCION");
             for (Suscripcion s : suscripciones) {
                 MenuItem item = new MenuItem(s.getTipo());
                 // Al seleccionar, guarda el id en la variable y actualiza el texto

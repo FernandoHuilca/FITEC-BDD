@@ -42,9 +42,6 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
     private Button buttonActualizarSuscripcion;
 
     @FXML
-    private Button buttonClientes;
-
-    @FXML
     private Button buttonConsultar;
 
     @FXML
@@ -53,26 +50,9 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
     @FXML
     private Button buttonEliminarSuscripcion;
 
-    @FXML
-    private Button buttonHistorialDeCompras;
-
-    @FXML
-    private Button buttonInicio;
-
-    @FXML
-    private Button buttonInstructores;
-
-    @FXML
-    private Button buttonNominaInstructores;
 
     @FXML
     private Button buttonRegistrarSuscripcion;
-
-    @FXML
-    private Button buttonSuplementos;
-
-    @FXML
-    private Button buttonSuscripciones;
 
     @FXML
     private TableView<Suscripcion> tableViewSuscripcion;
@@ -96,8 +76,8 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
 
     private int codigoSuscripcionPorActualizar;
 
-    @FXML
-    private ImageView imageViewNomina;
+    //@FXML
+    //private ImageView imageViewNomina;
 
     public ControladorSuscripcionActualizacion() {
         codigoSuscripcionPorActualizar = 0;
@@ -114,8 +94,8 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
         tableColumnPrecio.setCellValueFactory(new PropertyValueFactory("precio"));
         tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
 
-        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
-        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        //buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        //imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     @FXML
@@ -168,42 +148,7 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
         }
     }
 
-    @FXML
-    void cambiarVentanaClientes(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonClientes.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Clientes");
-    }
-
-    @FXML
-    void cambiarVentanaHistorialDeCompras(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaCompraCreacion.fxml", "Historial de Compras");
-    }
-
-    @FXML
-    void cambiarVentanaInicio(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonInicio.getScene().getWindow(), "/ModuloFITEC/views/VistaInicio.fxml", "Inicio");
-    }
-
-    @FXML
-    void cambiarVentanaInstructores(ActionEvent event) {
-        System.out.println("Instructores button clicked");
-        //MetodosFrecuentes.cambiarVentana((Stage) buttonInstructores.getScene().getWindow(), "/ModuloFITEC/views/In.fxml", "Instructores");
-    }
-
-    @FXML
-    void cambiarVentanaNominaInstructores(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Nómina de Instructores");
-    }
-
-    @FXML
-    void cambiarVentanaSuplementos(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonSuplementos.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoCreacion.fxml", "Suplementos");
-    }
-
-    @FXML
-    void cambiarVentanaSuscripciones(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Suscripciones");
-    }
-
+   
     @FXML
     void consultarFormulario(ActionEvent event) {
         /*int codigo = obtenerCodigoDeTextField(textFieldCodigoAConsultar.getText());
