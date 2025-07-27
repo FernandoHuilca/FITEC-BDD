@@ -75,21 +75,6 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
     @FXML
     private TextField textFieldSalario;
 
-    ObservableList<NominaInstructor> listaNominaInstructores;
-
-    private String cedulaInstructorPorActualizar;
-
-    public ControladorNominaInstructorActualizacion() {
-        listaNominaInstructores = FXCollections.observableArrayList();
-        cedulaInstructorPorActualizar = "0";
-    }
-    @FXML
-    void initialize(){
-        tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
-        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacion"));
-        tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
-    }
-
     @FXML
     private Text textNombreServidor;
 
@@ -126,9 +111,9 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
 
         try {
             nominaInstructor = new NominaInstructor(
-                textFieldCedula.getText().strip(),
-                Double.parseDouble(textFieldSalario.getText().strip()),
-                datePickerFechaContratacion.getValue().atStartOfDay()
+                    textFieldCedula.getText().strip(),
+                    Double.parseDouble(textFieldSalario.getText().strip()),
+                    datePickerFechaContratacion.getValue().atStartOfDay()
             );
 
             if(nominaInstructor.getSalario() <= 0) {
@@ -182,7 +167,7 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
         MetodosFrecuentes.cambiarVentana((Stage) buttonSuplementos.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoCreacion.fxml", "Suplementos");
     }
 
-    
+
     @FXML
     void cambiarVentanaNominaInstructores(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Nomina Instructores");
@@ -195,9 +180,9 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
 
     @FXML
     void consultarFormulario(ActionEvent event) {
-        
+
         NominaInstructor nominaInstructor = mostrarEnTabla(textFieldCedula, NominaInstructorDAO.getInstancia(), "NOMINA_INSTRUCTOR", "CEDULAINSTRUCTOR", listaNominaInstructores, tableViewNomina);
-        
+
         if (nominaInstructor == null) {
             return;
         }
@@ -210,5 +195,5 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
         datePickerFechaContratacion.setValue(nominaInstructor.getFechaContratacion().toLocalDate());
         textFieldSalario.setText(String.valueOf(nominaInstructor.getSalario()));
     }
-        
+
 }
