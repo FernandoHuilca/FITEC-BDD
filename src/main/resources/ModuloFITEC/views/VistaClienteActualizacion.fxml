@@ -117,18 +117,18 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="190.0" layoutY="286.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
-            <TextField layoutX="190.0" layoutY="321.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el apellido" />
-            <TextField layoutX="191.0" layoutY="357.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el teléfono" />
-            <TextField layoutX="190.0" layoutY="395.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el e-mail" />
-            <TextField layoutX="190.0" layoutY="472.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la dirreción" />
-            <SplitMenuButton layoutX="191.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja el tipo de suscripción" textFill="#00000048">
+            <TextField fx:id="nombreField" layoutX="190.0" layoutY="286.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
+            <TextField fx:id="apellidoField" layoutX="190.0" layoutY="321.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el apellido" />
+            <TextField fx:id="telefonoField" layoutX="191.0" layoutY="357.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el teléfono" />
+            <TextField fx:id="emailField" layoutX="190.0" layoutY="395.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el e-mail" />
+            <TextField fx:id="direccionField" layoutX="190.0" layoutY="472.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la dirreción" />
+            <SplitMenuButton fx:id="tipoSuscripcionMenu" layoutX="191.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja el tipo de suscripción" textFill="#00000048">
                <items>
                   <MenuItem mnemonicParsing="false" text="Action 1" />
                   <MenuItem mnemonicParsing="false" text="Action 2" />
                </items>
             </SplitMenuButton>
-            <DatePicker layoutX="190.0" layoutY="435.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la fecha de nacimiento" />
+            <DatePicker fx:id="fechaNacimientoPicker" layoutX="190.0" layoutY="435.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la fecha de nacimiento" />
             <Button fx:id="buttonActualizarFormulario" layoutX="252.0" layoutY="520.0" mnemonicParsing="false" onAction="#actualizarFormulario" prefHeight="25.0" prefWidth="76.0" text="Actualizar">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -154,10 +154,10 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <SplitMenuButton layoutX="190.0" layoutY="249.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja la sucursal" textFill="#00000048">
+            <SplitMenuButton fx:id="splitMenuSucursal" layoutX="190.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja la sucursal" textFill="#00000048">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
+                  <MenuItem mnemonicParsing="false" text="QUITO_SUR" />
+                  <MenuItem mnemonicParsing="false" text="QUITO_NORTE" />
                </items>
             </SplitMenuButton>
             </children>

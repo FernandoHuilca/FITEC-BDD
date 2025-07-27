@@ -99,18 +99,20 @@ public class ControladorClienteBusqueda implements Initializable {
     @FXML
     private void cambiarVentanaSuplementos() {
         System.out.println("🔄 Cambiando a pestaña: Suplementos");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoActualizacion.fxml", "Compra");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoCreacion.fxml", "Compra");
     }
 
     @FXML
     private void cambiarVentanaHistorialDeCompras() {
         System.out.println("🔄 Cambiando a pestaña: Historial de compras");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaCompraActualizacion.fxml", "Compra");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaCompraCreacion.fxml", "Compra");
     }
 
     @FXML
     private void cambiarVentanaInicio() {
         System.out.println("🔄 Cambiando a pestaña: Inicio");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonInicio.getScene().getWindow(), "/ModuloFITEC/views/VistaInicio.fxml", "Inicio");
+
     }
 
     @FXML
