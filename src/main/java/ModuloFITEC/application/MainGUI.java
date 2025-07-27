@@ -27,11 +27,11 @@ public class MainGUI extends Application {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             try {
-                ConexionBaseSingleton.getInstancia().establecerURL(false); // Establece la URL para QUITO_SUR
+                ConexionBaseSingleton.getInstancia().establecerURL(true); // Establece la URL para QUITO_SUR
                 ConexionBaseSingleton.getInstancia().getConexion();
             } catch (Exception e) {
                 try {
-                    ConexionBaseSingleton.getInstancia().establecerURL(true); // Establece la URL para QUITO_NORTE
+                    ConexionBaseSingleton.getInstancia().establecerURL(false); // Establece la URL para QUITO_NORTE
                     ConexionBaseSingleton.getInstancia().getConexion();
                 } catch (Exception ex) {
                     System.err.println("Error al conectar a la base de datos: " + ex.getMessage());

@@ -1,9 +1,12 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ControladorInicio {
@@ -28,6 +31,17 @@ public class ControladorInicio {
 
     @FXML
     private Button buttonSuscripciones;
+
+    @FXML
+    private ImageView imageViewNomina;
+
+    @FXML
+    void initialize() {
+        // No es necesario inicializar nada aquí
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+    }
+    
 
     @FXML
     void cambiarVentanaInicio(ActionEvent event) {

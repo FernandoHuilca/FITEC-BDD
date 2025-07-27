@@ -3,7 +3,6 @@ package ModuloFITEC.Controllers;
 import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.logic.DAOs.CompraDAO;
 import ModuloFITEC.logic.Models.Compra;
-import ModuloFITEC.logic.Models.Suplemento;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

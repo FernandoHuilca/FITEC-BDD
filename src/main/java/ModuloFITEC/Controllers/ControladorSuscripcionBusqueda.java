@@ -2,6 +2,7 @@ package ModuloFITEC.Controllers;
 
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.FXCollections;
@@ -12,9 +13,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class ControladorSuscripcionBusqueda {
+public class ControladorSuscripcionBusqueda extends ControladorGeneral<Suscripcion> {
 
     @FXML
     private Button buttonActualizarSuscripcion;
@@ -76,6 +78,9 @@ public class ControladorSuscripcionBusqueda {
     private javafx.collections.ObservableList<Suscripcion> suscripcionesList;
 
     @FXML
+    private ImageView imageViewNomina;
+
+    @FXML
     void initialize() {
         suscripcionesList = FXCollections.observableArrayList();
 
@@ -86,13 +91,16 @@ public class ControladorSuscripcionBusqueda {
         tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
 
         try {
-            suscripcionesList.addAll(SuscripcionDAO.getInstancia().listarSuscripciones());
+            suscripcionesList.addAll(SuscripcionDAO.getInstancia().listar("SUSCRIPCION"));
         } catch (Exception e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudieron cargar las suscripciones: " + e.getMessage());
             e.printStackTrace();
             return;
         }
         tableViewSuscripcion.setItems(suscripcionesList);
+
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     @FXML
@@ -138,20 +146,21 @@ public class ControladorSuscripcionBusqueda {
 
     @FXML
     void consultarCodigo(ActionEvent event) {
-        Suscripcion suscripcion = null;
+        /*Suscripcion suscripcion = null;
 
-        int codigo = ControladorGeneral.obtenerCodigo(textFieldCodigo.getText());
+        int codigo = obtenerCodigoDeTextField(textFieldCodigo.getText());
         if(codigo <= 0) {
             return;
         }
 
-        suscripcion = ControladorGeneral.obtenerSuscripcionPorCodigo(codigo);
+        suscripcion = obtenerObjetoPorCodigo(codigo, SuscripcionDAO.getInstancia(), "SUSCRIPCION", "IDSUSCRIPCION");
         if (suscripcion == null) {
             return;
         }
         tableViewSuscripcion.getItems().clear();
         suscripcionesList.add(suscripcion);
-        tableViewSuscripcion.setItems(suscripcionesList);
+        tableViewSuscripcion.setItems(suscripcionesList);*/
+        mostrarEnTabla(textFieldCodigo, SuscripcionDAO.getInstancia(), "SUSCRIPCION", "IDSUSCRIPCION", suscripcionesList, tableViewSuscripcion);
     }
 
 

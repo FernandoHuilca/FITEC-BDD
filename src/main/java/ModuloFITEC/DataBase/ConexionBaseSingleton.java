@@ -25,6 +25,10 @@ public final class ConexionBaseSingleton {
         url = nodo? URL_NORTE : URL_SUR;
     }
 
+    public boolean isNodoNorte() {
+        return url.equals(URL_NORTE);
+    }
+
     private ConexionBaseSingleton() {
         try {
             Class.forName(DRIVER); // Cargar driver de SQL Server

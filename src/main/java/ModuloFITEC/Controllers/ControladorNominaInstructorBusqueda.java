@@ -1,15 +1,23 @@
 package ModuloFITEC.Controllers;
 
+import java.util.List;
+import java.util.Observable;
+
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
+import ModuloFITEC.logic.Models.NominaInstructor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-public class ControladorNominaInstructorBusqueda {
+public class ControladorNominaInstructorBusqueda extends ControladorGeneral<NominaInstructor> {
 
     @FXML
     private Button buttonActualizarNomina;
@@ -51,10 +59,33 @@ public class ControladorNominaInstructorBusqueda {
     private TableColumn<?, ?> tableColumnSalario;
 
     @FXML
-    private TableView<?> tableViewNomina;
+    private TableView<NominaInstructor> tableViewNomina;
 
     @FXML
     private TextField textFieldCedula;
+
+    ObservableList<NominaInstructor> listaNominaInstructores;
+
+    @FXML
+    void initialize() {
+        listaNominaInstructores = FXCollections.observableArrayList();
+
+        tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
+        tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
+        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacion"));
+
+        try {
+            listaNominaInstructores.addAll(NominaInstructorDAO.getInstancia().listar("NOMINA_INSTRUCTOR"));
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo cargar la nómina de instructores: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("Error al cargar la nómina de instructores: " + e.getMessage());
+            return;
+        }
+
+        tableViewNomina.setItems(listaNominaInstructores);
+    }
+
 
     @FXML
     void actualizarNomina(ActionEvent event) {
@@ -104,7 +135,25 @@ public class ControladorNominaInstructorBusqueda {
 
     @FXML
     void consultarFormulario(ActionEvent event) {
+        
+        /*String cedulaInstructor = obtenerCodigoDeTextField(textFieldCedula.getText())+"";
+        if (cedulaInstructor.equals("0")) {
+            return;
+        }
 
+        NominaInstructor nominaInstructor = null;
+        try {
+            nominaInstructor = NominaInstructorDAO.getInstancia().buscarPorCodigo(cedulaInstructor, "NOMINA_INSTRUCTOR", "CEDULAINSTRUCTOR");
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo encontrar la nómina del instructor.");
+        }
+
+        tableViewNomina.getItems().clear();
+        listaNominaInstructores.add(nominaInstructor);
+        tableViewNomina.setItems(listaNominaInstructores);*/
+
+        mostrarEnTabla(textFieldCedula, NominaInstructorDAO.getInstancia(), "NOMINA_INSTRUCTOR", "CEDULAINSTRUCTOR", listaNominaInstructores, tableViewNomina);
+        
     }
 
 }
