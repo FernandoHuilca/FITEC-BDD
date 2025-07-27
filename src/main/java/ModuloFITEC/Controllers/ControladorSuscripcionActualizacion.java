@@ -99,7 +99,6 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
         //buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         //imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         tableViewSuscripcion.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
-
     }
 
     

@@ -53,6 +53,7 @@ public class ControladorGeneral<T> {
         lista.add(objetoT);
         tabla.setItems(lista);
         MetodosFrecuentes.mostrarInfo("Éxito", "Información actualizada correctamente.");
+
     }
 
     T mostrarEnTabla(TextField textFieldCodigo, DAOGeneral<T> dao, String nombreTabla, String nombreColumna, ObservableList<T> lista, TableView<T> tableView) {

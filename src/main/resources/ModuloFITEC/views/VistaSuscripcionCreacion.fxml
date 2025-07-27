@@ -50,7 +50,7 @@
                </font>
             </Text>
             <TextField fx:id="textFieldDuracion" layoutX="171.0" layoutY="303.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la duración en meses" />
-            <Button fx:id="buttonRegistrarFormularioSuscripcion" layoutX="239.0" layoutY="511.0" mnemonicParsing="false" onAction="#registrarFormularioSuscripcion" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #F87674;" text="Registrar">
+            <Button fx:id="buttonRegistrarFormularioSuscripcion" layoutX="239.0" layoutY="511.0" mnemonicParsing="false" onAction="#registrarFormularioSuscripcion" prefHeight="25.0" prefWidth="76.0" text="Registrar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -58,12 +58,12 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="366.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" stroke="#393d46" />
+            <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="366.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
          </children>
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
          <children>
-            <Button fx:id="buttonRegistrarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#registrarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #F87674;" text="Registrar suscripción" textFill="#000000e0">
+            <Button fx:id="buttonRegistrarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#registrarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #000000;" text="Registrar suscripción" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -71,7 +71,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="buttonConsultarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="62.0" mnemonicParsing="false" onAction="#consultarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #E0D0B7;" text="Consultar suscripción" textFill="#000000e0">
+
+            <Button fx:id="buttonConsultarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="62.0" mnemonicParsing="false" onAction="#consultarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Consultar suscripción" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -79,7 +80,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="buttonActualizarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="110.0" mnemonicParsing="false" onAction="#actualizarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #E0D0B7;" text="Actualizar suscripción" textFill="#000000e0">
+            <Button fx:id="buttonActualizarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="110.0" mnemonicParsing="false" onAction="#actualizarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Actualizar suscripción" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -87,7 +88,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="buttonEliminarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="158.0" mnemonicParsing="false" onAction="#eliminarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #E0D0B7;" text="Eliminar suscripción" textFill="#000000e0">
+
+            <Button fx:id="buttonEliminarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="158.0" mnemonicParsing="false" onAction="#eliminarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Eliminar suscripción" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>

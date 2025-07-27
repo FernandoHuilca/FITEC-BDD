@@ -1,11 +1,27 @@
 package ModuloFITEC.Controllers;
 
+import java.time.LocalDate;
+
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.InstructorDAO;
+import ModuloFITEC.logic.DAOs.NominaDeInstructorDAO;
+import ModuloFITEC.logic.Models.Instructor;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class ControladorInstructorCreacion {
+
+    @FXML private TextField textFieldCedula;
+    @FXML private SplitMenuButton splitMenuSucursal;
+    @FXML private TextField textFieldNombre;
+    @FXML private TextField textFieldApellido;
+    @FXML private TextField textFieldTelefono;
+    @FXML private TextField textFieldEmail;
+    @FXML private DatePicker datePickerFechaNacimiento;
+    @FXML private TextField textFieldDireccion;
+    @FXML private TextField textFieldSalario;
+
 
     // 🧭 Botones de navegación lateral
     @FXML private Button buttonInicio;
@@ -33,6 +49,16 @@ public class ControladorInstructorCreacion {
     @FXML private Button buttonConsultarInstructor;
     @FXML private Button buttonActualizarInstructor;
     @FXML private Button buttonEliminarInstructor;
+
+    @FXML
+    public void initialize() {
+        configurarSplitMenuSucursal();
+    }
+    private void configurarSplitMenuSucursal() {
+        splitMenuSucursal.getItems().forEach(item -> {
+            item.setOnAction(e -> splitMenuSucursal.setText(item.getText()));
+        });
+    }
 
     // ---------------- MÉTODOS DE NAVEGACIÓN ----------------
 
@@ -72,11 +98,6 @@ public class ControladorInstructorCreacion {
 
     // ---------------- MÉTODOS DE FORMULARIO ----------------
 
-    @FXML private void registrarFormularioInstructor() {
-        // Simulación de validación o guardado
-        System.out.println("📄 Registrando instructor:");
-
-    }
 
     // ---------------- CRUD (Panel derecho) ----------------
 
@@ -99,4 +120,97 @@ public class ControladorInstructorCreacion {
         System.out.println("🗑️ Acción: Eliminar instructor");
         MetodosFrecuentes.cambiarVentana((Stage) buttonEliminarInstructor.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorEliminacion.fxml", "Instructor");
     }
+
+    @FXML
+    private void registrarFormularioInstructor() {
+        System.out.println("Registrando Instructor...");
+        try {
+            // Validación de campos vacíos
+            if (textFieldCedula.getText().trim().isEmpty() ||
+                splitMenuSucursal.getText().equals("Escoja la sucursal") ||
+                textFieldNombre.getText().trim().isEmpty() ||
+                textFieldApellido.getText().trim().isEmpty() ||
+                textFieldTelefono.getText().trim().isEmpty() ||
+                textFieldEmail.getText().trim().isEmpty() ||
+                datePickerFechaNacimiento.getValue() == null ||
+                textFieldDireccion.getText().trim().isEmpty() ||
+                textFieldSalario.getText().trim().isEmpty()) {
+                MetodosFrecuentes.mostrarError("Campos obligatorios", "Por favor, complete todos los campos.");
+                return;
+            }
+
+            String cedula = textFieldCedula.getText().trim();
+
+            // Validación de salario
+            double salario;
+            try {
+                salario = Double.parseDouble(textFieldSalario.getText().trim());
+                if (salario <= 0) {
+                    MetodosFrecuentes.mostrarError("Salario inválido", "El salario debe ser un número positivo.");
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                MetodosFrecuentes.mostrarError("Salario inválido", "El salario debe ser un número válido.");
+                return;
+            }
+
+            // Validación de cédula única en ambas tablas
+            boolean existeInstructor = InstructorDAO.getInstancia().existeInstructorPorCedula(cedula);
+            boolean existeNomina = new NominaDeInstructorDAO().buscarNominaPorCedula(cedula).next();
+            if (existeInstructor || existeNomina) {
+                MetodosFrecuentes.mostrarError("Cédula duplicada", "Ya existe un instructor con esa cédula.");
+                return;
+            }
+
+            String idSucursal = splitMenuSucursal.getText();
+            String nombre = textFieldNombre.getText().trim();
+            String apellido = textFieldApellido.getText().trim();
+            String telefono = textFieldTelefono.getText().trim();
+            String email = textFieldEmail.getText().trim();
+            LocalDate fechaNacimiento = datePickerFechaNacimiento.getValue();
+            String direccion = textFieldDireccion.getText().trim();
+            LocalDate fechaContratacion = LocalDate.now();
+
+            Instructor nuevoInstructor = new Instructor(
+                cedula,
+                idSucursal,
+                nombre,
+                apellido,
+                telefono,
+                email,
+                fechaNacimiento,
+                direccion,
+                salario,
+                fechaContratacion
+            );
+
+            // Registrar en INSTRUCTOR
+            InstructorDAO.getInstancia().registrarNuevoInstructor(nuevoInstructor);
+
+            // Registrar en NOMINA_INSTRUCTOR
+            new NominaDeInstructorDAO().registrarNominaInstructor(cedula, salario, fechaContratacion);
+
+            MetodosFrecuentes.mostrarInfo("Registro exitoso", "El instructor ha sido registrado correctamente.");
+            limpiarCampos();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error " +  "No se pudo registrar el instructor: " + e.getMessage());
+            MetodosFrecuentes.mostrarError("Error", "No se pudo registrar el instructor: " + e.getMessage());
+        }
+    }
+
+    private void limpiarCampos() {
+        textFieldCedula.clear();
+        splitMenuSucursal.setText("Escoja la sucursal");
+        textFieldNombre.clear();
+        textFieldApellido.clear();
+        textFieldTelefono.clear();
+        textFieldEmail.clear();
+        datePickerFechaNacimiento.setValue(null);
+        textFieldDireccion.clear();
+        textFieldSalario.clear();
+    }
+
+
 }

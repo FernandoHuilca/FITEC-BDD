@@ -24,7 +24,6 @@ public abstract class DAOGeneral<T> implements InterfaceDAOBusqueda<T>, Interfac
 
     @Override
     public <K extends Serializable & Comparable<K>> T buscarPorCodigo(K codigo, String nombreTabla, String nombreColumna) throws Exception {
-        
         String consulta =
         """
         SET XACT_ABORT ON;

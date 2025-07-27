@@ -66,6 +66,29 @@ public class ControladorNominaInstructorBusqueda extends ControladorGeneral<Nomi
     @FXML
     private TextField textFieldCedula;
 
+    ObservableList<NominaInstructor> listaNominaInstructores;
+
+    @FXML
+    void initialize() {
+        listaNominaInstructores = FXCollections.observableArrayList();
+
+        tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
+        tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
+        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacion"));
+
+        try {
+            listaNominaInstructores.addAll(NominaInstructorDAO.getInstancia().listar("NOMINA_INSTRUCTOR"));
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo cargar la nómina de instructores: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("Error al cargar la nómina de instructores: " + e.getMessage());
+            return;
+        }
+
+        tableViewNomina.setItems(listaNominaInstructores);
+    }
+
+
     @FXML
     private Text textNombreServidor;
 

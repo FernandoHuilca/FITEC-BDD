@@ -25,7 +25,6 @@ public class ControladorSuscripcionCreacion {
 
     @FXML
     private Button buttonRegistrarFormularioSuscripcion;
-
     @FXML
     private Button buttonRegistrarSuscripcion;
 

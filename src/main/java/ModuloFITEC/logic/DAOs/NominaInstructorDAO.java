@@ -1,7 +1,6 @@
 package ModuloFITEC.logic.DAOs;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

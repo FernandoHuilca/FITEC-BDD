@@ -75,6 +75,21 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
     @FXML
     private TextField textFieldSalario;
 
+    ObservableList<NominaInstructor> listaNominaInstructores;
+
+    private String cedulaInstructorPorActualizar;
+
+    public ControladorNominaInstructorActualizacion() {
+        listaNominaInstructores = FXCollections.observableArrayList();
+        cedulaInstructorPorActualizar = "0";
+    }
+    @FXML
+    void initialize(){
+        tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
+        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacion"));
+        tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
+    }
+
     @FXML
     private Text textNombreServidor;
 
@@ -186,7 +201,6 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
         if (nominaInstructor == null) {
             return;
         }
-        //MetodosFrecuentes.mostrarInfo("Éxito", "Objeto encontrado.");
         colocarVariablesEnCampos(nominaInstructor);
         cedulaInstructorPorActualizar = nominaInstructor.getCedulaInstructor();
     }

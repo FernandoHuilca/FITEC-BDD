@@ -11,7 +11,6 @@ public class NominaInstructor {
 
     private static final DateTimeFormatter FORMATO_FECHA_SIMPLE = 
         DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
     private String cedulaInstructor;
     private double salario;
     private LocalDateTime  fechaContratacion;

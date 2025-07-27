@@ -11,9 +11,12 @@ public class Instructor {
     private String email;
     private LocalDate fechaNacimiento;
     private String direccion;
+    private double salario;
+    private LocalDate fechaContratacion;
 
     public Instructor(String cedulaInstructor, String idSucursal, String nombre, String apellido,
-                      String telefono, String email, LocalDate fechaNacimiento, String direccion) {
+                      String telefono, String email, LocalDate fechaNacimiento, String direccion,
+                      double salario, LocalDate fechaContratacion) {
         this.cedulaInstructor = cedulaInstructor;
         this.idSucursal = idSucursal;
         this.nombre = nombre;
@@ -22,6 +25,8 @@ public class Instructor {
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
+        this.salario = salario;
+        this.fechaContratacion = fechaContratacion;
     }
 
     public String getCedulaInstructor() {
@@ -86,5 +91,21 @@ public class Instructor {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public LocalDate getFechaContratacion() {
+        return fechaContratacion;
+    }
+
+    public void setFechaContratacion(LocalDate fechaContratacion){
+         this.fechaContratacion = fechaContratacion;
     }
 }

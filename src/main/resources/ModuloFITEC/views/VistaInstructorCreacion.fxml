@@ -3,6 +3,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
@@ -152,7 +154,7 @@
                         <Font name="Arial Rounded MT Bold" size="15.0" />
                     </font>
                 </Text>
-                <TextField layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el número de cédula" />
+                <TextField fx:id="textFieldCedula" layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el número de cédula" />
                 <Text fill="WHITE" layoutX="70.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" wrappingWidth="92.39996337890625">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="15.0" />
@@ -163,17 +165,12 @@
                         <Font name="Arial Rounded MT Bold" size="15.0" />
                     </font>
                 </Text>
-                <Text fill="WHITE" layoutX="70.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teléfono: " wrappingWidth="92.39996337890625">
+                <Text fill="WHITE" layoutX="70.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Teléfono: " wrappingWidth="92.39996337890625">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="15.0" />
                     </font>
                 </Text>
-                <Text fill="WHITE" layoutX="70.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" wrappingWidth="92.39996337890625">
-                    <font>
-                        <Font name="Arial Rounded MT Bold" size="15.0" />
-                    </font>
-                </Text>
-                <Text fill="WHITE" layoutX="70.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha nacimiento:" wrappingWidth="92.39996337890625">
+                <Text fill="WHITE" layoutX="70.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail" wrappingWidth="92.39996337890625">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="15.0" />
                     </font>
@@ -183,12 +180,11 @@
                         <Font name="Arial Rounded MT Bold" size="15.0" />
                     </font>
                 </Text>
-                <TextField layoutX="171.0" layoutY="146.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
-                <TextField layoutX="171.0" layoutY="195.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el apellido" />
-                <TextField layoutX="171.0" layoutY="243.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el teléfono" />
-                <TextField layoutX="171.0" layoutY="288.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el e-mail" />
-                <TextField layoutX="171.0" layoutY="403.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la dirreción" />
-                <DatePicker layoutX="171.0" layoutY="351.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la fecha de nacimiento" />
+                <TextField fx:id="textFieldNombre" layoutX="171.0" layoutY="146.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el nombre" />
+                <TextField fx:id="textFieldApellido" layoutX="171.0" layoutY="195.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el apellido" />
+                <TextField fx:id="textFieldTelefono" layoutX="171.0" layoutY="237.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el teléfono" />
+                <TextField fx:id="textFieldEmail" layoutX="171.0" layoutY="280.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el e-mail" />
+                <TextField fx:id="textFieldDireccion" layoutX="171.0" layoutY="403.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la dirreción" />
                 <Button fx:id="buttonRegistrarFormularioInstructor" layoutX="239.0" layoutY="511.0" mnemonicParsing="false" onAction="#registrarFormularioInstructor" prefHeight="25.0" prefWidth="76.0" text="Registrar">
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -200,7 +196,24 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="171.0" layoutY="446.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el salario" />
+            <TextField fx:id="textFieldSalario" layoutX="171.0" layoutY="446.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el salario" />
+            <Text fill="WHITE" layoutX="70.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sucursal" wrappingWidth="92.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
+            <SplitMenuButton fx:id="splitMenuSucursal" layoutX="171.0" layoutY="319.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Escoja la sucursal" textFill="#00000048">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="QUITO_SUR" />
+                    <MenuItem mnemonicParsing="false" text="QUITO_NORTE" />
+                </items>
+            </SplitMenuButton>
+            <Text fill="WHITE" layoutX="70.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha nacimiento:" wrappingWidth="92.39996337890625">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="datePickerFechaNacimiento" layoutX="171.0" layoutY="361.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la fecha de nacimiento" />
             </children>
         </Pane>
         <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">

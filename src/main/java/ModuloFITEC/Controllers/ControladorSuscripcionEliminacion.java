@@ -62,7 +62,6 @@ public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscri
     @FXML
     private TextField textFieldCodigoAConsultar;
 
-
     ObservableList<Suscripcion> suscripcionesList;
 
 
@@ -82,9 +81,6 @@ public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscri
         tableColumnDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
         tableColumnPrecio.setCellValueFactory(new PropertyValueFactory("precio"));
         tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
-
-        //buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
-        //imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
 
