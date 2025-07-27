@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ControladorClienteActualizacion {
 
-    // 🧭 Navegación lateral
+    // Navegación lateral
     @FXML private Button buttonInicio;
     @FXML private Button buttonClientes;
     @FXML private Button buttonInstructores;
@@ -25,17 +25,17 @@ public class ControladorClienteActualizacion {
     @FXML private Button buttonNominaInstructores;
     @FXML private Button buttonSuscripciones;
 
-    // 🔁 Botones de operaciones principales
+    // Botones de operaciones principales
     @FXML private Button buttonRegistrarCliente;
     @FXML private Button buttonConsultarCliente;
     @FXML private Button buttonActualizarCliente;
     @FXML private Button buttonEliminarCliente;
 
-    // 🧾 Formulario de búsqueda
+    //  Formulario de búsqueda
     @FXML private TextField textFieldNombreCedula;
     @FXML private Button buttonConsultarFormulario;
 
-    // 📋 Tabla de datos
+    // Tabla de datos
     @FXML private TableView<Cliente> tableViewClientes;
     @FXML private TableColumn<Cliente, String> columnSucursal;
     @FXML private TableColumn<Cliente, String> columnCedula;
@@ -48,7 +48,7 @@ public class ControladorClienteActualizacion {
     @FXML private TableColumn<Cliente, String> columnFechaRegistro;
     @FXML private TableColumn<Cliente, String> columnDireccion;
 
-    // 📝 Campos de edición
+    // Campos de edición
     @FXML private SplitMenuButton tipoSuscripcionMenu;
     @FXML private SplitMenuButton splitMenuSucursal;
     @FXML private TextField nombreField;
@@ -109,7 +109,7 @@ public class ControladorClienteActualizacion {
     private void cargarSuscripciones() {
         tipoSuscripcionMenu.getItems().clear();
         try {
-            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listarSuscripciones();
+            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listar("SUSCRIPCION");
             for (Suscripcion s : suscripciones) {
                 MenuItem item = new MenuItem(s.getTipo());
                 item.setOnAction(e -> {
@@ -144,7 +144,7 @@ public class ControladorClienteActualizacion {
 
     private String obtenerTipoSuscripcionPorId(int idSuscripcion) {
         try {
-            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listarSuscripciones();
+            List<Suscripcion> suscripciones = SuscripcionDAO.getInstancia().listar("SUSCRIPCION");
             for (Suscripcion s : suscripciones) {
                 if (s.getIdSuscripcion() == idSuscripcion) {
                     return s.getTipo();
@@ -235,12 +235,14 @@ public class ControladorClienteActualizacion {
     }
 
     @FXML private void cambiarVentanaInicio() { MetodosFrecuentes.cambiarVentana((Stage) buttonInicio.getScene().getWindow(), "/ModuloFITEC/views/VistaInicio.fxml", "Inicio"); }
-    @FXML private void cambiarVentanaClientes() { MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Cliente"); }
-    @FXML private void cambiarVentanaInstructores() { MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor"); }
-    @FXML private void cambiarVentanaSuplementos() { MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoCreacion.fxml", "Compra"); }
+    @FXML private void cambiarVentanaClientes() { MetodosFrecuentes.cambiarVentana((Stage) buttonClientes.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Cliente"); }
+    @FXML private void cambiarVentanaInstructores() { MetodosFrecuentes.cambiarVentana((Stage) buttonInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor"); }
+    @FXML private void cambiarVentanaSuplementos() { MetodosFrecuentes.cambiarVentana((Stage) buttonSuplementos.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoCreacion.fxml", "Suplemento"); }
     @FXML private void cambiarVentanaHistorialDeCompras() { MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaCompraCreacion.fxml", "Compra"); }
-    @FXML private void cambiarVentanaNominaInstructores() { MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor"); }
-    @FXML private void cambiarVentanaSuscrpciones() { /* Implementa si es necesario */ }
+    @FXML private void cambiarVentanaNominaInstructores() { MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Nomina"); }
+    @FXML private void cambiarVentanaSuscrpciones() { MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Suscripcion");}
+
+
     @FXML private void registrarCliente() { MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarCliente.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml"); }
     @FXML private void consultarCliente() { MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarCliente.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteBusqueda.fxml"); }
     @FXML private void actualizarCliente() { MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarCliente.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteActualizacion.fxml"); }

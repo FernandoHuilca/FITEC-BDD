@@ -1,9 +1,6 @@
 package ModuloFITEC.logic.DAOs;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import com.almasb.fxgl.scene3d.Cone;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -47,10 +44,10 @@ public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements
     }
 
     public List<NominaInstructor> listarNominaInstructores() throws Exception {
-        
+
         List<NominaInstructor> nominas = new ArrayList<>();
-        
-        String consulta = """ 
+
+        String consulta = """
         SET XACT_ABORT ON;
         SELECT * FROM NOMINA_INSTRUCTOR;
         """;
@@ -78,9 +75,9 @@ public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements
         java.sql.Timestamp timestamp = rs.getTimestamp("FECHACONTRATACION");
         LocalDateTime fechaContratacion = timestamp != null ? timestamp.toLocalDateTime() : null;
         NominaInstructor nomina = new NominaInstructor(
-            rs.getString("CEDULAINSTRUCTOR"),
-            rs.getDouble("SALARIO"),
-            fechaContratacion
+                rs.getString("CEDULAINSTRUCTOR"),
+                rs.getDouble("SALARIO"),
+                fechaContratacion
         );
         return nomina;
     }
@@ -93,9 +90,9 @@ public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements
         SET SALARIO = %f, FECHACONTRATACION = '%s'
         WHERE CEDULAINSTRUCTOR = '%s'
         """.formatted(
-            entidadT.getSalario(),
-            entidadT.getFechaContratacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-            entidadT.getCedulaInstructor()
+                entidadT.getSalario(),
+                entidadT.getFechaContratacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                entidadT.getCedulaInstructor()
         );
 
         ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
@@ -109,9 +106,9 @@ public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements
         SET XACT_ABORT ON;
         INSERTO INTO NOMINA_INSTRUCTOR (CEDULAINSTRUCTOR, SALARIO, FECHACONTRATACION) VALUES ('%s', %f, '%s')
         """.formatted(
-            entidadT.getCedulaInstructor(),
-            entidadT.getSalario(),
-            entidadT.getFechaContratacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                entidadT.getCedulaInstructor(),
+                entidadT.getSalario(),
+                entidadT.getFechaContratacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
         );
         ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
     }

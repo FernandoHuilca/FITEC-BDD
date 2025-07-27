@@ -141,6 +141,17 @@ import ModuloFITEC.logic.Models.Instructor;
             ConexionBaseSingleton.cerrarRecursos(null, ps);
         }
     }
-
+    
+    public void eliminarPorCedula(String cedula) throws Exception {
+    String sql = "DELETE FROM INSTRUCTOR WHERE CEDULAINSTRUCTOR = ?";
+    java.sql.PreparedStatement ps = null;
+        try {
+            ps = baseDeDatos.getConexion().prepareStatement(sql);
+            ps.setString(1, cedula);
+            ps.executeUpdate();
+        } finally {
+            ConexionBaseSingleton.cerrarRecursos(null, ps);
+        }
+    }
 
 }

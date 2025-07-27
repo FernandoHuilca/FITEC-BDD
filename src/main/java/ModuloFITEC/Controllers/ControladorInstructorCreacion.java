@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.logic.DAOs.InstructorDAO;
-import ModuloFITEC.logic.DAOs.NominaDeInstructorDAO;
+import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.Instructor;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -89,11 +89,12 @@ public class ControladorInstructorCreacion {
 
     @FXML private void cambiarVentanaNominaInstructores() {
         System.out.println("🔁 Cambio a ventana: Nómina de Instructores");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Instructor");
     }
 
     @FXML private void cambiarVentanaSuscrpciones() {
         System.out.println("🔁 Cambio a ventana: Suscripciones");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml","Suscripcion");
     }
 
     // ---------------- MÉTODOS DE FORMULARIO ----------------
@@ -156,7 +157,7 @@ public class ControladorInstructorCreacion {
 
             // Validación de cédula única en ambas tablas
             boolean existeInstructor = InstructorDAO.getInstancia().existeInstructorPorCedula(cedula);
-            boolean existeNomina = new NominaDeInstructorDAO().buscarNominaPorCedula(cedula).next();
+            boolean existeNomina = NominaInstructorDAO.getInstancia().buscarNominaPorCedula(cedula).next();
             if (existeInstructor || existeNomina) {
                 MetodosFrecuentes.mostrarError("Cédula duplicada", "Ya existe un instructor con esa cédula.");
                 return;
@@ -188,8 +189,7 @@ public class ControladorInstructorCreacion {
             InstructorDAO.getInstancia().registrarNuevoInstructor(nuevoInstructor);
 
             // Registrar en NOMINA_INSTRUCTOR
-            new NominaDeInstructorDAO().registrarNominaInstructor(cedula, salario, fechaContratacion);
-
+            NominaInstructorDAO.getInstancia().registrarNominaInstructor(cedula, salario, fechaContratacion);
             MetodosFrecuentes.mostrarInfo("Registro exitoso", "El instructor ha sido registrado correctamente.");
             limpiarCampos();
 

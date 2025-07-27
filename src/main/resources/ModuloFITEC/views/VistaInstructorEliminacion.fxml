@@ -73,28 +73,6 @@
                         <ColorAdjust brightness="0.24" />
                     </effect>
                 </Button>
-                <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
-                    <font>
-                        <Font name="Arial Rounded MT Bold" size="13.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                    <effect>
-                        <ColorAdjust brightness="0.24" />
-                    </effect>
-                </Button>
-                <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscrpciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
-                    <font>
-                        <Font name="Arial Rounded MT Bold" size="13.0" />
-                    </font>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                    <effect>
-                        <ColorAdjust brightness="0.24" />
-                    </effect>
-                </Button>
                 <Pane layoutX="20.0" layoutY="578.0" prefHeight="62.0" prefWidth="212.0">
                     <children>
                         <Text layoutX="40.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre servidor">
@@ -124,21 +102,43 @@
                         <Image url="@../data/icono_compra.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
-                    <image>
-                        <Image url="@../data/icono_nomina_instructores.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
-                    <image>
-                        <Image url="@../data/icono_suscripcion.png" />
-                    </image>
-                </ImageView>
                 <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="196.0">
                     <image>
                         <Image url="@../data/icono_suplemento.png" />
                     </image>
                 </ImageView>
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="319.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscrpciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suscripciones" textFill="#ffffffe0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="0.24" />
+               </effect>
+            </Button>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="38.0" layoutY="321.0">
+               <image>
+                  <Image url="@../data/icono_nomina_instructores.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="38.0" layoutY="284.0">
+               <image>
+                  <Image url="@../data/icono_suscripcion.png" />
+               </image>
+            </ImageView>
             </children>
         </Pane>
         <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
@@ -196,31 +196,35 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="50.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+            <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="367.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
+            <Button fx:id="buttonEliminarFormulario" layoutX="214.0" layoutY="512.0" mnemonicParsing="false" onAction="#eliminarInstructorFormulario" prefHeight="25.0" prefWidth="76.0" text="Eliminar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TableView fx:id="tableViewInstructores" layoutX="41.0" layoutY="146.0" prefHeight="346.0" prefWidth="444.0">
+               <columns>
+                  <TableColumn fx:id="columnSucursal" prefWidth="93.5999755859375" text="Sucursal" />
+                  <TableColumn fx:id="columnCedula" minWidth="0.0" prefWidth="82.4000244140625" text="Cédula" />
+                  <TableColumn fx:id="columnNombre" minWidth="0.0" prefWidth="102.4000244140625" text="Nombre" />
+                  <TableColumn fx:id="columnApellido" minWidth="0.0" prefWidth="84.0" text="Apellido" />
+                  <TableColumn fx:id="columnTelefono" minWidth="0.0" prefWidth="89.5999755859375" text="Teléfono" />
+                  <TableColumn fx:id="columnEmail" minWidth="0.0" prefWidth="89.5999755859375" text="E-mail" />
+                  <TableColumn fx:id="columnFechaNacimiento" minWidth="0.0" prefWidth="89.5999755859375" text="FechaNaciomiento" />
+                  <TableColumn fx:id="columnDireccion" minWidth="0.0" prefWidth="89.5999755859375" text="Dirección" />
+               </columns>
+            </TableView>
+            <TextField fx:id="textFieldNombreCedula" layoutX="132.0" layoutY="88.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el número de cédula o nombre" />
+            <Button fx:id="buttonConsultarFormulario" layoutX="374.0" layoutY="88.0" mnemonicParsing="false" onAction="#consultarFormulario" prefHeight="25.0" prefWidth="76.0" text="Consultar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Text fill="WHITE" layoutX="53.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre/Cedula" wrappingWidth="65.20001220703125">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField layoutX="151.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el número de cédula" />
-            <Button fx:id="buttonConsultarFormulario" layoutX="393.0" layoutY="98.0" mnemonicParsing="false" onAction="#consultarInstructorFormulario" prefHeight="25.0" prefWidth="76.0" text="Consultar">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="367.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
-            <TableView layoutX="37.0" layoutY="158.0" prefHeight="122.0" prefWidth="444.0">
-               <columns>
-                  <TableColumn prefWidth="113.60003662109375" text="Cédula" />
-                  <TableColumn minWidth="6.0" prefWidth="106.39996337890625" text="Nombre" />
-                  <TableColumn minWidth="0.0" prefWidth="116.79998779296875" text="Apellido" />
-                  <TableColumn prefWidth="107.20001220703125" text="Teléfono" />
-               </columns>
-            </TableView>
-            <Button fx:id="buttonEliminarFormulario" layoutX="221.0" layoutY="312.0" mnemonicParsing="false" onAction="#eliminarInstructorFormulario" prefHeight="25.0" prefWidth="76.0" text="Eliminar">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
          </children>
       </Pane>
     </children>

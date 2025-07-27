@@ -4,7 +4,7 @@ import java.util.List;
 
 import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.logic.DAOs.InstructorDAO;
-import ModuloFITEC.logic.DAOs.NominaDeInstructorDAO;
+import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.Instructor;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -101,6 +101,7 @@ public class ControladorInstructorActualizacion {
 
     @FXML private void cambiarVentanaSuscrpciones() {
         System.out.println("🔁 Cambio a ventana: Suscripciones");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml");
     }
 
     // ---------------- BOTONES DEL PANEL DERECHO ----------------
@@ -194,7 +195,7 @@ public class ControladorInstructorActualizacion {
 
     private double obtenerSalarioInstructor(String cedula) throws Exception {
         // Implementa el método en NominaDeInstructorDAO para obtener el salario por cédula
-        return new NominaDeInstructorDAO().obtenerSalarioPorCedula(cedula);
+        return NominaInstructorDAO.getInstancia().obtenerSalarioPorCedula(cedula);
     }
   // ---------------- ACTUALIZAR DATOS ----------------
     @FXML
@@ -246,7 +247,7 @@ public class ControladorInstructorActualizacion {
             InstructorDAO.getInstancia().actualizarInstructor(instructorActualizado);
 
             // Actualizar salario en NOMINA_INSTRUCTOR
-            new NominaDeInstructorDAO().actualizarSalarioInstructor(instructorActualizado.getCedulaInstructor(), salario);
+            NominaInstructorDAO.getInstancia().actualizarSalarioInstructor(instructorActualizado.getCedulaInstructor(), salario);
 
             MetodosFrecuentes.mostrarInfo("Actualización exitosa", "El instructor ha sido actualizado correctamente.");
             cargarInstructores();

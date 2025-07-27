@@ -83,76 +83,79 @@ public class ControladorClienteBusqueda implements Initializable {
             e.printStackTrace();
         }
     }
-    // 📍 Métodos de navegación
+    // Métodos de navegación
     @FXML
     private void cambiarVentanaClientes() {
-        System.out.println("🔄 Cambiando a pestaña: Clientes");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Cliente");
+        System.out.println(" Cambiando a pestaña: Clientes");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonClientes.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml", "Cliente");
     }
 
     @FXML
     private void cambiarVentanaInstructores() {
-        System.out.println("🔄 Cambiando a pestaña: Instructores");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor");
+        System.out.println(" Cambiando a pestaña: Instructores");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor");
     }
 
     @FXML
     private void cambiarVentanaSuplementos() {
-        System.out.println("🔄 Cambiando a pestaña: Suplementos");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoCreacion.fxml", "Compra");
+        System.out.println(" Cambiando a pestaña: Suplementos");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuplementos.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoCreacion.fxml", "Suplemento");
     }
 
     @FXML
     private void cambiarVentanaHistorialDeCompras() {
-        System.out.println("🔄 Cambiando a pestaña: Historial de compras");
+        System.out.println(" Cambiando a pestaña: Historial de compras");
         MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaCompraCreacion.fxml", "Compra");
     }
 
     @FXML
     private void cambiarVentanaInicio() {
-        System.out.println("🔄 Cambiando a pestaña: Inicio");
+        System.out.println(" Cambiando a pestaña: Inicio");
         MetodosFrecuentes.cambiarVentana((Stage) buttonInicio.getScene().getWindow(), "/ModuloFITEC/views/VistaInicio.fxml", "Inicio");
 
     }
 
     @FXML
     private void cambiarVentanaNominaInstructores() {
-        System.out.println("🔄 Cambiando a pestaña: Nómina de instructores");
+        System.out.println(" Cambiando a pestaña: Nómina de instructores");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Nomina");
+
     }
 
     @FXML
     private void cambiarVentanaSuscrpciones() {
-        System.out.println("🔄 Cambiando a pestaña: Suscripciones");
+        System.out.println(" Cambiando a pestaña: Suscripciones");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Suscripcion");
     }
 
-    // 📋 Métodos de acción
+    // Métodos de acción
     @FXML
     private void registrarCliente() {
-        System.out.println("✅ Acción: Registrar cliente");
+        System.out.println("Acción: Registrar cliente");
         MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarCliente.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml");
     }
 
     @FXML
     private void consultarCliente() {
-        System.out.println("🔍 Acción: Consultar cliente");
+        System.out.println("Acción: Consultar cliente");
         MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarCliente.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteBusqueda.fxml");
     }
 
     @FXML
     private void actualizarCliente() {
-        System.out.println("✏️ Acción: Actualizar cliente");
+        System.out.println("Acción: Actualizar cliente");
         MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarCliente.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteActualizacion.fxml");
     }
 
     @FXML
     private void eliminarCliente() {
-        System.out.println("🗑️ Acción: Eliminar cliente");
+        System.out.println("Acción: Eliminar cliente");
         MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarCliente.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteEliminacion.fxml");
     }
 
     @FXML
     private void consultarFormulario() {
-        System.out.println("🧾 Acción: Consultar formulario de cliente");
+        System.out.println("Acción: Consultar formulario de cliente");
         String valorBusqueda = textFieldNombreCedula.getText().trim();
         List<Cliente> clientesConsultados = new ArrayList<>();
         try {
