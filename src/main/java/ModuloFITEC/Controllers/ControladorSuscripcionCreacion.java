@@ -1,12 +1,14 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ControladorSuscripcionCreacion {
@@ -63,8 +65,13 @@ public class ControladorSuscripcionCreacion {
     private TextField textFieldTipo;
 
     @FXML
+    private ImageView imageViewNomina;
+
+    @FXML
     void initialize() {
         // No es necesario volver a inicializar el DAO aquí
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     @FXML

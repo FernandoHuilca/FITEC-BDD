@@ -3,6 +3,7 @@ package ModuloFITEC.Controllers;
 import java.sql.SQLException;
 import java.util.List;
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.ClienteDAO;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Cliente;
@@ -16,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -81,6 +83,9 @@ public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscri
     @FXML
     private TextField textFieldCodigoAConsultar;
 
+    @FXML
+    private ImageView imageViewNomina;
+
     ObservableList<Suscripcion> suscripcionesList;
 
 
@@ -99,6 +104,9 @@ public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscri
         tableColumnDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
         tableColumnPrecio.setCellValueFactory(new PropertyValueFactory("precio"));
         tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
+
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
 

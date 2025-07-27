@@ -2,6 +2,7 @@ package ModuloFITEC.Controllers;
 
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.FXCollections;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ControladorSuscripcionBusqueda extends ControladorGeneral<Suscripcion> {
@@ -76,6 +78,9 @@ public class ControladorSuscripcionBusqueda extends ControladorGeneral<Suscripci
     private javafx.collections.ObservableList<Suscripcion> suscripcionesList;
 
     @FXML
+    private ImageView imageViewNomina;
+
+    @FXML
     void initialize() {
         suscripcionesList = FXCollections.observableArrayList();
 
@@ -93,6 +98,9 @@ public class ControladorSuscripcionBusqueda extends ControladorGeneral<Suscripci
             return;
         }
         tableViewSuscripcion.setItems(suscripcionesList);
+
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     @FXML
