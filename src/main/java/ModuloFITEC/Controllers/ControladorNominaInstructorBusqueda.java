@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Observable;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.NominaInstructor;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -88,13 +90,40 @@ public class ControladorNominaInstructorBusqueda extends ControladorGeneral<Nomi
 
 
     @FXML
+    private Text textNombreServidor;
+
+    ObservableList<NominaInstructor> listaNominaInstructores;
+
+    @FXML
+    void initialize() {
+        listaNominaInstructores = FXCollections.observableArrayList();
+
+        tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
+        tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
+        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacionSimple"));
+
+        try {
+            listaNominaInstructores.addAll(NominaInstructorDAO.getInstancia().listar("NOMINA_INSTRUCTOR"));
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo cargar la nómina de instructores: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("Error al cargar la nómina de instructores: " + e.getMessage());
+            return;
+        }
+
+        tableViewNomina.setItems(listaNominaInstructores);
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte() ? "Nodo Norte" : "Nodo Sur");
+    }
+
+
+    @FXML
     void actualizarNomina(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorActualizacion.fxml", "Actualizar Nomina");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorActualizacion.fxml", "Actualizar Nómina");
     }
 
     @FXML
     void consultarNomina(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Consultar Nomina");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarNomina.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Consultar Nómina");
 
     }
 
@@ -115,6 +144,7 @@ public class ControladorNominaInstructorBusqueda extends ControladorGeneral<Nomi
 
     @FXML
     void cambiarVentanaInstructores(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructores");
         System.out.println("Instructores button clicked");
     }
 
