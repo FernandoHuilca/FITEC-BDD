@@ -37,11 +37,11 @@
             </Button>
             <TableView fx:id="tableViewSuscripcion" layoutX="48.0" layoutY="138.0" prefHeight="134.0" prefWidth="437.0">
               <columns>
-                <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="77.60003662109375" text="Código" />
-                <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="68.0" text="Tipo" />
-                  <TableColumn fx:id="tableColumnDescripcion" editable="false" prefWidth="123.199951171875" text="Descripción" />
-                  <TableColumn fx:id="tableColumnPrecio" editable="false" prefWidth="50.39996337890625" text="Precio" />
-                  <TableColumn fx:id="tableColumnDuracion" editable="false" prefWidth="117.5999755859375" text="Duración (Meses)" />
+                <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="77.0" text="Código" />
+                <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="67.0" text="Tipo" />
+                  <TableColumn fx:id="tableColumnDescripcion" editable="false" prefWidth="120.0" text="Descripción" />
+                  <TableColumn fx:id="tableColumnPrecio" editable="false" prefWidth="48.0" text="Precio" />
+                  <TableColumn fx:id="tableColumnDuracion" editable="false" prefWidth="125.0" text="Duración (Meses)" />
               </columns>
             </TableView>
             <Button fx:id="buttonEliminar" layoutX="221.0" layoutY="312.0" mnemonicParsing="false" onAction="#eliminarSuscripcionFormulario" prefHeight="25.0" prefWidth="76.0" text="Eliminar">

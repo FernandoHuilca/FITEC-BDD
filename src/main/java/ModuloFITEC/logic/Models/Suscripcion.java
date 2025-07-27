@@ -1,7 +1,4 @@
 package ModuloFITEC.logic.Models;
-
-import java.net.FileNameMap;
-
 public class Suscripcion {
     private final String nombre = "Suscripción";
 

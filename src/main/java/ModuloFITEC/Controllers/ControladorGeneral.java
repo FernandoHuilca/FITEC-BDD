@@ -39,7 +39,7 @@ public class ControladorGeneral<T> {
                 MetodosFrecuentes.mostrarError("Error", "El código debe ser un número positivo.");
                 return 0;
             }
-            MetodosFrecuentes.mostrarInfo("Información", "Código obtenido correctamente.");
+            //MetodosFrecuentes.mostrarInfo("Información", "Código obtenido correctamente.");
             return codigo;
             
         } catch (NumberFormatException e) {
@@ -52,6 +52,7 @@ public class ControladorGeneral<T> {
         tabla.getItems().clear();
         lista.add(objetoT);
         tabla.setItems(lista);
+        MetodosFrecuentes.mostrarInfo("Éxito", "Información actualizada correctamente.");
     }
 
     T mostrarEnTabla(TextField textFieldCodigo, DAOGeneral<T> dao, String nombreTabla, String nombreColumna, ObservableList<T> lista, TableView<T> tableView) {

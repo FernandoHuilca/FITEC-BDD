@@ -10,12 +10,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorSuscripcionActualizacion extends ControladorGeneral<Suscripcion> {
@@ -96,7 +98,11 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
 
         //buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         //imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        tableViewSuscripcion.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
     }
+
+    
 
     @FXML
     void actualizarSuscripcion(ActionEvent event) {
@@ -122,14 +128,19 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
         try {
             suscripcion = new Suscripcion(
             codigoSuscripcionPorActualizar,
-            textFieldTipo.getText(),
-            textFieldDescripcion.getText(),
-            Double.parseDouble(textFieldPrecio.getText()),
-            Integer.parseInt(textFieldDuracion.getText())
+            textFieldTipo.getText().strip().toLowerCase(),
+            textFieldDescripcion.getText().strip().toLowerCase(),
+            Double.parseDouble(textFieldPrecio.getText().strip()),
+            Integer.parseInt(textFieldDuracion.getText().strip())
             );
             if(suscripcion.getIdSuscripcion() <= 0 || suscripcion.getDuracionMeses() <= 0 || suscripcion.getPrecio() <= 0) {
                 MetodosFrecuentes.mostrarError("Error", "No se pueden ingresar valores negativos o cero.");
                 suscripcion = null;
+                return;
+            }
+
+            if(SuscripcionDAO.getInstancia().buscarPorString(textFieldTipo.getText().strip().toLowerCase(), "SUSCRIPCION", "TIPO", "IDSUSCRIPCION", codigoSuscripcionPorActualizar) != null) {
+                MetodosFrecuentes.mostrarError("Error", "Ya existe una suscripción con el tipo " + textFieldTipo.getText() + ".");
                 return;
             }
 
@@ -170,6 +181,8 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
         
         colocarVariablesEnCampos(suscripcion);
         codigoSuscripcionPorActualizar = suscripcion.getIdSuscripcion();
+        tableColumnDescripcion.setPrefWidth(600.0);
+        tableColumnDescripcion.setResizable(true);   // Permite redimensionar
     }
 
     private void colocarVariablesEnCampos(Suscripcion suscripcion) {

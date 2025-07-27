@@ -43,6 +43,7 @@ public class ControladorSuscripcionMenuIzquierdo {
         // No es necesario inicializar nada aquí
         buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
     }
     
 

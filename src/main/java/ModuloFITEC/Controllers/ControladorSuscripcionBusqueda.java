@@ -67,6 +67,10 @@ public class ControladorSuscripcionBusqueda extends ControladorGeneral<Suscripci
 
     @FXML
     void initialize() {
+        tableColumnDescripcion.setPrefWidth(600.0); // Aumenta el ancho
+        tableColumnDescripcion.setResizable(true);   // Permite redimensionar
+        // También puedes ajustar el TableView para que sea más ancho
+        
         suscripcionesList = FXCollections.observableArrayList();
 
         tableColumncodigo.setCellValueFactory(new PropertyValueFactory("idSuscripcion"));
@@ -86,6 +90,8 @@ public class ControladorSuscripcionBusqueda extends ControladorGeneral<Suscripci
 
         //buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         //imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+
+        
     }
 
     
@@ -106,6 +112,8 @@ public class ControladorSuscripcionBusqueda extends ControladorGeneral<Suscripci
         suscripcionesList.add(suscripcion);
         tableViewSuscripcion.setItems(suscripcionesList);*/
         mostrarEnTabla(textFieldCodigo, SuscripcionDAO.getInstancia(), "SUSCRIPCION", "IDSUSCRIPCION", suscripcionesList, tableViewSuscripcion);
+        tableColumnDescripcion.setPrefWidth(600.0);
+        tableColumnDescripcion.setResizable(true);
     }
 
 

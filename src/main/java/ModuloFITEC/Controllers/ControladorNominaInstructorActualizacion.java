@@ -3,6 +3,7 @@ package ModuloFITEC.Controllers;
 import java.util.Observable;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.NominaInstructor;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorNominaInstructorActualizacion extends ControladorGeneral<NominaInstructor> {
@@ -73,6 +75,9 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
     @FXML
     private TextField textFieldSalario;
 
+    @FXML
+    private Text textNombreServidor;
+
     ObservableList<NominaInstructor> listaNominaInstructores;
 
     private String cedulaInstructorPorActualizar;
@@ -84,8 +89,9 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
     @FXML
     void initialize(){
         tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
-        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacion"));
+        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacionSimple"));
         tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
     }
 
     @FXML
@@ -180,7 +186,7 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
         if (nominaInstructor == null) {
             return;
         }
-        
+        //MetodosFrecuentes.mostrarInfo("Éxito", "Objeto encontrado.");
         colocarVariablesEnCampos(nominaInstructor);
         cedulaInstructorPorActualizar = nominaInstructor.getCedulaInstructor();
     }

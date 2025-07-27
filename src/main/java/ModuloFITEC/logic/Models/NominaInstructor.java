@@ -1,4 +1,5 @@
 package ModuloFITEC.logic.Models;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,6 +8,9 @@ public class NominaInstructor {
 
     private static final DateTimeFormatter FORMATO_FECHA = 
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+    private static final DateTimeFormatter FORMATO_FECHA_SIMPLE = 
+        DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private String cedulaInstructor;
     private double salario;
@@ -51,6 +55,10 @@ public class NominaInstructor {
 
     public String getFechaContratacionString() {
         return fechaContratacion.format(FORMATO_FECHA);
+    }
+
+    public String getFechaContratacionSimple() {
+        return fechaContratacion.format(FORMATO_FECHA_SIMPLE);
     }
 
     /*

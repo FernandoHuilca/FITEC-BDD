@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Observable;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.NominaInstructor;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,6 +66,9 @@ public class ControladorNominaInstructorBusqueda extends ControladorGeneral<Nomi
     @FXML
     private TextField textFieldCedula;
 
+    @FXML
+    private Text textNombreServidor;
+
     ObservableList<NominaInstructor> listaNominaInstructores;
 
     @FXML
@@ -72,7 +77,7 @@ public class ControladorNominaInstructorBusqueda extends ControladorGeneral<Nomi
 
         tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
         tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
-        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacion"));
+        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacionSimple"));
 
         try {
             listaNominaInstructores.addAll(NominaInstructorDAO.getInstancia().listar("NOMINA_INSTRUCTOR"));
@@ -84,6 +89,7 @@ public class ControladorNominaInstructorBusqueda extends ControladorGeneral<Nomi
         }
 
         tableViewNomina.setItems(listaNominaInstructores);
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte() ? "Nodo Norte" : "Nodo Sur");
     }
 
 

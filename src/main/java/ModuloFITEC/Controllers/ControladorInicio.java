@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorInicio {
@@ -36,10 +37,15 @@ public class ControladorInicio {
     private ImageView imageViewNomina;
 
     @FXML
+    private Text textNombreServidor;
+
+    @FXML
     void initialize() {
         // No es necesario inicializar nada aquí
         buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        
     }
     
 

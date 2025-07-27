@@ -87,8 +87,13 @@ public class ControladorSuscripcionCreacion {
                 return;
             }
 
-            String tipo = textFieldTipo.getText();
-            String descripcion = textFieldDescripcion.getText();
+            if(SuscripcionDAO.getInstancia().buscarPorString(textFieldTipo.getText().strip().toLowerCase(), "SUSCRIPCION", "TIPO", "IDSUSCRIPCION", codigo) != null) {
+                MetodosFrecuentes.mostrarError("Error", "Ya existe una suscripción con el tipo " + textFieldTipo.getText().toLowerCase() + ".");
+                return;
+            }
+
+            String tipo = textFieldTipo.getText().strip().toLowerCase();
+            String descripcion = textFieldDescripcion.getText().strip().toLowerCase();
             double precio = Double.parseDouble(textFieldPrecio.getText());
             int duracion = Integer.parseInt(textFieldDuracion.getText());
 

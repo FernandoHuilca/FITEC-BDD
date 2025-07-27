@@ -74,6 +74,7 @@ public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscri
 
     @FXML
     void initialize() {
+           // Permite redimensionar
                 
         this.suscripcionesList = FXCollections.observableArrayList();
         tableColumnCodigo.setCellValueFactory(new PropertyValueFactory("idSuscripcion"));
@@ -98,6 +99,8 @@ public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscri
 
         Suscripcion suscripcion = mostrarEnTabla(textFieldCodigoAConsultar, SuscripcionDAO.getInstancia(), "SUSCRIPCION", "IDSUSCRIPCION", suscripcionesList, tableViewSuscripcion);
         codigoSuscripcionPorEliminar = suscripcion != null ? suscripcion.getIdSuscripcion() : 0;
+        tableColumnDescripcion.setPrefWidth(600.0);
+        tableColumnDescripcion.setResizable(true);
     }
 
     @FXML

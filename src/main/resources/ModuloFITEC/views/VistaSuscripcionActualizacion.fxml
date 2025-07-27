@@ -66,9 +66,9 @@
             </Button>
             <TableView fx:id="tableViewSuscripcion" layoutX="48.0" layoutY="138.0" prefHeight="134.0" prefWidth="437.0">
               <columns>
-                <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="58.4000244140625" resizable="false" text="Código" />
-                  <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="60.00006103515625" resizable="false" text="Tipo" />
-                  <TableColumn fx:id="tableColumnDescripcion" editable="false" prefWidth="143.20001220703125" resizable="false" text="Descripción" />
+                <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="77.0" resizable="false" text="Código" />
+                  <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="67.0" resizable="false" text="Tipo" />
+                  <TableColumn fx:id="tableColumnDescripcion" editable="false" prefWidth="120.0" resizable="false" text="Descripción" />
                   <TableColumn fx:id="tableColumnPrecio" editable="false" prefWidth="48.0" resizable="false" text="Precio" />
                   <TableColumn fx:id="tableColumnDuracion" editable="false" prefWidth="125.60003662109375" resizable="false" text="Duración (Meses)" />
               </columns>

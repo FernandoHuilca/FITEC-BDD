@@ -24,6 +24,7 @@ public abstract class DAOGeneral<T> implements InterfaceDAOBusqueda<T>, Interfac
 
     @Override
     public <K extends Serializable & Comparable<K>> T buscarPorCodigo(K codigo, String nombreTabla, String nombreColumna) throws Exception {
+        
         String consulta =
         """
         SET XACT_ABORT ON;
@@ -37,7 +38,27 @@ public abstract class DAOGeneral<T> implements InterfaceDAOBusqueda<T>, Interfac
             rs = ConexionBaseSingleton.getInstancia().ejecutarConsulta(consulta);
             return rs.next() ? mapear(rs) : null;
         } catch (Exception e) {
-            throw new Exception("Error al buscar suscripción por ID: " + e.getMessage(), e);
+            throw new Exception("Error al buscar objeto por ID: " + e.getMessage(), e);
+        } finally {
+            ConexionBaseSingleton.cerrarRecursos(rs, st);
+        }
+    }
+
+    public <K extends Serializable & Comparable<K>> T buscarPorString(K valorAComparar, String nombreTabla, String nombreColumna, String columnaID, int id) throws Exception {
+        String consulta =
+        """
+        SET XACT_ABORT ON;
+        SELECT * FROM %s WHERE %s = '%s' AND %s <> '%s'
+        """.formatted(nombreTabla, nombreColumna, valorAComparar, columnaID, id);
+
+        ResultSet rs = null;
+        Statement st = null;
+
+        try {
+            rs = ConexionBaseSingleton.getInstancia().ejecutarConsulta(consulta);
+            return rs.next() ? mapear(rs) : null;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar objeto por ID: " + e.getMessage(), e);
         } finally {
             ConexionBaseSingleton.cerrarRecursos(rs, st);
         }
