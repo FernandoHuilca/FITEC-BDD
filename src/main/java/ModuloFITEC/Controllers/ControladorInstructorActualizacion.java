@@ -1,11 +1,35 @@
 package ModuloFITEC.Controllers;
 
+import java.util.List;
+
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.InstructorDAO;
+import ModuloFITEC.logic.DAOs.NominaDeInstructorDAO;
+import ModuloFITEC.logic.Models.Instructor;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class ControladorInstructorActualizacion {
+    @FXML private TableView<Instructor> tableViewInstructores;
+    @FXML private TableColumn<Instructor, String> columnSucursal;
+    @FXML private TableColumn<Instructor, String> columnCedula;
+    @FXML private TableColumn<Instructor, String> columnNombre;
+    @FXML private TableColumn<Instructor, String> columnApellido;
+    @FXML private TableColumn<Instructor, String> columnTelefono;
+    @FXML private TableColumn<Instructor, String> columnEmail;
+    @FXML private TableColumn<Instructor, String> columnFechaNacimiento;
+    @FXML private TableColumn<Instructor, String> columnDireccion;
+
+    @FXML private TextField textFieldCedula;
+    @FXML private SplitMenuButton splitMenuSucursal;
+    @FXML private TextField textFieldSalario;
+    @FXML private Button buttonActualizarFormulario;
+    @FXML private TextField textFieldNombreCedula;
+
+    private Instructor instructorSeleccionado = null;
+
 
     // 🧭 Botones de navegación lateral
     @FXML private Button buttonInicio;
@@ -107,10 +131,131 @@ public class ControladorInstructorActualizacion {
         System.out.println("🔎 Consultando instructor con cédula");
     }
 
-    // ---------------- ACTUALIZAR DATOS ----------------
+  
 
-    @FXML private void actualizarFormularioInstructor() {
-        System.out.println("🛠️ Actualizando instructor con datos");
+    @FXML
+    public void initialize() {
+        configurarTabla();
+        cargarInstructores();
 
+        buttonActualizarFormulario.setDisable(true);
+
+        tableViewInstructores.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            instructorSeleccionado = newSel;
+            buttonActualizarFormulario.setDisable(newSel == null);
+            if (newSel != null) {
+                cargarDatosEnFormulario(newSel);
+            }
+        });
+
+        textFieldNombreCedula.textProperty().addListener((obs, oldText, newText) -> {
+            // Puedes agregar lógica para búsqueda dinámica si lo deseas
+        });
     }
+
+    private void configurarTabla() {
+        columnSucursal.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getIdSucursal()));
+        columnCedula.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getCedulaInstructor()));
+        columnNombre.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getNombre()));
+        columnApellido.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getApellido()));
+        columnTelefono.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getTelefono()));
+        columnEmail.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getEmail()));
+        columnFechaNacimiento.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getFechaNacimiento().toString()));
+        columnDireccion.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getDireccion()));
+    }
+
+    private void cargarInstructores() {
+        try {
+            List<Instructor> listaInstructores = InstructorDAO.getInstancia().getListaInstructoresDB();
+            tableViewInstructores.setItems(FXCollections.observableArrayList(listaInstructores));
+        } catch (Exception e) {
+            e.printStackTrace();
+            MetodosFrecuentes.mostrarError("Error", "No se pudieron cargar los instructores.");
+        }
+    }
+
+    private void cargarDatosEnFormulario(Instructor instructor) {
+        //textFieldCedula.setText(instructor.getCedulaInstructor());
+        splitMenuSucursal.setText(instructor.getIdSucursal());
+        textFieldNombre.setText(instructor.getNombre());
+        textFieldApellido.setText(instructor.getApellido());
+        textFieldTelefono.setText(instructor.getTelefono());
+        textFieldEmail.setText(instructor.getEmail());
+        datePickerFechaNacimiento.setValue(instructor.getFechaNacimiento());
+        textFieldDireccion.setText(instructor.getDireccion());
+        // Cargar salario desde la nómina
+        try {
+            double salario = obtenerSalarioInstructor(instructor.getCedulaInstructor());
+            textFieldSalario.setText(String.valueOf(salario));
+        } catch (Exception e) {
+            textFieldSalario.setText("");
+        }
+    }
+
+    private double obtenerSalarioInstructor(String cedula) throws Exception {
+        // Implementa el método en NominaDeInstructorDAO para obtener el salario por cédula
+        return new NominaDeInstructorDAO().obtenerSalarioPorCedula(cedula);
+    }
+  // ---------------- ACTUALIZAR DATOS ----------------
+    @FXML
+    private void actualizarFormularioInstructor() {
+        if (instructorSeleccionado == null) {
+            MetodosFrecuentes.mostrarError("Selección requerida", "Debe seleccionar un instructor en la tabla.");
+            return;
+        }
+        try {
+            // Validación de campos vacíos
+            if (splitMenuSucursal.getText().equals("Escoja la sucursal") ||
+                textFieldNombre.getText().trim().isEmpty() ||
+                textFieldApellido.getText().trim().isEmpty() ||
+                textFieldTelefono.getText().trim().isEmpty() ||
+                textFieldEmail.getText().trim().isEmpty() ||
+                datePickerFechaNacimiento.getValue() == null ||
+                textFieldDireccion.getText().trim().isEmpty() ||
+                textFieldSalario.getText().trim().isEmpty()) {
+                MetodosFrecuentes.mostrarError("Campos obligatorios", "Por favor, complete todos los campos.");
+                return;
+            }
+
+            double salario;
+            try {
+                salario = Double.parseDouble(textFieldSalario.getText().trim());
+                if (salario <= 0) {
+                    MetodosFrecuentes.mostrarError("Salario inválido", "El salario debe ser un número positivo.");
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                MetodosFrecuentes.mostrarError("Salario inválido", "El salario debe ser un número válido.");
+                return;
+            }
+
+            Instructor instructorActualizado = new Instructor(
+                instructorSeleccionado.getCedulaInstructor(),
+                splitMenuSucursal.getText(),
+                textFieldNombre.getText().trim(),
+                textFieldApellido.getText().trim(),
+                textFieldTelefono.getText().trim(),
+                textFieldEmail.getText().trim(),
+                datePickerFechaNacimiento.getValue(),
+                textFieldDireccion.getText().trim(),
+                salario,
+                null // Fecha de contratación no se actualiza
+            );
+
+            // Actualizar en INSTRUCTOR
+            InstructorDAO.getInstancia().actualizarInstructor(instructorActualizado);
+
+            // Actualizar salario en NOMINA_INSTRUCTOR
+            new NominaDeInstructorDAO().actualizarSalarioInstructor(instructorActualizado.getCedulaInstructor(), salario);
+
+            MetodosFrecuentes.mostrarInfo("Actualización exitosa", "El instructor ha sido actualizado correctamente.");
+            cargarInstructores();
+            buttonActualizarFormulario.setDisable(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            MetodosFrecuentes.mostrarError("Error", "No se pudo actualizar el instructor: " + e.getMessage());
+        }
+    }
+
 }
