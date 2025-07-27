@@ -73,7 +73,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -84,7 +84,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #001001;" text="       Suscripciones" textFill="#ffffffe0">
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #001001;" text="       Suscripciones" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -121,12 +121,12 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
+            <ImageView fx:id="imageViewNomina" fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
                <image>
                   <Image url="@../data/icono_suscripcion.png" />
                </image>
@@ -138,26 +138,26 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="268.0" layoutY="18.0" prefHeight="573.0" prefWidth="503.0">
+      <Pane layoutX="268.0" layoutY="8.0" prefHeight="573.0" prefWidth="503.0">
          <children>
             <Text fill="WHITE" layoutX="46.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suscripciones" wrappingWidth="170.0">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="50.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
+            <Text fill="WHITE" layoutX="70.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="textFieldCodigoAConsultar" layoutX="151.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código" />
+            <TextField fx:id="textFieldCodigoAConsultar" layoutX="171.0" layoutY="97.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el código" />
             <Line endX="143.60003662109375" endY="-44.79999923706055" layoutX="366.0" layoutY="66.0" startX="143.60003662109375" startY="509.4000244140625" />
-            <Button fx:id="buttonConsultar" layoutX="393.0" layoutY="98.0" mnemonicParsing="false" onAction="#consultarCodigo" prefHeight="25.0" prefWidth="76.0" text="Consultar">
+            <Button fx:id="buttonConsultar" layoutX="399.0" layoutY="97.0" mnemonicParsing="false" onAction="#consultarCodigo" prefHeight="25.0" prefWidth="76.0" text="Consultar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TableView fx:id="tableViewSuscripcion" layoutX="37.0" layoutY="158.0" prefHeight="122.0" prefWidth="444.0">
+            <TableView fx:id="tableViewSuscripcion" layoutX="48.0" layoutY="138.0" prefHeight="134.0" prefWidth="437.0">
               <columns>
                 <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="77.60003662109375" text="Código" />
                 <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="68.0" text="Tipo" />
@@ -175,7 +175,7 @@
       </Pane>
       <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
          <children>
-            <Button fx:id="buttonRegistrarSuscripcion" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="14.0" mnemonicParsing="false" onAction="#registrarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Registrar suscripción" textFill="#ffffffe0">
+            <Button fx:id="buttonRegistrarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#registrarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Registrar suscripción" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -186,7 +186,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonConsultarSuscripcion" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="65.0" mnemonicParsing="false" onAction="#consultarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Consultar suscripción" textFill="#ffffffe0">
+            <Button fx:id="buttonConsultarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="65.0" mnemonicParsing="false" onAction="#consultarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Consultar suscripción" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -197,7 +197,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonActualizarSuscripcion" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="112.0" mnemonicParsing="false" onAction="#actualizarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Actualizar suscripción" textFill="#ffffffe0">
+            <Button fx:id="buttonActualizarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="112.0" mnemonicParsing="false" onAction="#actualizarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #323232;" text="Actualizar suscripción" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -208,7 +208,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonEliminarSuscripcion" alignment="BASELINE_LEFT" layoutX="22.0" layoutY="159.0" mnemonicParsing="false" onAction="#eliminarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #000000;" text="Eliminar suscripción" textFill="#ffffffe0">
+            <Button fx:id="buttonEliminarSuscripcion" alignment="BASELINE_LEFT" layoutX="19.0" layoutY="159.0" mnemonicParsing="false" onAction="#eliminarSuscripcion" prefHeight="25.0" prefWidth="163.0" style="-fx-background-color: #000000;" text="Eliminar suscripción" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>

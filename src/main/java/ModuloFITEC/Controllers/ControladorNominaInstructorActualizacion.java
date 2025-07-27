@@ -1,15 +1,23 @@
 package ModuloFITEC.Controllers;
 
+import java.util.Observable;
+
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
+import ModuloFITEC.logic.Models.NominaInstructor;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class ControladorNominaInstructorActualizacion {
+public class ControladorNominaInstructorActualizacion extends ControladorGeneral<NominaInstructor> {
 
     @FXML
     private Button buttonActualizarFormulario;
@@ -54,20 +62,66 @@ public class ControladorNominaInstructorActualizacion {
     private TableColumn<?, ?> tableColumnSalario;
 
     @FXML
-    private TableView<?> tableViewNomina;
+    private TableView<NominaInstructor> tableViewNomina;
 
     @FXML
     private TextField textFieldCedula;
 
     @FXML
-    private TextField textFieldFechaContratacion;
+    private DatePicker datePickerFechaContratacion;
 
     @FXML
     private TextField textFieldSalario;
 
+    ObservableList<NominaInstructor> listaNominaInstructores;
+
+    private String cedulaInstructorPorActualizar;
+
+    public ControladorNominaInstructorActualizacion() {
+        listaNominaInstructores = FXCollections.observableArrayList();
+        cedulaInstructorPorActualizar = "0";
+    }
+    @FXML
+    void initialize(){
+        tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
+        tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacion"));
+        tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
+    }
+
     @FXML
     void actualizarFormulario(ActionEvent event) {
 
+        if(cedulaInstructorPorActualizar.strip().isEmpty() || cedulaInstructorPorActualizar.strip().isBlank() ||  cedulaInstructorPorActualizar == null || cedulaInstructorPorActualizar.equals("0")) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, consulte un formulario antes de actualizar.");
+            return;
+        }
+
+        if(textFieldCedula.getText().strip().isEmpty() || datePickerFechaContratacion.getValue() == null || textFieldSalario.getText().strip().isEmpty()) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, complete todos los campos.");
+            return;
+        }
+
+        NominaInstructor nominaInstructor = null;
+
+        try {
+            nominaInstructor = new NominaInstructor(
+                textFieldCedula.getText().strip(),
+                Double.parseDouble(textFieldSalario.getText().strip()),
+                datePickerFechaContratacion.getValue().atStartOfDay()
+            );
+
+            if(nominaInstructor.getSalario() <= 0) {
+                MetodosFrecuentes.mostrarError("Error", "El salario debe ser mayor a 0.");
+                return;
+            }
+
+            NominaInstructorDAO.getInstancia().actualizar(nominaInstructor);
+            MetodosFrecuentes.mostrarInfo("Éxito", "Nómina actualizada correctamente.");
+            colocarObjetoEnTabla(nominaInstructor, listaNominaInstructores, tableViewNomina);
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "Error al crear el objeto: " + e.getMessage());
+            return;
+        }
     }
 
     @FXML
@@ -119,7 +173,21 @@ public class ControladorNominaInstructorActualizacion {
 
     @FXML
     void consultarFormulario(ActionEvent event) {
-
+        
+        NominaInstructor nominaInstructor = mostrarEnTabla(textFieldCedula, NominaInstructorDAO.getInstancia(), "NOMINA_INSTRUCTOR", "CEDULAINSTRUCTOR", listaNominaInstructores, tableViewNomina);
+        
+        if (nominaInstructor == null) {
+            return;
+        }
+        
+        colocarVariablesEnCampos(nominaInstructor);
+        cedulaInstructorPorActualizar = nominaInstructor.getCedulaInstructor();
     }
 
+    private void colocarVariablesEnCampos(NominaInstructor nominaInstructor) {
+        textFieldCedula.setText(String.valueOf(nominaInstructor.getCedulaInstructor()));
+        datePickerFechaContratacion.setValue(nominaInstructor.getFechaContratacion().toLocalDate());
+        textFieldSalario.setText(String.valueOf(nominaInstructor.getSalario()));
+    }
+        
 }

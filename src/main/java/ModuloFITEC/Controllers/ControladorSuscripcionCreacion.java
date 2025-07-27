@@ -1,27 +1,29 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class ControladorSuscripcionCreacion {
 
     @FXML
-    private Button buttonActualizarSuscripción;
+    private Button buttonActualizarSuscripcion;
 
     @FXML
     private Button buttonClientes;
 
     @FXML
-    private Button buttonConsultarSuscripción;
+    private Button buttonConsultarSuscripcion;
 
     @FXML
-    private Button buttonEliminarSuscripción;
+    private Button buttonEliminarSuscripcion;
 
     @FXML
     private Button buttonHistorialDeCompras;
@@ -36,10 +38,10 @@ public class ControladorSuscripcionCreacion {
     private Button buttonNominaInstructores;
 
     @FXML
-    private Button buttonRegistrarFormularioSuscripción;
+    private Button buttonRegistrarFormularioSuscripcion;
 
     @FXML
-    private Button buttonRegistrarSuscripción;
+    private Button buttonRegistrarSuscripcion;
 
     @FXML
     private Button buttonSuplementos;
@@ -63,13 +65,18 @@ public class ControladorSuscripcionCreacion {
     private TextField textFieldTipo;
 
     @FXML
+    private ImageView imageViewNomina;
+
+    @FXML
     void initialize() {
         // No es necesario volver a inicializar el DAO aquí
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     @FXML
-    void actualizarSuscripción(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarSuscripción.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionActualizacion.fxml", "Actualizar Suscripción");
+    void actualizarSuscripcion(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonActualizarSuscripcion.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionActualizacion.fxml", "Actualizar Suscripción");
     }
 
     @FXML
@@ -109,17 +116,17 @@ public class ControladorSuscripcionCreacion {
     }
 
     @FXML
-    void consultarSuscripción(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarSuscripción.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionBusqueda.fxml", "Consultar Suscripción");
+    void consultarSuscripcion(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarSuscripcion.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionBusqueda.fxml", "Consultar Suscripción");
     }
 
     @FXML
-    void eliminarSuscripción(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonEliminarSuscripción.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionEliminacion.fxml", "Eliminar Suscripción");
+    void eliminarSuscripcion(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonEliminarSuscripcion.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionEliminacion.fxml", "Eliminar Suscripción");
     }
 
     @FXML
-    void registrarFormularioSuscripción(ActionEvent event) {
+    void registrarFormularioSuscripcion(ActionEvent event) {
 
         if(textFieldCodigo.getText().isEmpty() || textFieldTipo.getText().isEmpty() || textFieldDescripcion.getText().isEmpty() ||
            textFieldPrecio.getText().isEmpty() || textFieldDuracion.getText().isEmpty()) {
@@ -130,7 +137,7 @@ public class ControladorSuscripcionCreacion {
         try {
             int codigo = Integer.parseInt(textFieldCodigo.getText());
 
-            if (SuscripcionDAO.getInstancia().buscarPorCodigo(codigo) != null) {
+            if (SuscripcionDAO.getInstancia().buscarPorCodigo(codigo, "SUSCRIPCION", "IDSUSCRIPCION") != null) {
                 MetodosFrecuentes.mostrarError("Error", "La suscripción con el código " + codigo + " ya existe.");
                 return;
             }
@@ -141,10 +148,10 @@ public class ControladorSuscripcionCreacion {
             int duracion = Integer.parseInt(textFieldDuracion.getText());
 
             Suscripcion suscripcion = new Suscripcion(codigo, tipo, descripcion, precio, duracion);
-            SuscripcionDAO.getInstancia().crearSuscripcion(suscripcion);
+            SuscripcionDAO.getInstancia().crear(suscripcion);
 
         } catch (NumberFormatException e) {
-            MetodosFrecuentes.mostrarError("Error", "Por favor, ingrese valores numéricos válidos para precio y duración.");
+            MetodosFrecuentes.mostrarError("Error", "Por favor, ingrese valores numéricos válidos");
             return;
 
         }catch (Exception e) {
@@ -154,11 +161,21 @@ public class ControladorSuscripcionCreacion {
             return;
         }
         MetodosFrecuentes.mostrarInfo("Éxito", "La suscripción "+textFieldTipo.getText()+" se ha registrado correctamente.");
+        limpiarCampos();
+        
     }
 
     @FXML
-    void registrarSuscripción(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonRegistrarSuscripción.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Registrar Suscripción");
+    void registrarSuscripcion(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonRegistrarSuscripcion.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Registrar Suscripción");
+    }
+
+    private void limpiarCampos() {
+        textFieldCodigo.clear();
+        textFieldTipo.clear();
+        textFieldDescripcion.clear();
+        textFieldPrecio.clear();
+        textFieldDuracion.clear();
     }
 
 }

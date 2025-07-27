@@ -18,7 +18,7 @@
    <children>
       <Pane prefHeight="640.0" prefWidth="251.0" style="-fx-background-color: #615E5E;">
          <children>
-            <Button fx:id="buttonClientes" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="98.0" mnemonicParsing="false" onAction="#cambiarVentanaClientes" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Clientes" textFill="#ffffffe0">
+            <Button fx:id="buttonClientes" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="98.0" mnemonicParsing="false" onAction="#cambiarVentanaClientes" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #323232;" text="       Clientes" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -29,7 +29,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" onAction="#cambiarVentanaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="146.0" mnemonicParsing="false" onAction="#cambiarVentanaInstructores" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #323232;" text="       Instructores" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -40,7 +40,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonSuplementos" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="194.0" mnemonicParsing="false" onAction="#cambiarVentanaSuplementos" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Suplementos" textFill="#ffffffe0">
+            <Button fx:id="buttonSuplementos" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="194.0" mnemonicParsing="false" onAction="#cambiarVentanaSuplementos" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #323232;" text="       Suplementos" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -51,7 +51,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonHistorialDeCompras" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="242.0" mnemonicParsing="false" onAction="#cambiarVentanaHistorialDeCompras" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Historial de compras" textFill="#ffffffe0">
+            <Button fx:id="buttonHistorialDeCompras" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="242.0" mnemonicParsing="false" onAction="#cambiarVentanaHistorialDeCompras" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #323232;" text="       Historial de compras" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -62,7 +62,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonInicio" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" onAction="#cambiarVentanaInicio" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232; " text="       Inicio" textFill="#ffffffe0">
+            <Button fx:id="buttonInicio" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="58.0" mnemonicParsing="false" onAction="#cambiarVentanaInicio" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #323232; " text="       Inicio" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -73,7 +73,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="282.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
+            <Button fx:id="buttonNominaInstructores" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaNominaInstructores" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #323232;" text="       Nómina de instructores" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -84,7 +84,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="320.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="184.0" style="-fx-background-color: #001001;" text="       Suscripciones" textFill="#ffffffe0">
+            <Button fx:id="buttonSuscripciones" alignment="BASELINE_LEFT" layoutX="34.0" layoutY="283.0" mnemonicParsing="false" onAction="#cambiarVentanaSuscripciones" prefHeight="27.0" prefWidth="186.0" style="-fx-background-color: #001001;" text="       Suscripciones" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
@@ -121,12 +121,12 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
+            <ImageView fx:id="imageViewNomina" fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="322.0">
+            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="285.0">
                <image>
                   <Image url="@../data/icono_suscripcion.png" />
                </image>
@@ -157,7 +157,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TableView fx:id="tableViewSuscripcion" layoutX="46.0" layoutY="198.0" prefHeight="200.0" prefWidth="432.0">
+            <TableView fx:id="tableViewSuscripcion" layoutX="48.0" layoutY="138.0" prefHeight="200.0" prefWidth="437.0">
               <columns>
                 <TableColumn fx:id="tableColumncodigo" editable="false" prefWidth="77.60003662109375" resizable="false" text="Código" />
                 <TableColumn fx:id="tableColumnTipo" editable="false" prefWidth="68.0" resizable="false" text="Tipo" />

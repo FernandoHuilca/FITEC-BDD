@@ -1,6 +1,10 @@
 package ModuloFITEC.logic.Models;
 
+import java.net.FileNameMap;
+
 public class Suscripcion {
+    private final String nombre = "Suscripción";
+
     private int idSuscripcion;
     private String tipo;
     private String descripcion;
@@ -55,15 +59,7 @@ public class Suscripcion {
         this.duracionMeses = duracionMeses;
     }
 
-    @Override
-    public String toString() {
-            // TODO Auto-generated method stub
-            return "Suscripcion{" +
-                    "idSuscripcion=" + idSuscripcion +
-                    ", tipo='" + tipo + '\'' +
-                    ", descripcion='" + descripcion + '\'' +
-                    ", precio=" + precio +
-                    ", duracionMeses=" + duracionMeses +
-                    '}';
+    public String getNombre() {
+        return nombre;
     }
 }
