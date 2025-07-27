@@ -1,13 +1,16 @@
 package ModuloFITEC.logic.DAOs;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import com.almasb.fxgl.scene3d.Cone;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.Models.NominaInstructor;
 
-public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements InterfaceDAOActualizacion<NominaInstructor> {
+public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements InterfaceDAOActualizacion<NominaInstructor>, InterfaceDAOCreacion<NominaInstructor> {
 
     private static NominaInstructorDAO instancia;
 
@@ -98,6 +101,19 @@ public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements
         ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
 
         return entidadT;
+    }
+
+    @Override
+    public void crear(NominaInstructor entidadT) throws SQLException {
+        String consulta = """ 
+        SET XACT_ABORT ON;
+        INSERTO INTO NOMINA_INSTRUCTOR (CEDULAINSTRUCTOR, SALARIO, FECHACONTRATACION) VALUES ('%s', %f, '%s')
+        """.formatted(
+            entidadT.getCedulaInstructor(),
+            entidadT.getSalario(),
+            entidadT.getFechaContratacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+        );
+        ConexionBaseSingleton.getInstancia().ejecutarActualizacion(consulta);
     }
 
 }
