@@ -49,6 +49,7 @@ public class ControladorSuscripcionMenuIzquierdo {
 
     @FXML
     void cambiarVentanaInicio(ActionEvent event) {
+        MetodosFrecuentes.cambiarVentana((Stage) buttonInicio.getScene().getWindow(), "/ModuloFITEC/views/VistaInicio.fxml", "Inicio");
     }
 
     @FXML
