@@ -1,5 +1,7 @@
 package ModuloFITEC.logic.DAOs;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -160,4 +162,30 @@ public class SuplementoDAO {
             ConexionBaseSingleton.cerrarRecursos(rs, st);
         }
     }
+
+    public boolean existeSuplementoEnSucursal(String nombre, String sucursal) throws Exception {
+        String sql = """
+            SELECT COUNT(*) 
+            FROM SUPLEMENTO 
+            WHERE LOWER(NOMBRE) = LOWER(?) AND IDSUCURSAL = ?
+        """;
+
+        try (Connection conn = db.getConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, nombre);
+            stmt.setString(2, sucursal);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
+
+        } catch (SQLException e) {
+            throw new Exception("Error al verificar existencia del suplemento: " + e.getMessage(), e);
+        }
+    }
+
+
 }

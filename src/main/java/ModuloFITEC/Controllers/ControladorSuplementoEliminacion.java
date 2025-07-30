@@ -3,6 +3,7 @@ package ModuloFITEC.Controllers;
 import java.util.List;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.SuplementoDAO;
 import ModuloFITEC.logic.Models.Suplemento;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorSuplementoEliminacion {
@@ -81,6 +83,9 @@ public class ControladorSuplementoEliminacion {
     @FXML
     private TableView<Suplemento> tableSuplementos;
 
+    @FXML
+    private Text textNombreServidor;
+
     private ObservableList<Suplemento> suplementos;
 
     private final SuplementoDAO suplementoDAO = new SuplementoDAO();
@@ -107,6 +112,8 @@ public class ControladorSuplementoEliminacion {
             mostrarAlerta("Error al cargar suplementos", "No se pudieron obtener los datos de la base.");
             e.printStackTrace();
         }
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
     }
 
     @FXML

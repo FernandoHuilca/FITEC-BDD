@@ -1,6 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.SuplementoDAO;
 import ModuloFITEC.logic.Models.Suplemento;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorSuplementoCreacion {
@@ -71,6 +73,11 @@ public class ControladorSuplementoCreacion {
     private TextField textFieldPrecio;
 
     @FXML
+    private Text textNombreServidor;
+
+    private final SuplementoDAO suplementoDAO = new SuplementoDAO();
+
+    @FXML
     public void initialize() {
         for (MenuItem item : splitMenuButtonSucursal.getItems()) {
             item.setOnAction(event -> {
@@ -85,6 +92,8 @@ public class ControladorSuplementoCreacion {
                 splitMenuButtonCategoria.setStyle("-fx-text-fill: black;");
             });
         }
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
     }
 
     @FXML
@@ -162,6 +171,12 @@ public class ControladorSuplementoCreacion {
                 mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos.");
             }
             else {
+
+                // Validar existencia del suplemento
+                if (suplementoDAO.existeSuplementoEnSucursal(textFieldNombre.getText(), splitMenuButtonSucursal.getText())) {
+                    mostrarAlerta("Duplicado", "Ya existe un suplemento con ese nombre en esa sucursal.");
+                    return;
+                }
                 // Crear objeto suplemento
                 Suplemento suplemento = new Suplemento(
                     Integer.parseInt(textFieldCodigo.getText()),

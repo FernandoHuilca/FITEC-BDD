@@ -1,8 +1,13 @@
 package ModuloFITEC.Controllers;
 
+import java.util.List;
+
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
+import ModuloFITEC.logic.DAOs.ClienteDAO;
 import ModuloFITEC.logic.DAOs.CompraDAO;
 import ModuloFITEC.logic.DAOs.SuplementoDAO;
+import ModuloFITEC.logic.Models.Cliente;
 import ModuloFITEC.logic.Models.Compra;
 import ModuloFITEC.logic.Models.Suplemento;
 import javafx.event.ActionEvent;
@@ -13,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorCompraCreacion {
@@ -63,6 +69,9 @@ public class ControladorCompraCreacion {
     private TextField textFieldCodigoSuplemento;
 
     @FXML
+    private Text textNombreServidor;
+
+    @FXML
     public void initialize() {
         for (MenuItem item : splitMenuButtonSucursal.getItems()) {
             item.setOnAction(event -> {
@@ -70,6 +79,8 @@ public class ControladorCompraCreacion {
                 splitMenuButtonSucursal.setStyle("-fx-text-fill: black;");
             });
         }
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
     }
 
     @FXML
@@ -127,8 +138,9 @@ public class ControladorCompraCreacion {
             try {
             if (!validarCampos()) return;
 
+            Cliente cliente = obtenerCliente();
             Suplemento suplemento = obtenerSuplemento();
-            if (suplemento == null) return;
+            if (suplemento == null || cliente == null) return;
 
             int cantidadPedida = Integer.parseInt(textFieldCantidad.getText());
 
@@ -187,6 +199,20 @@ public class ControladorCompraCreacion {
             return false;
         }
         return true;
+    }
+
+    private Cliente obtenerCliente() throws Exception {
+
+        String cedula = textFieldCedulaCliente.getText().trim();
+
+        List<Cliente> cliente = ClienteDAO.getInstancia().getClientesPorCedula(cedula);
+
+        if (cliente.isEmpty()) {
+            mostrarAlerta("Cliente no encontrado", "No existe un cliente con cédula: " + cedula);
+            return null;
+        }
+
+        return cliente.get(0);
     }
 
     private Suplemento obtenerSuplemento() throws Exception {

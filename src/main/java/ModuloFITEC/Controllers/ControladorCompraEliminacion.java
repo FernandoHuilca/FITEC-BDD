@@ -1,6 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.CompraDAO;
 import ModuloFITEC.logic.Models.Compra;
 import javafx.collections.FXCollections;
@@ -84,6 +85,9 @@ public class ControladorCompraEliminacion {
 
     @FXML
     private TableView<Compra> tableCompras;
+
+    @FXML
+    private Text textNombreServidor;
 
     private ObservableList<Compra> compras;
 
@@ -177,6 +181,8 @@ public class ControladorCompraEliminacion {
                 }
             });
         }
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
     }
 
     @FXML

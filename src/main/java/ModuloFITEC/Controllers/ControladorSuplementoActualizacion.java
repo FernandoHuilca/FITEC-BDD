@@ -1,6 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.SuplementoDAO;
 import ModuloFITEC.logic.Models.Suplemento;
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -103,6 +105,9 @@ public class ControladorSuplementoActualizacion {
     @FXML
     private TableView<Suplemento> tableSuplementos;
 
+    @FXML
+    private Text textNombreServidor;
+
     private ObservableList<Suplemento> suplementos;
 
     private final SuplementoDAO suplementoDAO = new SuplementoDAO();
@@ -144,6 +149,8 @@ public class ControladorSuplementoActualizacion {
             mostrarAlerta("Error al cargar suplementos", "No se pudieron obtener los datos de la base.");
             e.printStackTrace();
         }
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
     }
 
     @FXML
@@ -223,6 +230,7 @@ public class ControladorSuplementoActualizacion {
                 mostrarAlerta("Suplemento no encontrado", "No se encontró un suplemento con ese ID.");
             }
         } catch (NumberFormatException e) {
+            deshabilitarCampos();            
             mostrarAlerta("ID inválido", "Por favor, ingrese un número entero válido como ID.");
         } catch (Exception e) {
             mostrarAlerta("Error", "Ocurrió un error al buscar el suplemento.");
@@ -266,6 +274,11 @@ public class ControladorSuplementoActualizacion {
                 mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos.");
             }
             else {
+                // Validar existencia del suplemento
+                if (suplementoDAO.existeSuplementoEnSucursal(textFieldNombre.getText(), splitMenuButtonSucursal.getText())) {
+                    mostrarAlerta("Duplicado", "Ya existe un suplemento con ese nombre en esa sucursal.");
+                    return;
+                }
                 // Actualizar objeto suplemento
                 Suplemento suplemento = new Suplemento(
                     Integer.parseInt(textFieldCodigo.getText()),
