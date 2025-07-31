@@ -166,6 +166,10 @@ public class ClienteDAO {
             conexion = baseDeDatos.getConexion();
             conexion.setAutoCommit(false);  // Iniciar transacción
 
+            Statement st = conexion.createStatement();
+            st.execute("SET XACT_ABORT ON"); // Activar comportamiento deseado
+            st.close();
+
             // 1. Insertar en la vista CLIENTE (distribuída)
             String sqlCliente = "INSERT INTO CLIENTE (CEDULACLIENTE, IDSUSCRIPCION, IDSUCURSAL, NOMBRE, APELLLIDO, TELEFONO, EMAIL, FECHANACIMIENTO, FECHAREGISTRO, DIRECCION) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -256,6 +260,10 @@ public class ClienteDAO {
         try {
             conexion = baseDeDatos.getConexion();
             conexion.setAutoCommit(false);  // Iniciar transacción
+
+            Statement st = conexion.createStatement();
+            st.execute("SET XACT_ABORT ON");
+            st.close();
 
             // 1. Eliminar de la vista CLIENTE (distribuída)
             String sqlCliente = "DELETE FROM CLIENTE WHERE CEDULACLIENTE = ?";
