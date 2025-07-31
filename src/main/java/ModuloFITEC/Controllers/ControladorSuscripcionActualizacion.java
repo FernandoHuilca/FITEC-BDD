@@ -123,7 +123,7 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
 
     private void cargarDatosEnFormulario(Suscripcion newSel) {
         textFieldCodigoAConsultar.setText(String.valueOf(newSel.getIdSuscripcion()));
-        textFieldTipo.setText(newSel.getTipo());
+        textFieldTipo.setText(newSel.getTipo().strip().toLowerCase());
         textFieldDescripcion.setText(newSel.getDescripcion());
         textFieldPrecio.setText(String.valueOf(newSel.getPrecio()));
         textFieldDuracion.setText(String.valueOf(newSel.getDuracionMeses()));

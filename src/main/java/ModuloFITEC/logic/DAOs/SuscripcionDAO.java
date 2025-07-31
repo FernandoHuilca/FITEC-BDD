@@ -120,7 +120,7 @@ public class SuscripcionDAO extends DAOGeneral<Suscripcion> implements Interface
         """
         SET XACT_ABORT ON;
         UPDATE SUSCRIPCION
-        SET TIPO = '%S', DESCRIPCION = '%s', PRECIO = %.2f, DURACIONMESES = %d
+        SET TIPO = '%s', DESCRIPCION = '%s', PRECIO = %.2f, DURACIONMESES = %d
         WHERE IDSUSCRIPCION = %d
         """.formatted(
             entidadT.getTipo(),
