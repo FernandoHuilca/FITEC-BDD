@@ -1,5 +1,6 @@
 package ModuloFITEC.logic.DAOs;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -90,11 +91,11 @@ public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements
     @Override
     public NominaInstructor actualizar(NominaInstructor entidadT) throws Exception {
         String consulta = """ 
-        SET XACT_ABORT ON;
-        UPDATE NOMINA_INSTRUCTOR
-        SET SALARIO = %f, FECHACONTRATACION = '%s'
-        WHERE CEDULAINSTRUCTOR = '%s'
-        """.formatted(
+                SET XACT_ABORT ON;
+                UPDATE NOMINA_INSTRUCTOR
+                SET SALARIO = %f, FECHACONTRATACION = '%s'
+                WHERE CEDULAINSTRUCTOR = '%s'
+                """.formatted(
                 entidadT.getSalario(),
                 entidadT.getFechaContratacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 entidadT.getCedulaInstructor()
@@ -108,9 +109,9 @@ public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements
     @Override
     public void crear(NominaInstructor entidadT) throws SQLException {
         String consulta = """ 
-        SET XACT_ABORT ON;
-        INSERTO INTO NOMINA_INSTRUCTOR (CEDULAINSTRUCTOR, SALARIO, FECHACONTRATACION) VALUES ('%s', %f, '%s')
-        """.formatted(
+                SET XACT_ABORT ON;
+                INSERT INTO NOMINA_INSTRUCTOR (CEDULAINSTRUCTOR, SALARIO, FECHACONTRATACION) VALUES ('%s', %f, '%s')
+                """.formatted(
                 entidadT.getCedulaInstructor(),
                 entidadT.getSalario(),
                 entidadT.getFechaContratacion().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
@@ -121,72 +122,84 @@ public class NominaInstructorDAO extends DAOGeneral<NominaInstructor> implements
 
     //NECESITO OBTENER EL SALARIO PARA PODER MOSTRARLO: ___________________________________________
     public double obtenerSalarioPorCedula(String cedula) throws Exception {
-        String sql = "SELECT SALARIO FROM NOMINA_INSTRUCTOR WHERE CEDULAINSTRUCTOR = ?";
-        java.sql.PreparedStatement ps = null;
+        String sql = String.format("""
+                    SET XACT_ABORT ON;
+                    SELECT SALARIO FROM [DESKTOP-HSCPRKC].QUITO_NORTE.dbo.NOMINA_INSTRUCTOR WHERE CEDULAINSTRUCTOR = '%s'
+                """, cedula);
         ResultSet rs = null;
+        Statement st = null;
         try {
-            ps = ConexionBaseSingleton.getInstancia().getConexion().prepareStatement(sql);
-            ps.setString(1, cedula);
-            rs = ps.executeQuery();
+            st = ConexionBaseSingleton.getInstancia().getConexion().createStatement();
+            rs = st.executeQuery(sql);
             if (rs.next()) {
                 return rs.getDouble("SALARIO");
             }
             return 0.0;
         } finally {
-            ConexionBaseSingleton.cerrarRecursos(rs, ps);
+            ConexionBaseSingleton.cerrarRecursos(rs, st);
         }
     }
+
     public void actualizarSalarioInstructor(String cedula, double salario) throws Exception {
-        String sql = "UPDATE NOMINA_INSTRUCTOR SET SALARIO = ? WHERE CEDULAINSTRUCTOR = ?";
-        java.sql.PreparedStatement ps = null;
+        String sql = String.format("""
+                    SET XACT_ABORT ON;
+                    UPDATE [DESKTOP-HSCPRKC].QUITO_NORTE.dbo.NOMINA_INSTRUCTOR
+                    SET SALARIO = %f WHERE CEDULAINSTRUCTOR = '%s'
+                """, salario, cedula);
+        Statement st = null;
         try {
-            ps = ConexionBaseSingleton.getInstancia().getConexion().prepareStatement(sql);
-            ps.setDouble(1, salario);
-            ps.setString(2, cedula);
-            ps.executeUpdate();
+            st = ConexionBaseSingleton.getInstancia().getConexion().createStatement();
+            st.executeUpdate(sql);
         } finally {
-            ConexionBaseSingleton.cerrarRecursos(null, ps);
+            ConexionBaseSingleton.cerrarRecursos(null, st);
         }
     }
 
     public ResultSet buscarNominaPorCedula(String cedula) {
-
-        String consulta = "SELECT CEDULAINSTRUCTOR, SALARIO, FECHACONTRATACION FROM dbo.NOMINA_INSTRUCTOR WHERE CEDULAINSTRUCTOR = ?";
-
+        String sql = String.format("""
+                    SET XACT_ABORT ON;
+                    SELECT CEDULAINSTRUCTOR, SALARIO, FECHACONTRATACION
+                    FROM [DESKTOP-HSCPRKC].QUITO_NORTE.dbo.NOMINA_INSTRUCTOR
+                    WHERE CEDULAINSTRUCTOR = '%s'
+                """, cedula);
         try {
-            PreparedStatement statement = ConexionBaseSingleton.getInstancia().getConexion().prepareStatement(consulta);
-            statement.setString(1, cedula);
-            return statement.executeQuery();
+            Statement st = ConexionBaseSingleton.getInstancia().getConexion().createStatement();
+            return st.executeQuery(sql);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
     public void registrarNominaInstructor(String cedula, double salario, LocalDate fechaContratacion) throws Exception {
-        String sql = "INSERT INTO NOMINA_INSTRUCTOR (CEDULAINSTRUCTOR, SALARIO, FECHACONTRATACION) VALUES (?, ?, ?)";
-        java.sql.PreparedStatement ps = null;
+        String fecha = fechaContratacion.toString(); // formato yyyy-MM-dd
+        String sql = String.format("""
+                    SET XACT_ABORT ON;
+                    INSERT INTO [DESKTOP-HSCPRKC].QUITO_NORTE.dbo.NOMINA_INSTRUCTOR
+                    (CEDULAINSTRUCTOR, SALARIO, FECHACONTRATACION)
+                    VALUES ('%s', %f, '%s')
+                """, cedula, salario, fecha);
+        Statement st = null;
         try {
-            ps = ConexionBaseSingleton.getInstancia().getConexion().prepareStatement(sql);
-            ps.setString(1, cedula);
-            ps.setDouble(2, salario);
-            ps.setDate(3, java.sql.Date.valueOf(fechaContratacion));
-            ps.executeUpdate();
+            st = ConexionBaseSingleton.getInstancia().getConexion().createStatement();
+            st.executeUpdate(sql);
         } finally {
-            ConexionBaseSingleton.cerrarRecursos(null, ps);
+            ConexionBaseSingleton.cerrarRecursos(null, st);
         }
     }
-
 
     public void eliminarPorCedula(String cedula) throws Exception {
-        String sql = "DELETE FROM NOMINA_INSTRUCTOR WHERE CEDULAINSTRUCTOR = ?";
-        java.sql.PreparedStatement ps = null;
+        String sql = String.format("""
+                    SET XACT_ABORT ON;
+                    DELETE FROM [DESKTOP-HSCPRKC].QUITO_NORTE.dbo.NOMINA_INSTRUCTOR
+                    WHERE CEDULAINSTRUCTOR = '%s'
+                """, cedula);
+        Statement st = null;
         try {
-            ps = ConexionBaseSingleton.getInstancia().getConexion().prepareStatement(sql);
-            ps.setString(1, cedula);
-            ps.executeUpdate();
+            st = ConexionBaseSingleton.getInstancia().getConexion().createStatement();
+            st.executeUpdate(sql);
         } finally {
-            ConexionBaseSingleton.cerrarRecursos(null, ps);
+            ConexionBaseSingleton.cerrarRecursos(null, st);
         }
     }
-    //  ___________________________________________ ___________________________________________
 }
