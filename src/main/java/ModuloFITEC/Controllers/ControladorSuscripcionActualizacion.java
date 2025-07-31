@@ -99,9 +99,36 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
         //buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         //imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         tableViewSuscripcion.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+         try {
+            suscripcionesList.addAll(SuscripcionDAO.getInstancia().listar("SUSCRIPCION"));
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudieron cargar las suscripciones: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+        tableViewSuscripcion.setItems(suscripcionesList);
+        buttonActualizarFormulario.setDisable(true);
+
+        tableViewSuscripcion.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            Suscripcion suscripcion = newSel;
+            buttonActualizarFormulario.setDisable(newSel == null);
+            if (newSel != null) {
+                cargarDatosEnFormulario(newSel);
+            }
+        });
     }
 
     
+
+    private void cargarDatosEnFormulario(Suscripcion newSel) {
+        textFieldCodigoAConsultar.setText(String.valueOf(newSel.getIdSuscripcion()));
+        textFieldTipo.setText(newSel.getTipo());
+        textFieldDescripcion.setText(newSel.getDescripcion());
+        textFieldPrecio.setText(String.valueOf(newSel.getPrecio()));
+        textFieldDuracion.setText(String.valueOf(newSel.getDuracionMeses()));
+        codigoSuscripcionPorActualizar = newSel.getIdSuscripcion(); // Importante: actualizar variable de control
+    }
 
     @FXML
     void actualizarSuscripcion(ActionEvent event) {
@@ -150,6 +177,7 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
             }
             MetodosFrecuentes.mostrarInfo("Éxito", "Suscripción actualizada correctamente.");
             colocarObjetoEnTabla(suscripcion, suscripcionesList, tableViewSuscripcion);
+            buttonActualizarFormulario.setDisable(true);
 
         } catch (Exception e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudo actualizar la suscripción: " + e.getMessage());
@@ -178,17 +206,9 @@ public class ControladorSuscripcionActualizacion extends ControladorGeneral<Susc
             return;
         }
         
-        colocarVariablesEnCampos(suscripcion);
-        codigoSuscripcionPorActualizar = suscripcion.getIdSuscripcion();
+        cargarDatosEnFormulario(suscripcion);
         tableColumnDescripcion.setPrefWidth(600.0);
         tableColumnDescripcion.setResizable(true);   // Permite redimensionar
-    }
-
-    private void colocarVariablesEnCampos(Suscripcion suscripcion) {
-        textFieldTipo.setText(suscripcion.getTipo());
-        textFieldDescripcion.setText(suscripcion.getDescripcion());
-        textFieldPrecio.setText(String.valueOf(suscripcion.getPrecio()));
-        textFieldDuracion.setText(String.valueOf(suscripcion.getDuracionMeses()));
     }
 
     @FXML

@@ -6,6 +6,7 @@ import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.NominaInstructor;
+import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -91,7 +92,34 @@ public class ControladorNominaInstructorActualizacion extends ControladorGeneral
         tableColumnCedulaInstructor.setCellValueFactory(new PropertyValueFactory("cedulaInstructor"));
         tableColumnFechaContratacion.setCellValueFactory(new PropertyValueFactory("fechaContratacionSimple"));
         tableColumnSalario.setCellValueFactory(new PropertyValueFactory("salario"));
+
+        try {
+            listaNominaInstructores.addAll(NominaInstructorDAO.getInstancia().listar("NOMINA_INSTRUCTOR"));
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudo cargar la nómina de instructores: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("Error al cargar la nómina de instructores: " + e.getMessage());
+            return;
+        }
+        tableViewNomina.setItems(listaNominaInstructores);
+        buttonActualizarFormulario.setDisable(true);
+
         textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+
+        tableViewNomina.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            NominaInstructor nominaInstructor = newSel;
+            buttonActualizarFormulario.setDisable(newSel == null);
+            if (newSel != null) {
+                cargarDatosEnFormulario(newSel);
+            }
+        });
+    }
+
+    private void cargarDatosEnFormulario(NominaInstructor newSel) {
+        cedulaInstructorPorActualizar = newSel.getCedulaInstructor();
+        textFieldCedula.setText(newSel.getCedulaInstructor());
+        textFieldSalario.setText(String.valueOf(newSel.getSalario()));
+        datePickerFechaContratacion.setValue(newSel.getFechaContratacion().toLocalDate());
     }
 
     @FXML

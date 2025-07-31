@@ -47,7 +47,7 @@
             <TextField fx:id="textFieldDescripcion" layoutX="171.0" layoutY="338.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la descripción" />
             <TextField fx:id="textFieldPrecio" layoutX="171.0" layoutY="390.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese el precio" />
             <TextField fx:id="textFieldDuracion" layoutX="171.0" layoutY="438.0" prefHeight="25.0" prefWidth="212.0" promptText="Ingrese la duración" />
-            <Button fx:id="buttonActualizarFormulario" layoutX="239.0" layoutY="589.0" mnemonicParsing="false" onAction="#buttonActualizarFormulario" prefHeight="25.0" prefWidth="76.0" text="Registrar">
+            <Button fx:id="buttonActualizarFormulario" layoutX="239.0" layoutY="589.0" mnemonicParsing="false" onAction="#buttonActualizarFormulario" prefHeight="25.0" prefWidth="76.0" text="Actualizar">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

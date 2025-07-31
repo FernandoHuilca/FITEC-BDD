@@ -81,8 +81,33 @@ public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscri
         tableColumnDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
         tableColumnPrecio.setCellValueFactory(new PropertyValueFactory("precio"));
         tableColumnDuracion.setCellValueFactory(new PropertyValueFactory("duracionMeses"));
+
+         try {
+            suscripcionesList.addAll(SuscripcionDAO.getInstancia().listar("SUSCRIPCION"));
+        } catch (Exception e) {
+            MetodosFrecuentes.mostrarError("Error", "No se pudieron cargar las suscripciones: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+        tableViewSuscripcion.setItems(suscripcionesList);
+
+        buttonEliminar.setDisable(true);
+
+         tableViewSuscripcion.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            Suscripcion suscripcion = newSel;
+            buttonEliminar.setDisable(newSel == null);
+            if (newSel != null) {
+                cargarDatosEnFormulario(newSel);
+            }
+        });
     }
 
+
+    private void cargarDatosEnFormulario(Suscripcion newSel) {
+        // Cargar los datos de la suscripción seleccionada en el formulario
+        textFieldCodigoAConsultar.setText(String.valueOf(newSel.getIdSuscripcion()));
+        //textFieldDescripcion.setText(newSel.getDescripcion());
+    }
 
     @FXML
     void actualizarSuscripcion(ActionEvent event) {
@@ -134,6 +159,7 @@ public class ControladorSuscripcionEliminacion extends ControladorGeneral<Suscri
             textFieldCodigoAConsultar.clear();
             codigoSuscripcionPorEliminar = 0;
             tableViewSuscripcion.getItems().clear();
+            buttonEliminar.setDisable(true);
         } catch (SQLException e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudo eliminar la suscripción.");
         }
