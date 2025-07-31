@@ -16,6 +16,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -91,6 +92,9 @@ public class ControladorCompraBusqueda {
 
     @FXML
     private Text textNombreServidor;
+
+    @FXML
+    private ImageView imageViewNomina;
 
     private ObservableList<Compra> compras;
 
@@ -169,6 +173,8 @@ public class ControladorCompraBusqueda {
         }
 
         textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     @FXML

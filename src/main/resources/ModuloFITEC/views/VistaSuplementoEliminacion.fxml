@@ -121,7 +121,7 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="332.0">
+            <ImageView fx:id="imageViewNomina" fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="332.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>

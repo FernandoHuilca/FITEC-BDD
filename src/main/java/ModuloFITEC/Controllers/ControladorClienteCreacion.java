@@ -5,12 +5,15 @@ import java.util.List;
 
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.ClienteDAO;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Cliente;
 import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorClienteCreacion {
@@ -40,6 +43,10 @@ public class ControladorClienteCreacion {
     @FXML private Button buttonEliminarCliente;
     @FXML private Button buttonRegistrarFormularioCliente;
 
+    @FXML private Text textNombreServidor;
+
+    @FXML private ImageView imageViewNomina;
+
 
     // Variable para guardar el idSuscripcion seleccionado
     private Integer idSuscripcionSeleccionada = null;
@@ -51,6 +58,10 @@ public class ControladorClienteCreacion {
         //configurarSplitMenuSuscripcion();
         cargarSuscripciones();
         configurarSplitMenuSucursal();
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     private void cargarSuscripciones() {

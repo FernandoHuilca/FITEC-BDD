@@ -3,11 +3,14 @@ package ModuloFITEC.Controllers;
 import java.time.LocalDate;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.InstructorDAO;
 import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.Instructor;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorInstructorCreacion {
@@ -50,10 +53,17 @@ public class ControladorInstructorCreacion {
     @FXML private Button buttonActualizarInstructor;
     @FXML private Button buttonEliminarInstructor;
 
+    @FXML private Text textNombreServidor;
+    @FXML private ImageView imageViewNomina;
+
     @FXML
     public void initialize() {
         configurarSplitMenuSucursal();
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
+    
     private void configurarSplitMenuSucursal() {
         splitMenuSucursal.getItems().forEach(item -> {
             item.setOnAction(e -> splitMenuSucursal.setText(item.getText()));

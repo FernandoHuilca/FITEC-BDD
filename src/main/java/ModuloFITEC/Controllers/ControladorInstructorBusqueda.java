@@ -1,6 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.InstructorDAO;
 import ModuloFITEC.logic.Models.Instructor;
 import javafx.collections.FXCollections;
@@ -9,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -41,6 +44,8 @@ public class ControladorInstructorBusqueda implements Initializable {
     @FXML private TableColumn<Instructor, String> columnDireccion;
 
     @FXML private TextField textFieldNombreCedula;
+    @FXML private Text textNombreServidor;
+    @FXML private ImageView imageViewNomina;
 
     private final InstructorDAO instructorDAO = InstructorDAO.getInstancia();
 
@@ -63,6 +68,10 @@ public class ControladorInstructorBusqueda implements Initializable {
         textFieldNombreCedula.textProperty().addListener((obs, oldText, newText) -> {
             buttonConsultarFormulario.setDisable(newText.trim().isEmpty());
         });
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     private void cargarInstructores() {

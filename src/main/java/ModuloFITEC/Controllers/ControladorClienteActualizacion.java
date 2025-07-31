@@ -1,6 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.ClienteDAO;
 import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Cliente;
@@ -9,6 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -59,6 +62,9 @@ public class ControladorClienteActualizacion {
     @FXML private DatePicker fechaNacimientoPicker;
     @FXML private Button buttonActualizarFormulario;
 
+    @FXML private Text textNombreServidor;
+    @FXML private ImageView imageViewNomina;
+
     private Cliente clienteSeleccionado = null;
     private Integer idSuscripcionSeleccionada = null;
 
@@ -81,6 +87,9 @@ public class ControladorClienteActualizacion {
         });
 
         cargarClientes();
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     private void configurarTabla() {

@@ -3,12 +3,15 @@ package ModuloFITEC.Controllers;
 import java.util.List;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.InstructorDAO;
 import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.Instructor;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorInstructorActualizacion {
@@ -66,6 +69,8 @@ public class ControladorInstructorActualizacion {
     @FXML private TextField textFieldTelefonoSecundario;
     @FXML private DatePicker datePickerFechaNacimiento;
     @FXML private Button buttonActualizarFormularioInstructor;
+    @FXML private Text textNombreServidor;
+    @FXML private ImageView imageViewNomina;
 
     // ---------------- MÉTODOS DE NAVEGACIÓN ----------------
 
@@ -152,6 +157,10 @@ public class ControladorInstructorActualizacion {
         textFieldNombreCedula.textProperty().addListener((obs, oldText, newText) -> {
             // Puedes agregar lógica para búsqueda dinámica si lo deseas
         });
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     private void configurarTabla() {

@@ -16,6 +16,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -108,6 +109,9 @@ public class ControladorSuplementoActualizacion {
     @FXML
     private Text textNombreServidor;
 
+    @FXML
+    private ImageView imageViewNomina;
+
     private ObservableList<Suplemento> suplementos;
 
     private final SuplementoDAO suplementoDAO = new SuplementoDAO();
@@ -151,6 +155,8 @@ public class ControladorSuplementoActualizacion {
         }
 
         textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+            buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     @FXML

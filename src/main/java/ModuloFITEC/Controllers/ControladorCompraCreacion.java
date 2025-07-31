@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -72,6 +73,9 @@ public class ControladorCompraCreacion {
     private Text textNombreServidor;
 
     @FXML
+    private ImageView imageViewNomina;
+
+    @FXML
     public void initialize() {
         for (MenuItem item : splitMenuButtonSucursal.getItems()) {
             item.setOnAction(event -> {
@@ -81,6 +85,8 @@ public class ControladorCompraCreacion {
         }
 
         textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     @FXML

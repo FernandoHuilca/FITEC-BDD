@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="640.0" prefWidth="980.0" style="-fx-background-color: #323232;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ModuloFITEC.Controllers.ControladorClienteActualizacion">
+<AnchorPane prefHeight="640.0" prefWidth="980.0" style="-fx-background-color: #323232;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ModuloFITEC.Controllers.ControladorClienteActualizacion">
     <children>
         <Pane layoutX="786.0" layoutY="34.0" prefHeight="566.0" prefWidth="200.0">
             <children>
@@ -240,7 +240,7 @@
             </Button>
             <Pane layoutX="20.0" layoutY="578.0" prefHeight="62.0" prefWidth="212.0">
                <children>
-                  <Text layoutX="40.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre servidor">
+                  <Text fx:id="textNombreServidor" layoutX="40.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre servidor">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="17.0" />
                      </font>
@@ -267,7 +267,7 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="323.0">
+            <ImageView fx:id="imageViewNomina" fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="323.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>

@@ -124,7 +124,7 @@
                   <Image url="@../data/icono_compra.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="331.0">
+            <ImageView fx:id="imageViewNomina" fitHeight="24.0" fitWidth="24.0" layoutX="37.0" layoutY="331.0">
                <image>
                   <Image url="@../data/icono_nomina_instructores.png" />
                </image>
@@ -212,18 +212,7 @@
                   <ColorAdjust brightness="0.24" />
                </effect>
             </Button>
-            <Button alignment="BASELINE_LEFT" layoutX="19.0" layoutY="110.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Actualizar compra" textFill="#ffffffe0">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="13.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <ColorAdjust brightness="0.24" />
-               </effect>
-            </Button>
-            <Button fx:id="buttonEliminarCompra" alignment="BASELINE_LEFT" layoutX="18.0" layoutY="158.0" mnemonicParsing="false" onAction="#cambiarVentanaEliminarCompra" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Eliminar compra" textFill="#ffffffe0">
+            <Button fx:id="buttonEliminarCompra" alignment="BASELINE_LEFT" layoutX="18.0" layoutY="109.0" mnemonicParsing="false" onAction="#cambiarVentanaEliminarCompra" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #323232;" text="Eliminar compra" textFill="#ffffffe0">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>

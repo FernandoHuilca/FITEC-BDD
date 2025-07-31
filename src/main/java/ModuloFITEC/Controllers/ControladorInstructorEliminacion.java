@@ -3,12 +3,15 @@ package ModuloFITEC.Controllers;
 import java.util.List;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.InstructorDAO;
 import ModuloFITEC.logic.DAOs.NominaInstructorDAO;
 import ModuloFITEC.logic.Models.Instructor;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorInstructorEliminacion {
@@ -60,7 +63,8 @@ public class ControladorInstructorEliminacion {
     // ❌ Botón de eliminación
     @FXML private Button buttonEliminarFormulario;
 
-
+    @FXML private Text textNombreServidor;
+    @FXML private ImageView imageViewNomina;
 
     @FXML
     public void initialize() {
@@ -78,6 +82,10 @@ public class ControladorInstructorEliminacion {
         textFieldNombreCedula.textProperty().addListener((obs, oldText, newText) -> {
             buttonConsultarFormulario.setDisable(newText.trim().isEmpty());
         });
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     

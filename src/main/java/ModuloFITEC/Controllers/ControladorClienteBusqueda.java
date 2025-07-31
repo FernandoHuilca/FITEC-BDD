@@ -1,6 +1,7 @@
 package ModuloFITEC.Controllers;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.ClienteDAO;
 import ModuloFITEC.logic.Models.Cliente;
 import javafx.collections.FXCollections;
@@ -12,6 +13,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -48,6 +51,9 @@ public class ControladorClienteBusqueda implements Initializable {
 
     @FXML private TextField textFieldNombreCedula;
 
+    @FXML private Text textNombreServidor;
+    @FXML private ImageView imageViewNomina;
+
     //Para las consultas:
     ClienteDAO clienteDAO = ClienteDAO.getInstancia();
 
@@ -72,6 +78,10 @@ public class ControladorClienteBusqueda implements Initializable {
         textFieldNombreCedula.textProperty().addListener((obs, oldText, newText) -> {
             buttonConsultarFormulario.setDisable(newText.trim().isEmpty());
         });
+
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
     private void cargarClientes() {

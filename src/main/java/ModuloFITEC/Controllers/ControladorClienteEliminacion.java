@@ -3,6 +3,7 @@ package ModuloFITEC.Controllers;
 import java.util.List;
 
 import MetodosGlobales.MetodosFrecuentes;
+import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.ClienteDAO;
 import ModuloFITEC.logic.DAOs.CompraDAO;
 import ModuloFITEC.logic.Models.Cliente;
@@ -12,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ControladorClienteEliminacion {
@@ -49,7 +52,8 @@ public class ControladorClienteEliminacion {
     // Botones del formulario
     @FXML private Button buttonConsultarFormulario;
     @FXML private Button buttonEliminarFormulario;
-
+    @FXML private Text textNombreServidor;
+    @FXML private ImageView imageViewNomina;
 
     private Cliente clienteSeleccionado = null;
     
@@ -64,6 +68,9 @@ public class ControladorClienteEliminacion {
         });
 
         cargarClientes();
+        textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
+        buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+        imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
     }
 
 
