@@ -18,6 +18,14 @@ public final class ConexionBaseSingleton {
     private static final String USER = "sa";
     private static final String PASSWORD = "P@ssw0rd";
 
+    public static String getUser() {
+        return USER;
+    }
+
+    public static String getPassword() {
+        return PASSWORD;
+    }
+
     // ---------- Singleton ----------
     private static ConexionBaseSingleton instancia;
     private Connection conexion;
