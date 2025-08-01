@@ -187,5 +187,69 @@ public class SuplementoDAO {
         }
     }
 
+    public List<Suplemento> buscarPorSucursal(String idSucursal) throws Exception {
+        String sql = """
+            SET XACT_ABORT ON;
+            SELECT * FROM SUPLEMENTO
+            WHERE IDSUCURSAL = '%s'
+            ORDER BY IDSUPLEMENTO
+            """.formatted(idSucursal);
+
+        ResultSet rs = null;
+        Statement st = null;
+        try {
+            rs = db.ejecutarConsulta(sql);
+            return mapearLista(rs);
+        } finally {
+            ConexionBaseSingleton.cerrarRecursos(rs, st);
+        }
+    }
+
+    public Integer obtenerIdSuplementoPorNombreYSucursal(String nombre, String idSucursal) throws Exception {
+        String sql = """
+            SELECT IDSUPLEMENTO
+            FROM SUPLEMENTO
+            WHERE LOWER(NOMBRE) = LOWER(?) AND IDSUCURSAL = ?
+        """;
+
+        try (Connection conn = db.getConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, nombre);
+            stmt.setString(2, idSucursal);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("IDSUPLEMENTO");
+            } else {
+                return null; // No se encontró el suplemento
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al obtener el ID del suplemento: " + e.getMessage(), e);
+        }
+    }
+
+    public boolean existeSuplementoConId(int idSuplemento) throws Exception {
+        String sql = """
+            SELECT COUNT(*) 
+            FROM SUPLEMENTO 
+            WHERE IDSUPLEMENTO = ?
+        """;
+
+        try (Connection conn = db.getConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, idSuplemento);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
+
+        } catch (SQLException e) {
+            throw new Exception("Error al verificar el ID del suplemento: " + e.getMessage(), e);
+        }
+    }
+
 
 }

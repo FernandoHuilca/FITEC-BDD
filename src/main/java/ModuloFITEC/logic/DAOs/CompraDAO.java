@@ -252,4 +252,22 @@ public class CompraDAO {
             ConexionBaseSingleton.cerrarRecursos(rs, ps);
         }
     }
+
+    public boolean existeCompraConId(int idCompra) throws Exception {
+        String sql = "SELECT COUNT(*) FROM COMPRA WHERE IDCOMPRA = ?";
+        try (var conn = db.getConexion();
+            var stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idCompra);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
+
+        } catch (SQLException e) {
+            throw new Exception("Error al verificar el ID de la compra: " + e.getMessage(), e);
+        }
+    }
+
 }

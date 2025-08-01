@@ -153,7 +153,7 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="textFieldCodigo" layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código" />
+            <TextField fx:id="textFieldCodigo" layoutX="171.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código de la compra" />
             <Text fill="WHITE" layoutX="70.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliente:" wrappingWidth="92.39996337890625">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
@@ -170,7 +170,6 @@
                </font>
             </Text>
             <TextField fx:id="textFieldCedulaCliente" layoutX="171.0" layoutY="191.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el número de cédula del cliente" />
-            <TextField fx:id="textFieldCodigoSuplemento" layoutX="171.0" layoutY="240.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese el código del suplemento" />
             <TextField fx:id="textFieldCantidad" layoutX="170.0" layoutY="288.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingrese la cantidad disponible" />
             <Button layoutX="239.0" layoutY="336.0" mnemonicParsing="false" onAction="#registrarCompra" prefHeight="25.0" prefWidth="76.0" text="Registrar">
                <cursor>
@@ -188,6 +187,12 @@
                 <MenuItem mnemonicParsing="false" text="QUITO_NORTE" />
                 <MenuItem mnemonicParsing="false" text="QUITO_SUR" />
               </items>
+            </SplitMenuButton>
+            <SplitMenuButton fx:id="splitMenuButtonNombreSuplemento" layoutX="170.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="223.0" text="Escoja un suplemento" textFill="#00000047">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="QUITO_NORTE" />
+                  <MenuItem mnemonicParsing="false" text="QUITO_SUR" />
+               </items>
             </SplitMenuButton>
          </children>
       </Pane>

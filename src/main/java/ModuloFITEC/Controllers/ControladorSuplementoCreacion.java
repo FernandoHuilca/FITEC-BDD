@@ -178,6 +178,11 @@ public class ControladorSuplementoCreacion {
             }
             else {
 
+                if (suplementoDAO.existeSuplementoConId(Integer.parseInt(textFieldCodigo.getText()))) {
+                    mostrarAlerta("ID duplicado", "Ya existe un suplemento con ese código ID.");
+                    return;
+                }
+                
                 // Validar existencia del suplemento
                 if (suplementoDAO.existeSuplementoEnSucursal(textFieldNombre.getText(), splitMenuButtonSucursal.getText())) {
                     mostrarAlerta("Duplicado", "Ya existe un suplemento con ese nombre en esa sucursal.");

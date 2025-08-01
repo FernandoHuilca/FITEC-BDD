@@ -7,9 +7,11 @@ import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import ModuloFITEC.logic.DAOs.ClienteDAO;
 import ModuloFITEC.logic.DAOs.CompraDAO;
 import ModuloFITEC.logic.DAOs.SuplementoDAO;
+import ModuloFITEC.logic.DAOs.SuscripcionDAO;
 import ModuloFITEC.logic.Models.Cliente;
 import ModuloFITEC.logic.Models.Compra;
 import ModuloFITEC.logic.Models.Suplemento;
+import ModuloFITEC.logic.Models.Suscripcion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -66,8 +68,11 @@ public class ControladorCompraCreacion {
     @FXML
     private TextField textFieldCodigo;
 
+    // @FXML
+    // private TextField textFieldCodigoSuplemento;
+
     @FXML
-    private TextField textFieldCodigoSuplemento;
+    private SplitMenuButton splitMenuButtonNombreSuplemento;
 
     @FXML
     private Text textNombreServidor;
@@ -75,18 +80,62 @@ public class ControladorCompraCreacion {
     @FXML
     private ImageView imageViewNomina;
 
+    private SuplementoDAO suplementoDAO = new SuplementoDAO();
+    private CompraDAO compraDAO = new CompraDAO();
+
     @FXML
     public void initialize() {
+        splitMenuButtonNombreSuplemento.setDisable(true);
         for (MenuItem item : splitMenuButtonSucursal.getItems()) {
             item.setOnAction(event -> {
-                splitMenuButtonSucursal.setText(item.getText());
+                String seleccion = item.getText();
+                splitMenuButtonSucursal.setText(seleccion);
                 splitMenuButtonSucursal.setStyle("-fx-text-fill: black;");
+
+                switch (seleccion) {
+                    case "QUITO_NORTE" -> {
+                        splitMenuButtonNombreSuplemento.setText("Escoja un suplemento");
+                        splitMenuButtonNombreSuplemento.setStyle("-fx-text-fill: gray;");
+                        splitMenuButtonNombreSuplemento.setDisable(false);
+                        cargarSuplementos("QUITO_NORTE");
+                    }
+                    case "QUITO_SUR" -> {
+                        splitMenuButtonNombreSuplemento.setText("Escoja un suplemento");
+                        splitMenuButtonNombreSuplemento.setStyle("-fx-text-fill: gray;");
+                        splitMenuButtonNombreSuplemento.setDisable(false);
+                        cargarSuplementos("QUITO_SUR");
+                    }
+                    default -> {
+                        splitMenuButtonNombreSuplemento.getItems().clear();
+                        splitMenuButtonNombreSuplemento.setText("Escoja un suplemento");
+                        splitMenuButtonNombreSuplemento.setStyle("-fx-text-fill: gray;");
+                    }
+                }
             });
         }
 
         textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
         buttonNominaInstructores.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
         imageViewNomina.setVisible(ConexionBaseSingleton.getInstancia().isNodoNorte());
+    }
+
+    private void cargarSuplementos(String sucursal) {
+        splitMenuButtonNombreSuplemento.getItems().clear();
+        try {
+            List<Suplemento> suplementos = suplementoDAO.buscarPorSucursal(sucursal);
+            for (Suplemento s : suplementos) {
+                MenuItem item = new MenuItem(s.getNombre());
+                // Al seleccionar, guarda el id en la variable y actualiza el texto
+                item.setOnAction(e -> {
+                    splitMenuButtonNombreSuplemento.setText(s.getNombre());
+                    //idSuplementoSeleccionado = s.getIdSuplemento();
+                });
+                splitMenuButtonNombreSuplemento.getItems().add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            MetodosFrecuentes.mostrarError("Error", "No se pudieron cargar los suplementos.");
+        }
     }
 
     @FXML
@@ -141,11 +190,16 @@ public class ControladorCompraCreacion {
 
     @FXML
     void registrarCompra(ActionEvent event) {
-            try {
+        try {
             if (!validarCampos()) return;
 
+            if (compraDAO.existeCompraConId(Integer.parseInt(textFieldCodigo.getText()))) {
+                mostrarAlerta("ID duplicado", "Ya existe una compra con ese código (ID), aunque sea en otra sucursal.");
+                return;
+            }
+
             Cliente cliente = obtenerCliente();
-            Suplemento suplemento = obtenerSuplemento();
+            Suplemento suplemento = suplementoDAO.buscarPorId(obtenerSuplemento());
             if (suplemento == null || cliente == null) return;
 
             int cantidadPedida = Integer.parseInt(textFieldCantidad.getText());
@@ -162,10 +216,10 @@ public class ControladorCompraCreacion {
                 splitMenuButtonSucursal.getText()
             );
 
-            new CompraDAO().crearCompra(compra);
+            compraDAO.crearCompra(compra);
 
             suplemento.setCantidadDisponible(suplemento.getCantidadDisponible() - cantidadPedida);
-            new SuplementoDAO().actualizarSuplemento(suplemento);
+            suplementoDAO.actualizarSuplemento(suplemento);
 
             mostrarAlerta("Éxito", "Compra registrada correctamente.");
             limpiarFormulario();
@@ -190,17 +244,17 @@ public class ControladorCompraCreacion {
         textFieldCodigo.clear();
         splitMenuButtonSucursal.setText("Escoja la sucursal"); 
         textFieldCedulaCliente.clear();
-        textFieldCodigoSuplemento.clear();
+        splitMenuButtonNombreSuplemento.setText("Escoja un suplemento");
         textFieldCantidad.clear();
     }
 
     private boolean validarCampos() {
         if (textFieldCodigo.getText().isBlank() ||
             textFieldCedulaCliente.getText().isBlank() ||
-            textFieldCodigoSuplemento.getText().isBlank() ||
+            splitMenuButtonSucursal.getText().equals("Escoja la sucursal") ||
             textFieldCantidad.getText().isBlank() ||
-            splitMenuButtonSucursal.getText().equals("Escoja la sucursal")) {
-            
+            splitMenuButtonNombreSuplemento.getText().equals("Escoja un suplemento")) {
+
             mostrarAlerta("Campos incompletos", "Por favor, completa todos los campos.");
             return false;
         }
@@ -221,25 +275,13 @@ public class ControladorCompraCreacion {
         return cliente.get(0);
     }
 
-    private Suplemento obtenerSuplemento() throws Exception {
+    private int obtenerSuplemento() throws Exception {
         SuplementoDAO suplementoDAO = new SuplementoDAO();
 
-        int idSuplemento;
-        try {
-            idSuplemento = Integer.parseInt(textFieldCodigoSuplemento.getText().trim());
-        } catch (NumberFormatException e) {
-            mostrarAlerta("ID inválido", "El ID del suplemento debe ser un número entero.");
-            return null;
-        }
+        String nombreSuplemento = splitMenuButtonNombreSuplemento.getText();
+        String sucursal = splitMenuButtonSucursal.getText();
 
-        Suplemento suplemento = suplementoDAO.buscarPorId(idSuplemento);
-
-        if (suplemento == null) {
-            mostrarAlerta("Suplemento no encontrado", "No existe un suplemento con ID: " + idSuplemento);
-            return null;
-        }
-
-        return suplemento;
+        return suplementoDAO.obtenerIdSuplementoPorNombreYSucursal(nombreSuplemento, sucursal);
     }
 
     private boolean validarCantidadDisponible(Suplemento suplemento, int cantidadPedida) {
