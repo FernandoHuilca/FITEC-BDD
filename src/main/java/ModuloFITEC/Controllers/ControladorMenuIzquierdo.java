@@ -4,7 +4,6 @@ import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -89,6 +88,10 @@ public class ControladorMenuIzquierdo {
 
     public Button getButtonNomina() {
         return buttonNominaInstructores;
+    }
+
+    public Button getButtonInicio() {
+        return buttonInicio;
     }
 
 }

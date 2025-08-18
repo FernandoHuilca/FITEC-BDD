@@ -76,6 +76,15 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
     @FXML
     private ControladorMenuIzquierdo vistaMenuIzquierdoController;
 
+    // Constantes para validación
+    private static final int MAX_LONGITUD_TIPO = 50;
+    private static final int MAX_LONGITUD_DESCRIPCION = 200;
+    private static final int MIN_LONGITUD_DESCRIPCION = 5;
+    private static final double PRECIO_MINIMO = 5.0;
+    private static final double PRECIO_MAXIMO = 10000.0;
+    private static final int DURACION_MINIMA = 1;
+    private static final int DURACION_MAXIMA = 60;
+
     @FXML
     void initialize() {
                 
@@ -149,6 +158,90 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
         //botonEliminarSuscripcion.setDisable(true);
     }
 
+    /**
+     * Sanitiza y valida los campos de entrada eliminando espacios en blanco y validando longitudes
+     */
+    private boolean validarYSanitizarCampos() {
+        // Sanitizar (eliminar espacios en blanco al inicio y final)
+        textFieldCodigo.setText(textFieldCodigo.getText().strip());
+        textFieldTipo.setText(textFieldTipo.getText().strip());
+        textFieldDescripcion.setText(textFieldDescripcion.getText().strip());
+        textFieldPrecio.setText(textFieldPrecio.getText().strip());
+        textFieldDuracion.setText(textFieldDuracion.getText().strip());
+
+        // Validar que no estén vacíos después de sanitizar
+        if(textFieldCodigo.getText().isEmpty() || textFieldTipo.getText().isEmpty() || 
+           textFieldDescripcion.getText().isEmpty() || textFieldPrecio.getText().isEmpty() || 
+           textFieldDuracion.getText().isEmpty()) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, complete todos los campos.");
+            return false;
+        }
+
+        // Validar longitudes máximas para prevenir overflow
+        if(textFieldTipo.getText().length() > MAX_LONGITUD_TIPO) {
+            MetodosFrecuentes.mostrarError("Error", "El tipo no puede exceder " + MAX_LONGITUD_TIPO + " caracteres.");
+            return false;
+        }
+
+        if(textFieldDescripcion.getText().length() > MAX_LONGITUD_DESCRIPCION) {
+            MetodosFrecuentes.mostrarError("Error", "La descripción no puede exceder " + MAX_LONGITUD_DESCRIPCION + " caracteres.");
+            return false;
+        }
+
+        if(textFieldDescripcion.getText().length() < MIN_LONGITUD_DESCRIPCION) {
+            MetodosFrecuentes.mostrarError("Error", "La descripción debe tener al menos " + MIN_LONGITUD_DESCRIPCION + " caracteres.");
+            return false;
+        }
+
+        // Validar que el tipo solo contenga letras, espacios y caracteres válidos
+        if (!textFieldTipo.getText().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+            MetodosFrecuentes.mostrarError("Error", "El tipo solo puede contener letras y espacios.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Valida los valores numéricos con rangos específicos
+     */
+    private boolean validarValoresNumericos() {
+        try {
+            // Validar código
+            int codigo = Integer.parseInt(textFieldCodigo.getText());
+            if(codigo <= 0) {
+                MetodosFrecuentes.mostrarError("Error", "El código debe ser un número positivo.");
+                return false;
+            }
+
+            // Validar precio
+            double precio = Double.parseDouble(textFieldPrecio.getText());
+            if(precio < PRECIO_MINIMO || precio > PRECIO_MAXIMO) {
+                MetodosFrecuentes.mostrarError("Error", "El precio debe estar entre $" + PRECIO_MINIMO + " y $" + PRECIO_MAXIMO + ".");
+                return false;
+            }
+
+            // Verificar máximo 2 decimales en precio
+            if (textFieldPrecio.getText().matches(".*\\.\\d{3,}")) {
+                MetodosFrecuentes.mostrarError("Error", "El precio no puede tener más de 2 decimales.");
+                return false;
+            }
+
+            // Validar duración
+            int duracion = Integer.parseInt(textFieldDuracion.getText());
+            if(duracion < DURACION_MINIMA || duracion > DURACION_MAXIMA) {
+                MetodosFrecuentes.mostrarError("Error", "La duración debe estar entre " + DURACION_MINIMA + " y " + DURACION_MAXIMA + " meses.");
+                return false;
+            }
+
+            return true;
+
+        } catch (NumberFormatException e) {
+            MetodosFrecuentes.mostrarError("Error", "Por favor, ingrese valores numéricos válidos para código, precio y duración.");
+            return false;
+        }
+    }
+
     private void cargarDatosEnFormulario(Suscripcion newSel) {
         //textFieldCodigoAConsultar.setText(String.valueOf(newSel.getIdSuscripcion()));
         textFieldCodigo.setText(String.valueOf(newSel.getIdSuscripcion()));
@@ -172,28 +265,32 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
     @FXML
     void actualizarSuscripcion(ActionEvent event) {
 
-        if(textFieldCodigo.getText().isEmpty() || textFieldTipo.getText().isEmpty() || textFieldDescripcion.getText().isEmpty() ||
-           textFieldPrecio.getText().isEmpty() || textFieldDuracion.getText().isEmpty()) {
-            MetodosFrecuentes.mostrarError("Error", "Por favor, complete todos los campos.");
+        // Validar y sanitizar campos
+        if(!validarYSanitizarCampos()) {
+            return;
+        }
+
+        // Validar valores numéricos
+        if(!validarValoresNumericos()) {
             return;
         }
 
         Suscripcion suscripcion = null;
         try {
             suscripcion = new Suscripcion(
-            Integer.parseInt(textFieldCodigo.getText().strip()),
-            textFieldTipo.getText().strip().toLowerCase(),
-            textFieldDescripcion.getText().strip().toLowerCase(),
-            Double.parseDouble(textFieldPrecio.getText().strip()),
-            Integer.parseInt(textFieldDuracion.getText().strip())
+            Integer.parseInt(textFieldCodigo.getText()),
+            textFieldTipo.getText(),
+            textFieldDescripcion.getText(),
+            Double.parseDouble(textFieldPrecio.getText()),
+            Integer.parseInt(textFieldDuracion.getText())
             );
-            if(suscripcion.getIdSuscripcion() <= 0 || suscripcion.getDuracionMeses() <= 0 || suscripcion.getPrecio() <= 0) {
-                MetodosFrecuentes.mostrarError("Error", "No se pueden ingresar valores negativos o cero.");
-                suscripcion = null;
+
+            if(SuscripcionDAO.getInstancia().buscarPorCodigo(Integer.parseInt(textFieldCodigo.getText()), "SUSCRIPCION", "IDSUSCRIPCION") == null) {
+                MetodosFrecuentes.mostrarError("Error", "No existe una suscripción con el código " + textFieldCodigo.getText() + ".");
                 return;
             }
 
-            if(SuscripcionDAO.getInstancia().buscarPorString(textFieldTipo.getText().strip().toLowerCase(), "SUSCRIPCION", "TIPO", "IDSUSCRIPCION", Integer.parseInt(textFieldCodigo.getText().strip())) != null) {
+            if(SuscripcionDAO.getInstancia().buscarPorString(textFieldTipo.getText().toLowerCase(), "SUSCRIPCION", "TIPO", "IDSUSCRIPCION", Integer.parseInt(textFieldCodigo.getText())) != null) {
                 MetodosFrecuentes.mostrarError("Error", "Ya existe una suscripción con el tipo " + textFieldTipo.getText() + ".");
                 return;
             }
@@ -206,14 +303,10 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
             MetodosFrecuentes.mostrarInfo("Éxito", "Suscripción actualizada correctamente.");
             
             // Actualizar la suscripción en la lista original
-            for (int i = 0; i < suscripcionesList.size(); i++) {
-                if (suscripcionesList.get(i).getIdSuscripcion() == suscripcion.getIdSuscripcion()) {
-                    suscripcionesList.set(i, suscripcion);
-                    break;
-                }
-            }
+            actualizarTabla(suscripcion);
+            
 
-            //limpiarCamposFormulario();
+            limpiarCamposFormulario();
             
             //botonActualizarSuscripcion.setDisable(true);
 
@@ -224,12 +317,25 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
         }
     }
 
+    private void actualizarTabla(Suscripcion suscripcion) {
+        for (int i = 0; i < suscripcionesList.size(); i++) {
+            if (suscripcionesList.get(i).getIdSuscripcion() == suscripcion.getIdSuscripcion()) {
+                suscripcionesList.set(i, suscripcion);
+                break;
+            }
+        }
+    }
+
     @FXML
     void crearSuscripcion(ActionEvent event) {
 
-        if(textFieldCodigo.getText().isEmpty() || textFieldTipo.getText().isEmpty() || textFieldDescripcion.getText().isEmpty() ||
-           textFieldPrecio.getText().isEmpty() || textFieldDuracion.getText().isEmpty()) {
-            MetodosFrecuentes.mostrarError("Error", "Por favor, complete todos los campos.");
+        // Validar y sanitizar campos
+        if(!validarYSanitizarCampos()) {
+            return;
+        }
+
+        // Validar valores numéricos
+        if(!validarValoresNumericos()) {
             return;
         }
         
@@ -241,24 +347,24 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
                 return;
             }
 
-            if(SuscripcionDAO.getInstancia().buscarPorString(textFieldTipo.getText().strip().toLowerCase(), "SUSCRIPCION", "TIPO", "IDSUSCRIPCION", codigo) != null) {
+            if(SuscripcionDAO.getInstancia().buscarPorString(textFieldTipo.getText().toLowerCase(), "SUSCRIPCION", "TIPO", "IDSUSCRIPCION", codigo) != null) {
                 MetodosFrecuentes.mostrarError("Error", "Ya existe una suscripción con el tipo " + textFieldTipo.getText().toLowerCase() + ".");
                 return;
             }
 
-            String tipo = textFieldTipo.getText().strip().toLowerCase();
-            String descripcion = textFieldDescripcion.getText().strip().toLowerCase();
+            String tipo = textFieldTipo.getText();
+            String descripcion = textFieldDescripcion.getText();
             double precio = Double.parseDouble(textFieldPrecio.getText());
             int duracion = Integer.parseInt(textFieldDuracion.getText());
 
             Suscripcion suscripcion = new Suscripcion(codigo, tipo, descripcion, precio, duracion);
+
             SuscripcionDAO.getInstancia().crear(suscripcion);
+            suscripcionesList.clear();
+            suscripcionesList.addAll(SuscripcionDAO.getInstancia().listar("SUSCRIPCION"));
+            //actualizarTabla(suscripcion);
 
-        } catch (NumberFormatException e) {
-            MetodosFrecuentes.mostrarError("Error", "Por favor, ingrese valores numéricos válidos");
-            return;
-
-        }catch (Exception e) {
+        } catch (Exception e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudo registrar la suscripción: " + e.getMessage());
             System.out.println("Error al registrar la suscripción: " + e.getMessage());
             e.printStackTrace();
@@ -266,40 +372,53 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
         }
         MetodosFrecuentes.mostrarInfo("Éxito", "La suscripción "+textFieldTipo.getText()+" se ha registrado correctamente.");
         limpiarCamposFormulario();
-
+        
     }
 
     @FXML
     void eliminarSuscripcion(ActionEvent event) {
 
-        if(textFieldCodigo.getText().isEmpty() || Integer.parseInt(textFieldCodigo.getText()) <= 0) {
+        // Sanitizar campo de código
+        textFieldCodigo.setText(textFieldCodigo.getText().strip());
+
+        if(textFieldCodigo.getText().isEmpty()) {
             MetodosFrecuentes.mostrarError("Error", "Por favor, consulte una suscripción antes de eliminar.");
             return;
         }
 
-        List<Cliente> listaClientes = null;
         try {
-            listaClientes = ClienteDAO.getInstancia().getListaClientesDB();
-        } catch (Exception e) {
-            MetodosFrecuentes.mostrarError("Error", "No se pudo obtener la lista de clientes.");
-            e.printStackTrace();
-            System.out.println("Error al obtener la lista de clientes: " + e.getMessage());
-            return;
-        }
-
-        for (Cliente cliente : listaClientes) {
-            if (cliente.getIdSuscripcion() == Integer.parseInt(textFieldCodigo.getText())) {
-                MetodosFrecuentes.mostrarError("Error", "No se puede eliminar la suscripción porque está asociada a un cliente.");
+            int codigo = Integer.parseInt(textFieldCodigo.getText());
+            if(codigo <= 0) {
+                MetodosFrecuentes.mostrarError("Error", "El código debe ser un número positivo.");
                 return;
             }
-        }
 
-        try {
-            SuscripcionDAO.getInstancia().eliminarPorCodigo(Integer.parseInt(textFieldCodigo.getText()), "SUSCRIPCION", "IDSUSCRIPCION");
+            List<Cliente> listaClientes = null;
+            try {
+                listaClientes = ClienteDAO.getInstancia().getListaClientesDB();
+            } catch (Exception e) {
+                MetodosFrecuentes.mostrarError("Error", "No se pudo obtener la lista de clientes.");
+                e.printStackTrace();
+                System.out.println("Error al obtener la lista de clientes: " + e.getMessage());
+                return;
+            }
+
+            for (Cliente cliente : listaClientes) {
+                if (cliente.getIdSuscripcion() == codigo) {
+                    MetodosFrecuentes.mostrarError("Error", "No se puede eliminar la suscripción porque está asociada a un cliente.");
+                    return;
+                }
+            }
+
+            SuscripcionDAO.getInstancia().eliminarPorCodigo(codigo, "SUSCRIPCION", "IDSUSCRIPCION");
             MetodosFrecuentes.mostrarInfo("Éxito", "Suscripción eliminada correctamente.");
             textFieldCodigoAConsultar.clear();
             textFieldCodigo.clear();
             tableViewSuscripcion.getItems().clear();
+
+        } catch (NumberFormatException e) {
+            MetodosFrecuentes.mostrarError("Error", "El código debe ser un número válido.");
+            return;
         } catch (SQLException e) {
             MetodosFrecuentes.mostrarError("Error", "No se pudo eliminar la suscripción.");
         }
