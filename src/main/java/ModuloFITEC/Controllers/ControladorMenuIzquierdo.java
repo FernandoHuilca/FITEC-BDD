@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class ControladorSuscripcionMenuIzquierdo {
+public class ControladorMenuIzquierdo {
 
     @FXML
     private Button buttonClientes;
@@ -46,7 +46,6 @@ public class ControladorSuscripcionMenuIzquierdo {
         textNombreServidor.setText(ConexionBaseSingleton.getInstancia().isNodoNorte()? "Nodo Norte" : "Nodo Sur");
     }
     
-
     @FXML
     void cambiarVentanaInicio(ActionEvent event) {
         MetodosFrecuentes.cambiarVentana((Stage) buttonInicio.getScene().getWindow(), "/ModuloFITEC/views/VistaInicio.fxml", "Inicio");
@@ -80,7 +79,11 @@ public class ControladorSuscripcionMenuIzquierdo {
 
     @FXML
     void cambiarVentanaSuscripciones(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Suscripciones");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcion.fxml", "Suscripciones");
+    }
+
+    public Button getButtonSuscripciones() {
+        return buttonSuscripciones;
     }
 
 }
