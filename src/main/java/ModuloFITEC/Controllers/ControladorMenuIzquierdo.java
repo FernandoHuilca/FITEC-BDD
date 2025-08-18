@@ -4,6 +4,7 @@ import MetodosGlobales.MetodosFrecuentes;
 import ModuloFITEC.DataBase.ConexionBaseSingleton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -69,7 +70,7 @@ public class ControladorMenuIzquierdo {
 
     @FXML
     void cambiarVentanaNominaInstructores(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Nómina de Instructores");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructor.fxml", "Nómina de Instructores");
     }
 
     @FXML
@@ -84,6 +85,10 @@ public class ControladorMenuIzquierdo {
 
     public Button getButtonSuscripciones() {
         return buttonSuscripciones;
+    }
+
+    public Button getButtonNomina() {
+        return buttonNominaInstructores;
     }
 
 }

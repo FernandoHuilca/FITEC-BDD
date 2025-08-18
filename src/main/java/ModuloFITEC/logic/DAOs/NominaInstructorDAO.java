@@ -1,11 +1,8 @@
 package ModuloFITEC.logic.DAOs;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import com.almasb.fxgl.scene3d.Cone;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

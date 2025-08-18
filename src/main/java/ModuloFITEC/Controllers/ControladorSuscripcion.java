@@ -172,12 +172,7 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
     @FXML
     void actualizarSuscripcion(ActionEvent event) {
 
-        if (textFieldCodigo.getText().isEmpty()) {
-            MetodosFrecuentes.mostrarError("Error", "Por favor, consulte una suscripción antes de actualizar.");
-            return;
-        }
-
-        if(textFieldCodigoAConsultar.getText().isEmpty() || textFieldTipo.getText().isEmpty() || textFieldDescripcion.getText().isEmpty() ||
+        if(textFieldCodigo.getText().isEmpty() || textFieldTipo.getText().isEmpty() || textFieldDescripcion.getText().isEmpty() ||
            textFieldPrecio.getText().isEmpty() || textFieldDuracion.getText().isEmpty()) {
             MetodosFrecuentes.mostrarError("Error", "Por favor, complete todos los campos.");
             return;
@@ -217,6 +212,8 @@ public class ControladorSuscripcion extends ControladorGeneral<Suscripcion>{
                     break;
                 }
             }
+
+            //limpiarCamposFormulario();
             
             //botonActualizarSuscripcion.setDisable(true);
 

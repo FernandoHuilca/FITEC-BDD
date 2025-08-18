@@ -44,6 +44,8 @@ public abstract class DAOGeneral<T> implements InterfaceDAOBusqueda<T>, Interfac
     }
 
     public <K extends Serializable & Comparable<K>> T buscarPorString(K valorAComparar, String nombreTabla, String nombreColumna, String columnaID, int id) throws Exception {
+        
+        // AND %s <> '%s' Sirve para excluir un registro específico de los resultados de búsqueda. Se usa sobre todo para verificar que no haya duplicados, pero sin contar el registro que estás editando.
         String consulta =
         """
         SET XACT_ABORT ON;
