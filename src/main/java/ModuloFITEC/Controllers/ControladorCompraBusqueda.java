@@ -209,12 +209,12 @@ public class ControladorCompraBusqueda {
 
     @FXML
     void cambiarVentanaNominaInstructores(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Consultar Nómina");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructor.fxml", "Consultar Nómina");
     }
 
     @FXML
     void cambiarVentanaRegistrarCompra(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonRegistrarCompra.getScene().getWindow(), "/ModuloFITEC/views/VistaCompraCreacion.fxml", "Registrar Compra");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonRegistrarCompra.getScene().getWindow(), "/ModuloFITEC/views/VistaCompra.fxml", "Registrar Compra");
     }
 
     @FXML
@@ -224,7 +224,7 @@ public class ControladorCompraBusqueda {
 
     @FXML
     void cambiarVentanaSuscripciones(ActionEvent event) {
-        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Registrar Suscripción");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcion.fxml", "Registrar Suscripción");
     }
 
     @FXML

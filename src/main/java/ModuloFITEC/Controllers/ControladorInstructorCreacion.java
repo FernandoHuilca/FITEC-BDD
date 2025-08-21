@@ -99,12 +99,12 @@ public class ControladorInstructorCreacion {
 
     @FXML private void cambiarVentanaNominaInstructores() {
         System.out.println("🔁 Cambio a ventana: Nómina de Instructores");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Instructor");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructor.fxml", "Instructor");
     }
 
     @FXML private void cambiarVentanaSuscrpciones() {
         System.out.println("🔁 Cambio a ventana: Suscripciones");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml","Suscripcion");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcion.fxml","Suscripcion");
     }
 
     // ---------------- MÉTODOS DE FORMULARIO ----------------

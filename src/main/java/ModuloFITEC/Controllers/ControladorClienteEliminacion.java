@@ -109,13 +109,13 @@ public class ControladorClienteEliminacion {
     @FXML
     private void cambiarVentanaNominaInstructores() {
         System.out.println("Cambiar a vista Nómina Instructores");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Nomina Instructor");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructor.fxml", "Nomina Instructor");
     }
 
     @FXML
     private void cambiarVentanaSuscrpciones() {
         System.out.println("Cambiar a vista Suscripciones");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Suscripcion");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcion.fxml", "Suscripcion");
 
     }
 

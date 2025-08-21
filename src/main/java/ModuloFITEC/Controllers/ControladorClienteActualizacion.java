@@ -248,8 +248,8 @@ public class ControladorClienteActualizacion {
     @FXML private void cambiarVentanaInstructores() { MetodosFrecuentes.cambiarVentana((Stage) buttonInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaInstructorCreacion.fxml", "Instructor"); }
     @FXML private void cambiarVentanaSuplementos() { MetodosFrecuentes.cambiarVentana((Stage) buttonSuplementos.getScene().getWindow(), "/ModuloFITEC/views/VistaSuplementoCreacion.fxml", "Suplemento"); }
     @FXML private void cambiarVentanaHistorialDeCompras() { MetodosFrecuentes.cambiarVentana((Stage) buttonHistorialDeCompras.getScene().getWindow(), "/ModuloFITEC/views/VistaCompraCreacion.fxml", "Compra"); }
-    @FXML private void cambiarVentanaNominaInstructores() { MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Nomina"); }
-    @FXML private void cambiarVentanaSuscrpciones() { MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Suscripcion");}
+    @FXML private void cambiarVentanaNominaInstructores() { MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructor.fxml", "Nomina"); }
+    @FXML private void cambiarVentanaSuscrpciones() { MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcion.fxml", "Suscripcion");}
 
 
     @FXML private void registrarCliente() { MetodosFrecuentes.cambiarVentana((Stage) buttonConsultarCliente.getScene().getWindow(), "/ModuloFITEC/views/VistaClienteCreacion.fxml"); }

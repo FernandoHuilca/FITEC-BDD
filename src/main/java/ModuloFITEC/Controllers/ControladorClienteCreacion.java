@@ -129,13 +129,13 @@ public class ControladorClienteCreacion {
     @FXML
     private void cambiarVentanaNominaInstructores() {
         System.out.println("Cambiando a pestaña: Nómina de instructores");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructorBusqueda.fxml", "Nomina");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonNominaInstructores.getScene().getWindow(), "/ModuloFITEC/views/VistaNominaInstructor.fxml", "Nomina");
     }
 
     @FXML
     private void cambiarVentanaSuscrpciones() {
         System.out.println("Cambiando a pestaña: Suscripciones");
-        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcionCreacion.fxml", "Suscripcion");
+        MetodosFrecuentes.cambiarVentana((Stage) buttonSuscripciones.getScene().getWindow(), "/ModuloFITEC/views/VistaSuscripcion.fxml", "Suscripcion");
     }
 
     @FXML
