@@ -5,122 +5,62 @@ Este proyecto fue desarrollado como parte de la materia de **Bases de Datos Dist
 
 ---
 
-## ✨ Características clave
+## Índice de Contenidos
 
-- 📍 Distribución de datos entre **QUITO_NORTE** y **QUITO_SUR**
-- 🧩 Fragmentación horizontal por sucursal
-- 🔁 Replicación de catálogos compartidos (suscripciones)
-- 🧠 Gestión de operaciones localizadas y responsabilidades especializadas
-
----
-
-## 📌 Índice de Contenidos
-
-- [🏗 Arquitectura de la Base de Datos](#-arquitectura-de-la-base-de-datos)
-- [📊 Modelo de Datos](#1-modelo-de-datos)
-- [🧩 Convenciones de nombres](#-Convenciones-de-nombres-en-la-interfaz-gráfica-Scene Builder)
-- [🌐 Estrategia de Distribución](#2-estrategia-de-distribución)
-- [🧬 Fragmentación y Replicación](#3-fragmentación-y-replicación)
-- [🎯 Funcionalidades Clave](#-funcionalidades-clave)
-- [🔄 Operaciones Distribuidas](#operaciones-distribuidas)
-- [🏢 Gestión de Sucursales](#gestión-de-sucursales)
-- [🧾 Responsabilidades Especializadas](#responsabilidades-especializadas)
-- [✅ Demostración de Funcionamiento](#-demostración-de-funcionamiento)
-- [🛠 Herramientas Usadas](#-herramientas-usadas)
-- [🧑🏻‍💻 Autores](#-autores)
-
----
-## 📝 Estructura
-
-📦 src  
-┣ 📂 main  
-┃ ┣ 📂 java  
-┃ ┃ ┣ 📂 MetodosGlobales  
-┃ ┃ ┗ 📂 ModuloFITEC  
-┃ ┃ ┃ ┣ 📂 application  
-┃ ┃ ┃ ┣ 📂 Controllers  
-┃ ┃ ┃ ┣ 📂 DataBase  
-┃ ┃ ┃ ┣ 📂 logic  
-┃ ┃ ┃ ┃ ┗ 📂 DAOS
-┃ ┃ ┃ ┣ 📜 module-info.java  
-┃ ┃ ┃ ┣ 📂 resources  
-┃ ┗ 📂 resources  
-┃ ┃ ┃ ┣ 📂 ModuloFITEC  
-┃ ┃ ┃ ┣ 📂 data  
-┃ ┃ ┃ ┗ 📂 views  
-┗ 📂 test 
+- [Características](#-características)
+- [Diagramas](#-diagramas)
+- [Cómo se ve](#-cómo-se-ve)
+- [Tecnologías](#-tecnologías)
+- [Autores](#-autores)
 
 ---
 
-## 🧩 Convenciones de nombres en la interfaz gráfica (Scene Builder)
+##  Características
 
-### 🔘 Botones
-- **Nombre del componente**: `button[NombreElemento]`
-- **Método asociado**: `accion[NombreElemento]`
-
-**Ejemplo**:
-- `buttonConsultarCliente`
-- `consultarCliente()`
+- Distribución de datos entre **QUITO_NORTE** y **QUITO_SUR**
+- Fragmentación horizontal por sucursal
+- Replicación de catálogos compartidos (suscripciones)
+- Gestión de operaciones localizadas y responsabilidades especializadas
+- Interfaz intuitiva para administración de clientes, instructores y suplementos
 
 ---
 
-### 📄 Campos de texto
-- **Nombre del componente**: `text[NombreCampo]`
-- **Método asociado (si aplica)**: `validar[NombreCampo]` o `obtener[NombreCampo]`
+##  Diagramas
 
-**Ejemplo**:
-- `textNombreCliente`
-- `validarNombreCliente()`  
-- `obtenerNombreCliente()`
+### Diagrama de la base de datos centralizada
+![Diagrama Centralizado](https://github.com/user-attachments/assets/9608de8f-5e6c-4f61-9dbd-0b923f2ee7fb)
 
----
+### Diagrama de la base de datos local del nodo QUITO_NORTE
+![Diagrama Quito Norte](https://github.com/user-attachments/assets/0f03a2a2-c8db-4db9-8124-2e4c1fec605e)
 
-### 📋 Tablas (TableView)
-- **Nombre del componente**: `table[NombreEntidad]`
-- **Nombre de columna**: `col[NombreColumna]`
-- **Método asociado**: `cargar[NombreEntidad]Tabla`
-
-**Ejemplo**:
-- `tableClientes`
-- `colNombre`, `colCedula`, `colCorreo`
-- `cargarClientesTabla()`
+### Diagrama de la base de datos local del nodo QUITO_SUR
+![Diagrama Quito Sur](https://github.com/user-attachments/assets/16890078-d5a3-4ebb-aa63-ed887d52c9b8)
 
 ---
 
-### 🎛️ ComboBox / ChoiceBox
-- **Nombre del componente**: `combo[NombreElemento]` o `choice[NombreElemento]`
-- **Método asociado**: `cargar[NombreElemento]Combo`
+##  Cómo se ve
 
-**Ejemplo**:
-- `comboTipoDocumento`
-- `cargarTipoDocumentoCombo()`
+| ![Pantalla 1](https://github.com/user-attachments/assets/d0824056-1c8f-4794-9b1f-288d9aa91df7) | ![Pantalla 2](https://github.com/user-attachments/assets/e4335f24-e575-4918-88e0-31367981784e) |
+|------------------------|------------------------|
+| ![Pantalla 3](https://github.com/user-attachments/assets/9fa8538e-9648-4720-bf24-5ac72864b271) | ![Pantalla 4](https://github.com/user-attachments/assets/0b34be1f-8b44-4846-b1f2-3bd7d8950e0b) |
 
----
-
-### 🧪 CheckBox / RadioButton
-- **Nombre del componente**: 
-  - `check[NombreElemento]`
-  - `radio[NombreElemento]`
-- **Método asociado**: `verificar[NombreElemento]Seleccionado`
-
-**Ejemplo**:
-- `checkAceptaTerminos`
-- `radioMasculino`
-- `verificarAceptaTerminosSeleccionado()`
+> Las imágenes muestran módulos clave como gestión de clientes, instructores, suscripciones y suplementos.
 
 ---
 
-### 🖊️ Labels
-- **Nombre del componente**: `label[Descripcion]`
+## 🛠 Tecnologías
 
-**Ejemplo**:
-- `labelResultadoBusqueda`
+- Java  
+- JavaFX  
+- SQL Server  
+- JDBC  
+- GitHub  
+- SceneBuilder  
 
 ---
 
 ## 🧑🏻‍💻 Autores
 
-- **Mateo Simbaña** - Programador [@mateonicolasg](https://github.com/mateonicolasg)
-- **Gregory Salazar** - Programador [@Gregory](https://github.com/GregorySD1707)
+- **Mateo Simbaña** - Programador [@mateonicolasg](https://github.com/mateonicolasg)  
+- **Gregory Salazar** - Programador [@Gregory](https://github.com/GregorySD1707)  
 - **Fernando Huilca** - Programador [@FernandoHuilca](https://github.com/FernandoHuilca)
-  
